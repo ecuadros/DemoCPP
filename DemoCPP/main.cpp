@@ -8,15 +8,6 @@ using namespace std;
 // Comentario extra de Mac
 // Texto sugerido
 
-auto foo()
-{
-  struct retVals        // Declare a local structure 
-  { int i1, i2;
-    string str;
-  };
-  return make_tuple(10, 20, "Hi", 5.4, 8.2); // Return the 
-}
-
 template <typename T>
 void Exe(std::string msg, T func)
 {
@@ -26,103 +17,77 @@ void Exe(std::string msg, T func)
 
 int main()
 {
-  auto [v1, v2, v3, v4, v5] = foo(); // structured binding declaration
-  cout << v1 << ", " << v2 << ", " << v3 << ", " << v4 << ", " << v5 << endl;
+  Exe("CounterTest", CounterTest);
 
-  cout << "\n>>>>>>>>>>>>> demoVariadic(); ..." << endl;
-  demoVariadic();
+  Exe("DemoMultipleParams", DemoMultipleParams);
+  Exe("DemoTupleOverload", DemoTupleOverload);
+  Exe("DemoVariadicOverload", DemoVariadicOverload);
+  Exe("demoVariadic", demoVariadic);
+  Exe("DemoFoldedFunctions", DemoFoldedFunctions);
+  Exe("DemoHomogeneous", DemoHomogeneous);
+  Exe("DemoInvoke", DemoInvoke);
+  
+  Exe("DemoFoldTraverse", DemoFoldTraverse);
+  Exe("DemoPrintAuto", DemoPrintAuto);
+  Exe("DemoLambdaFunctions", DemoLambdaFunctions);
+  Exe("DemoVarTmplAuto", DemoVarTmplAuto);
 
-  cout << "\n>>>>>>>>>>>>> DemoFoldedFunctions(); ..." << endl;
-  DemoFoldedFunctions();
+  Exe("DemoMultiBase1", DemoMultiBase1);
+  Exe("DemoMultiBase2", DemoMultiBase2);
+  Exe("DemoVirtual", DemoVirtual);
 
-  cout << "\n>>>>>>>>>>>>> DemoHomogeneous(); ..." << endl;
-  DemoHomogeneous();
+  Exe("DemoCallBacks", DemoCallBacks);
+  Exe("DemoIfCompTime", DemoIfCompTime);
+  Exe("DemoCheckPath3", DemoCheckPath3);
+  Exe("DemoCreateFile", DemoCreateFile);
 
-  cout << "\n>>>>>>>>>>>>> DemoInvoke(); ..." << endl;
-  DemoInvoke();
+  //  Exe("DemoTimeAsString", DemoTimeAsString);
+  Exe("DemoSymlink", DemoSymlink);
+  Exe("DemoConvert", DemoConvert);
+  Exe("DemoIncomplete", DemoIncomplete);
 
-  cout << "\n>>>>>>>>>>>>> DemoFoldTraverse(); ..." << endl;
-  DemoFoldTraverse();
+  Exe("DemoMapHandle", DemoMapHandle);
+  Exe("DemoMapNodeMerge", DemoMapNodeMerge);
+  Exe("DemoMapNodeMove", DemoMapNodeMove);
 
-  cout << "\n>>>>>>>>>>>>> DemoPrintAuto(); ..." << endl;
-  DemoPrintAuto();
-
-  cout << "\n>>>>>>>>>>>>> DemoLambdaFunctions(); ..." << endl;
-  DemoLambdaFunctions();
-
-  cout << "\n>>>>>>>>>>>>> DemoVarTmplAuto(); ..." << endl;
-  DemoVarTmplAuto();
-
-  cout << "\n>>>>>>>>>>>>> DemoMultiBase1(); ..." << endl;
-  DemoMultiBase1();
-  cout << "\n>>>>>>>>>>>>> DemoMultiBase2(); ..." << endl;
-  DemoMultiBase2();
-
-  cout << "\n>>>>>>>>>>>>> DemoCallBacks(); ..." << endl;
-  DemoCallBacks();
-
-  cout << "\n>>>>>>>>>>>>> DemoIfCompTime(); ..." << endl;
-  DemoIfCompTime();
-
-  cout << "\n>>>>>>>>>>>>> DemoCheckPath3(); ..." << endl;
-  DemoCheckPath3();
-
-  cout << "\n>>>>>>>>>>>>> DemoCreateFile(); ..." << endl;
-  DemoCreateFile();
-
-  //cout << "\n>>>>>>>>>>>>> DemoTimeAsString(); ..." << endl;
-  //DemoTimeAsString();
-
-  cout << "\n>>>>>>>>>>>>> DemoSymlink(); ..." << endl;
-  DemoSymlink();
-
-  cout << "\n>>>>>>>>>>>>> DemoConvert(); ..." << endl;
-  DemoConvert();
-
-  cout << "\n>>>>>>>>>>>>> DemoIncomplete(); ..." << endl;
-  DemoIncomplete();
-
-  cout << "\n>>>>>>>>>>>>> DemoMapHandle(); ..." << endl;
-  DemoMapHandle();
-  cout << "\n>>>>>>>>>>>>> DemoMapNodeMerge(); ..." << endl;
-  DemoMapNodeMerge();
-  cout << "\n>>>>>>>>>>>>> DemoMapNodeMove(); ..." << endl;
-  DemoMapNodeMove();
-
-  cout << "\n>>>>>>>>>>>>> DemoVariantPoly1(); ..." << endl;
-  DemoVariantPoly1();
-  cout << "\n>>>>>>>>>>>>> DemoVariantPoly2(); ..." << endl;
-  DemoVariantPoly2();
-  cout << "\n>>>>>>>>>>>>> DemoVariantPoly3(); ..." << endl;
-  DemoVariantPoly3();
-  cout << "\n>>>>>>>>>>>>> DemoVariantPoly4(); ..." << endl;
-  DemoVariantPoly4();
-
-  cout << "\n>>>>>>>>>>>>> DemoMutex(); ..." << endl;
-  DemoMutex();
-
+  Exe("DemoVariantPoly1", DemoVariantPoly1);
+  Exe("DemoVariantPoly2", DemoVariantPoly2);
+  Exe("DemoVariantPoly3", DemoVariantPoly3);
+  Exe("DemoVariantPoly4", DemoVariantPoly4);
+  Exe("DemoMutex", DemoMutex);
 
   cout << "\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" << endl;
-  cout << "\n>>>>>>>>>>>>> DemoAngleBracketHack(); ..." << endl;
-  DemoAngleBracketHack();
+  Exe("DemoAngleBracketHack", DemoAngleBracketHack);
+  Exe("DemoMakeUnique", DemoMakeUnique);
+  Exe("DemoIsBaseOf", DemoIsBaseOf);
+  Exe("DemoTraits", DemoTraits);
+  Exe("DemoTestArray", DemoTestArray);
+  Exe("DemoTemplateParamTypes", DemoTemplateParamTypes);
 
-  cout << "\n>>>>>>>>>>>>> DemoMakeUnique(); ..." << endl;
-  DemoMakeUnique();
+  Exe("DemoForeach", DemoForeach);
+  Exe("DemoForeachInvoke", DemoForeachInvoke);
 
-  cout << "\n>>>>>>>>>>>>> DemoIsBaseOf(); ..." << endl;
-  DemoIsBaseOf();
-
-  cout << "\n>>>>>>>>>>>>> DemoTraits(); ..." << endl;
-  DemoTraits();
-
-  cout << "\n>>>>>>>>>>>>> DemoTestArray(); ..." << endl;
-  DemoTestArray();
+  Exe("DemoLen", DemoLen);
+  Exe("DemoMax", DemoMax);
+  Exe("DemoConstructor", DemoConstructor);
+  Exe("DemoSizeScope", DemoSizeScope);
 
   Exe("DemoBitset", DemoBitset); 
   Exe("demoLinkedListSorted", demoLinkedListSorted);
   Exe("demoDoubleLinkedListSorted", demoDoubleLinkedListSorted);
   Exe("DemoDSMap", DemoDSMap);
+  Exe("DemoStack", DemoStack);
+  Exe("DemoMultiset", DemoMultiset);
 
-  Exe("DemoForeach", DemoForeach);
-  Exe("DemoForeachInvoke", DemoForeachInvoke);
+  Exe("DemoSort1", DemoSort1);
+  Exe("DemoSort2", DemoSort2);
+  Exe("DemoPermutation", DemoPermutation);
+
+  return 0;
+}
+
+int main1()
+{
+  cout << "Hola mundo\nOtra linea\n";
+  return 0;
 }
