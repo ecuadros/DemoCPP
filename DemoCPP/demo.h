@@ -3,6 +3,7 @@
 
 // Basics
 void CounterTest();
+void DemoInitializer();
 
 void DemoMultipleParams();
 void DemoTupleOverload();
