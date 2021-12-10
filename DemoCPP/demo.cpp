@@ -77,19 +77,19 @@ void CounterTest()
 #include <iostream>
 
 void f(std::initializer_list<int>)
-{  std::cout << "#1\n";
+{  std::cout << "#1 initializer_list<int>\n\n";
 }
 
 void f(std::initializer_list<std::string>)
-{  std::cout << "#2\n";
+{  std::cout << "#2 initializer_list<std::string>\n\n";
 }
 
 void g(std::vector<int> const& vec)
-{  std::cout << "#3\n";
+{  std::cout << "#3 vector<int> const& vec\n\n";
 }
 
 void h(std::complex<double> const& cmplx)
-{  std::cout << "#4\n";
+{  std::cout << "#4 complex<double> const& cmplx\n\n";
 }
 
 struct Point
@@ -97,16 +97,73 @@ struct Point
 };
 
 void i(Point const& pt)
-{  std::cout << "#5\n";
+{  std::cout << "#5 Point const& pt\n\n";
 }
 
-void DemoInitializer()
+void DemoInitializer1()
 {
+  std::cout << "{1, 2, 3} \n";
   f({1, 2, 3});                         // prints \#1
+  std::cout << "{\"hello\", \"initializer\", \"list\"}\n";
   f({"hello", "initializer", "list"});  // prints \#2
+  std::cout << "{1, 1, 2, 3, 5} \n";
   g({1, 1, 2, 3, 5});                   // prints \#3
+  std::cout << "{1.5, 2.5} \n";
   h({1.5, 2.5});                        // prints \#4
+  std::cout << "{1, 2} \n";
   i({1, 2});                            // prints \#5
+}
+
+// From tmplbook/overload/initlistctor.cpp
+#include <initializer_list>
+#include <string>
+#include <iostream>
+
+template<typename T>
+struct Array
+{
+    Array(std::initializer_list<T>)
+    {  std::cout << "#1 initializer_list<T>\n\n";  }
+
+    Array(unsigned n, T const&)
+    {  std::cout << "#2 unsigned n, T const&\n\n";  }
+};
+
+void arr1(Array<int>        ){}
+void arr2(Array<std::string>){}
+
+void DemoInitializer2()
+{
+    std::cout << "{1, 2, 3, 4, 5}\n";
+    arr1({1, 2, 3, 4, 5});                     // prints \#1
+    std::cout << "{1, 2}\n";
+    arr1({1, 2});                              // prints \#1
+    std::cout << "{10u, 5}\n";
+    arr1({10u, 5});                            // prints \#1
+    std::cout << "{\"hello\", \"initializer\", \"list\"}\n";
+    arr2({"hello", "initializer", "list"});    // prints \#1
+    std::cout << "{10, \"hello\"}\n";
+    arr2({10, "hello"});                       // prints \#2
+}
+
+// From tmplbook/overload/initlistovl.cpp
+#include <initializer_list>
+#include <iostream>
+
+void ovl(std::initializer_list<char>) // \#1
+{ std::cout << "#1 initializer_list<char>\n\n"; 
+}
+
+void ovl(std::initializer_list<int>)  // \#2
+{ std::cout << "#2 initializer_list<int>\n\n";
+}
+
+void DemoInitializer3()
+{
+  std::cout << "{'h', 'e', 'l', 'l', 'o', '\\0'}\n";
+  ovl({'h', 'e', 'l', 'l', 'o', '\0'});  // prints \#1
+  std::cout << "{'h', 'e', 'l', 'l', 'o', 0}\n";
+  ovl({'h', 'e', 'l', 'l', 'o', 0});     // prints \#2
 }
 
 auto foo()

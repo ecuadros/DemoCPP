@@ -3,7 +3,9 @@
 
 // Basics
 void CounterTest();
-void DemoInitializer();
+void DemoInitializer1();
+void DemoInitializer2();
+void DemoInitializer3();
 
 void DemoMultipleParams();
 void DemoTupleOverload();

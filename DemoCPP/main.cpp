@@ -18,7 +18,10 @@ void Exe(std::string msg, T func)
 int main()
 {
   Exe("CounterTest", CounterTest);
-  Exe("DemoInitializer", DemoInitializer);
+  Exe("DemoInitializer1", DemoInitializer1);
+  Exe("DemoInitializer2", DemoInitializer2);
+  Exe("DemoInitializer3", DemoInitializer3);
+  exit(0);
 
   Exe("DemoMultipleParams", DemoMultipleParams);
   Exe("DemoTupleOverload", DemoTupleOverload);
