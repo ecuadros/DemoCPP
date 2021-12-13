@@ -166,6 +166,21 @@ void DemoInitializer3()
   ovl({'h', 'e', 'l', 'l', 'o', 0});     // prints \#2
 }
 
+#include <iostream>
+#include <type_traits>
+#include <typeinfo>
+ 
+void DemoConditional()
+{
+    typedef std::conditional<true, int, double>::type Type1;
+    typedef std::conditional<false, int, double>::type Type2;
+    typedef std::conditional<sizeof(int) >= sizeof(double), int, double>::type Type3;
+    Type1 var1;
+    std::cout << type_name<decltype(var1)>() << '\n';
+    std::cout << type_name<Type2>() << '\n';
+    std::cout << type_name<Type3>() << '\n';
+}
+
 auto foo()
 {
     struct retVals        // Declare a local structure 
@@ -1647,6 +1662,7 @@ void DemoConstructor()
     CK const c;
     CK x4{c};             // prints: copy constructor
     CK x5{std::move(c)};  // prints: template constructor
+    exit(0);
 }
 
 // From tmplbook/details/inject.cpp

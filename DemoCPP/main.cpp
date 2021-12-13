@@ -21,6 +21,7 @@ int main()
   Exe("DemoInitializer1", DemoInitializer1);
   Exe("DemoInitializer2", DemoInitializer2);
   Exe("DemoInitializer3", DemoInitializer3);
+  Exe("DemoConditional", DemoConditional);
   exit(0);
 
   Exe("DemoMultipleParams", DemoMultipleParams);
