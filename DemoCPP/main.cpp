@@ -8,13 +8,6 @@ using namespace std;
 // Comentario extra de Mac
 // Texto sugerido
 
-template <typename T>
-void Exe(std::string msg, T func)
-{
-  cout << "\n>>>>>>>>>>>>> " << msg << "(); ..." << endl;
-  func();
-}
-
 int main()
 {
   Exe("CounterTest", CounterTest);
@@ -22,6 +15,8 @@ int main()
   Exe("DemoInitializer2", DemoInitializer2);
   Exe("DemoInitializer3", DemoInitializer3);
   Exe("DemoConditional", DemoConditional);
+
+  Exe("Traits", Traits);
   exit(0);
 
   Exe("DemoMultipleParams", DemoMultipleParams);

@@ -1,12 +1,23 @@
 #ifndef __DEMO_H__  
 #define __DEMO_H__ 
 
+#include <iostream>
+
+template <typename T>
+void Exe(std::string msg, T func)
+{
+  std::cout << "\n>>>>>>>>>>>>> " << msg << "(); ..." << std::endl;
+  func();
+}
+
 // Basics
 void CounterTest();
 void DemoInitializer1();
 void DemoInitializer2();
 void DemoInitializer3();
 void DemoConditional();
+
+void Traits();
 
 void DemoMultipleParams();
 void DemoTupleOverload();
@@ -19,7 +30,7 @@ void DemoInvoke();
 
 // Inheritance
 void DemoMultiBase1();
-void DemoMultiBase2(); // # Pending Er !
+void DemoMultiBase2();         // # Pending Er !
 void DemoVirtual();
 
 void DemoFoldTraverse();
