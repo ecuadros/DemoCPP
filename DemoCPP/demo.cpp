@@ -2012,10 +2012,30 @@ void DemoIsPolymorphic()
     std::cout << "CP: " << std::is_polymorphic<CP>::value << std::endl;
 }
 
+// is_convertible example
+#include <iostream>
+#include <type_traits>
+
+struct AC { };
+struct BC : AC { };
+
+void DemoIsConvertible()
+{
+    std::cout << std::boolalpha;
+    std::cout << "is_convertible:" << std::endl;
+    std::cout << "int => float: " << std::is_convertible<int,float>::value << std::endl;
+    std::cout << "float => int: " << std::is_convertible<float, int>::value << std::endl;
+    std::cout << "int = >const int: " << std::is_convertible<int,const int>::value << std::endl;
+    std::cout << "const int = >int: " << std::is_convertible<const int, int>::value << std::endl;
+    std::cout << "AC => BC: " << std::is_convertible<AC,BC>::value << std::endl;
+    std::cout << "BC => AC: " << std::is_convertible<BC,AC>::value << std::endl;
+}
+
 void Traits()
 { 
     Exe("\tSumTraits", SumTraits);
     Exe("\tDemoDecay", DemoDecay);
     Exe("\tDemoElementType", DemoElementType);
     Exe("\tDemoIsPolymorphic", DemoIsPolymorphic);
+    Exe("\tDemoIsConvertible", DemoIsConvertible);
 }
