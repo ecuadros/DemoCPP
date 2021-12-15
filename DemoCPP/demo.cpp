@@ -181,73 +181,6 @@ void DemoConditional()
     std::cout << type_name<Type3>() << '\n';
 }
 
-template<typename Iter>
-auto accum (Iter start, Iter end)
-{
-    using VT = typename std::iterator_traits<Iter>::value_type;
-    VT total{};  // assume this actually creates a zero value
-    while (start != end)
-    {   total += *start;
-        ++start;
-    }
-    return total;
-}
-
-void SumTraits()
-{
-    int num[]  = { 1, 2, 3, 4, 5 };
-    vector<int> v{ 1, 2, 3, 4, 5 };
-    auto ans = accum(v.begin(), v.end());
-    std::cout << "vector<int> v{1, 2, 3, 4, 5} = " << ans << std::endl;
-}
-
-#include "traits/decay.hpp"
-
-template<typename T>
-void printDecayedType()
-{
-  using A = typename DecayT<T>::Type;
-  std::cout << "Parameter type: " << type_name<A>() << '\n';
-  std::cout << "- is int:     " << std::is_same<A,int>::value << '\n';
-  std::cout << "- is const:   " << std::is_const<A>::value << '\n';
-  std::cout << "- is pointer: " << std::is_pointer<A>::value << '\n';
-}
-
-void DemoDecay()
-{
-  printDecayedType<int>();
-  printDecayedType<int const>();
-  printDecayedType<int[7]>();
-  printDecayedType<int(int)>();
-}
-
-// From tmplbook/traits/elementtype.cpp
-#include "traits/elementtype.hpp"
-template<typename T>
-void printElementType (T const& c)
-{
-    std::cout << "Container of "
-              << typeid(typename ElementT<T>::Type).name()
-              << " elements.\n";
-}
-
-void DemoElementType()
-{
-    std::vector<bool> s;
-    printElementType(s);
-    cout << "Now using type_name. s is a: " << type_name<decltype(s)>() << endl;
-    int arr[42];
-    printElementType(arr);
-    cout << "Now using type_name. s is a: " << type_name<decltype(arr)>() << endl;
-}
-
-void Traits()
-{ 
-    Exe("\tSumTraits", SumTraits);
-    Exe("\tDemoDecay", DemoDecay);
-    Exe("\tDemoElementType", DemoElementType);
-}
-
 auto foo()
 {
     struct retVals        // Declare a local structure 
@@ -1729,7 +1662,6 @@ void DemoConstructor()
     CK const c;
     CK x4{c};             // prints: copy constructor
     CK x5{std::move(c)};  // prints: template constructor
-    exit(0);
 }
 
 // From tmplbook/details/inject.cpp
@@ -2000,4 +1932,90 @@ void DemoPermutation()
         x++;
     }//while(next_permutation(v1.begin(), v1.end()));
     while(prev_permutation(v1.begin(), v1.end()));
+}
+
+template<typename Iter>
+auto accum (Iter start, Iter end)
+{
+    using VT = typename std::iterator_traits<Iter>::value_type;
+    VT total{};  // assume this actually creates a zero value
+    while (start != end)
+    {   total += *start;
+        ++start;
+    }
+    return total;
+}
+
+void SumTraits()
+{
+    int num[]  = { 1, 2, 3, 4, 5 };
+    vector<int> v{ 1, 2, 3, 4, 5 };
+    auto ans = accum(v.begin(), v.end());
+    std::cout << "vector<int> v{1, 2, 3, 4, 5} = " << ans << std::endl;
+}
+
+#include "traits/decay.hpp"
+
+template<typename T>
+void printDecayedType()
+{
+  using A = typename DecayT<T>::Type;
+  std::cout << "Parameter type: " << type_name<A>() << '\n';
+  std::cout << "- is int:     " << std::is_same<A,int>::value << '\n';
+  std::cout << "- is const:   " << std::is_const<A>::value << '\n';
+  std::cout << "- is pointer: " << std::is_pointer<A>::value << '\n';
+}
+
+void DemoDecay()
+{
+  printDecayedType<int>();
+  printDecayedType<int const>();
+  printDecayedType<int[7]>();
+  printDecayedType<int(int)>();
+}
+
+// From tmplbook/traits/elementtype.cpp
+#include "traits/elementtype.hpp"
+template<typename T>
+void printElementType (T const& c)
+{
+    std::cout << "Container of "
+              << typeid(typename ElementT<T>::Type).name()
+              << " elements.\n";
+}
+
+void DemoElementType()
+{
+    std::vector<bool> s;
+    printElementType(s);
+    cout << "Now using type_name. s is a: " << type_name<decltype(s)>() << endl;
+    int arr[42];
+    printElementType(arr);
+    cout << "Now using type_name. s is a: " << type_name<decltype(arr)>() << endl;
+}
+
+// From https://www.cplusplus.com/reference/type_traits/is_polymorphic/
+#include <iostream>
+#include <type_traits>
+
+struct AP { };
+struct BP { virtual void fn(){} };
+struct CP : BP {};
+
+void DemoIsPolymorphic()
+{
+    std::cout << std::boolalpha;
+    std::cout << "is_polymorphic:" << std::endl;
+    std::cout << "int: " << std::is_polymorphic<int>::value << std::endl;
+    std::cout << "AP: " << std::is_polymorphic<AP>::value << std::endl;
+    std::cout << "BP: " << std::is_polymorphic<BP>::value << std::endl;
+    std::cout << "CP: " << std::is_polymorphic<CP>::value << std::endl;
+}
+
+void Traits()
+{ 
+    Exe("\tSumTraits", SumTraits);
+    Exe("\tDemoDecay", DemoDecay);
+    Exe("\tDemoElementType", DemoElementType);
+    Exe("\tDemoIsPolymorphic", DemoIsPolymorphic);
 }

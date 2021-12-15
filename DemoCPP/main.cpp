@@ -16,9 +16,6 @@ int main()
   Exe("DemoInitializer3", DemoInitializer3);
   Exe("DemoConditional", DemoConditional);
 
-  Exe("Traits", Traits);
-  exit(0);
-
   Exe("DemoMultipleParams", DemoMultipleParams);
   Exe("DemoTupleOverload", DemoTupleOverload);
   Exe("DemoVariadicOverload", DemoVariadicOverload);
@@ -83,6 +80,8 @@ int main()
   Exe("DemoSort2", DemoSort2);
   Exe("DemoPermutation", DemoPermutation);
 
+  Exe("Traits", Traits);
+  //exit(0);
   return 0;
 }
 

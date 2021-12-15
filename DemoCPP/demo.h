@@ -17,8 +17,6 @@ void DemoInitializer2();
 void DemoInitializer3();
 void DemoConditional();
 
-void Traits();
-
 void DemoMultipleParams();
 void DemoTupleOverload();
 void DemoVariadicOverload();
@@ -86,5 +84,7 @@ void DemoMultiset();
 void DemoSort1();
 void DemoSort2();
 void DemoPermutation();
+
+void Traits();
 
 #endif
