@@ -1984,6 +1984,18 @@ void DemoBasicTraits1()
        cout << boolalpha << "MyTrait_v<A> = " << false << endl;
 }
 
+// is_void example
+#include <iostream>
+#include <type_traits>
+
+void DemoIsVoid()
+{
+  std::cout << std::boolalpha;
+  std::cout << "is_void:" << std::endl;
+  std::cout << "int: " << std::is_void<int>::value << std::endl;
+  std::cout << "void: " << std::is_void<void>::value << std::endl;
+}
+
 // From https://www.cplusplus.com/reference/type_traits/is_empty/
 #include <iostream>
 #include <type_traits>
@@ -2253,6 +2265,7 @@ void DemoTraits()
     Exe("\tDemoElementType", DemoElementType);
     Exe("\tDemoIsPolymorphic", DemoIsPolymorphic);
     Exe("\tDemoIsConvertible", DemoIsConvertible);
+    Exe("\tDemoIsVoid", DemoIsVoid);
     Exe("\tDemoIsEmpty", DemoIsEmpty);
     Exe("\tDemoIsMemberFunctionPointer", DemoIsMemberFunctionPointer);
     Exe("\tDemoIsUnion", DemoIsUnion);
