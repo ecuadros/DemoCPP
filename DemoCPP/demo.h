@@ -6,7 +6,7 @@
 template <typename T>
 void Exe(std::string msg, T func)
 {
-  std::cout << "\n>>>>>>>>>>>>> " << msg << "(); ..." << std::endl;
+  std::cout << "\n>>>>>>>>>>>>> " << msg << "() ..." << std::endl;
   func();
 }
 

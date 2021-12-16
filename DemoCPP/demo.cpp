@@ -2114,10 +2114,29 @@ void DemoHasVirtualDestructor()
 {
   std::cout << std::boolalpha;
   std::cout << "has_virtual_destructor:" << std::endl;
-  std::cout << "int : " << std::has_virtual_destructor<int>::value << std::endl;
-  std::cout << "AV  : " << std::has_virtual_destructor<A>::value << std::endl;
-  std::cout << "BV  : " << std::has_virtual_destructor<B>::value << std::endl;
-  std::cout << "CV  : " << std::has_virtual_destructor<C>::value << std::endl;
+  std::cout << "int                : " << std::has_virtual_destructor<int>::value << std::endl;
+  std::cout << "AV (Empty)         : " << std::has_virtual_destructor<AV>::value << std::endl;
+  std::cout << "BV (Has virtual ~) : " << std::has_virtual_destructor<BV>::value << std::endl;
+  std::cout << "CV (From BV)       : " << std::has_virtual_destructor<CV>::value << std::endl;
+}
+
+// From https://www.cplusplus.com/reference/type_traits/is_destructible/
+// is_destructible example
+#include <iostream>
+#include <type_traits>
+
+struct AD { };
+struct BD { ~BD() = delete; };
+struct CD : BD {};
+
+void DemoIsDestructible()
+{
+    std::cout << std::boolalpha;
+    std::cout << "is_destructible:" << std::endl;
+    std::cout << "int            : " << std::is_destructible<int>::value << std::endl;
+    std::cout << "AD (empty)     : " << std::is_destructible<AD>::value << std::endl;
+    std::cout << "BD (has ~BD()) : " << std::is_destructible<BD>::value << std::endl;
+    std::cout << "CD (from BD)   : " << std::is_destructible<CD>::value << std::endl;
 }
 
 void DemoTraits()
@@ -2135,4 +2154,5 @@ void DemoTraits()
     Exe("\tDemoIsUnion", DemoIsUnion);
     Exe("\tDemoAlignmentOf", DemoAlignmentOf);
     Exe("\tDemoHasVirtualDestructor", DemoHasVirtualDestructor);
+    Exe("\tDemoIsDestructible", DemoIsDestructible);
 }
