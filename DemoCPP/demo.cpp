@@ -2031,6 +2031,24 @@ void DemoBasicTraits()
        cout << boolalpha << "MyTrait_v<A> = " << false << endl;
 }
 
+// From https://www.cplusplus.com/reference/type_traits/is_empty/
+#include <iostream>
+#include <type_traits>
+
+struct AE { };
+struct BE { void fn(){} };
+struct CE { int x; };
+
+void DemoIsEmpty()
+{
+  std::cout << std::boolalpha;
+  std::cout << "is_empty:" << std::endl;
+  std::cout << "int: " << std::is_empty<int>::value << std::endl;
+  std::cout << "AE (empty              ): " << std::is_empty<AE>::value << std::endl;
+  std::cout << "BE (has only a function): " << std::is_empty<BE>::value << std::endl;
+  std::cout << "CE (has an int         ): " << std::is_empty<CE>::value << std::endl;
+}
+
 void DemoTraits()
 { 
     Exe("\tDemoIsBaseOf", DemoIsBaseOf);
@@ -2040,4 +2058,5 @@ void DemoTraits()
     Exe("\tDemoElementType", DemoElementType);
     Exe("\tDemoIsPolymorphic", DemoIsPolymorphic);
     Exe("\tDemoIsConvertible", DemoIsConvertible);
+    Exe("\tDemoIsEmpty", DemoIsEmpty);
 }
