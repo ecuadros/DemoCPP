@@ -2132,11 +2132,30 @@ struct CD : BD {};
 void DemoIsDestructible()
 {
     std::cout << std::boolalpha;
-    std::cout << "is_destructible:" << std::endl;
+    std::cout << "is_destructible: " << std::endl;
     std::cout << "int            : " << std::is_destructible<int>::value << std::endl;
-    std::cout << "AD (empty)     : " << std::is_destructible<AD>::value << std::endl;
-    std::cout << "BD (has ~BD()) : " << std::is_destructible<BD>::value << std::endl;
-    std::cout << "CD (from BD)   : " << std::is_destructible<CD>::value << std::endl;
+    std::cout << "AD (empty)     : " << std::is_destructible<AD> ::value << std::endl;
+    std::cout << "BD (has ~BD()) : " << std::is_destructible<BD> ::value << std::endl;
+    std::cout << "CD (from BD)   : " << std::is_destructible<CD> ::value << std::endl;
+}
+
+// https://www.cplusplus.com/reference/type_traits/is_enum/
+// is_enum example
+#include <iostream>
+#include <type_traits>
+
+enum  AE {first,second,third};       // unscoped enum (C-style)
+class BE {};
+enum class CE {alpha,beta,gamma};   // scoped enum (C++11-style)
+
+void DemoIsEnum()
+{
+  std::cout << std::boolalpha;
+  std::cout << "is_enum:" << std::endl;
+  std::cout << "AE: " << std::is_enum<AE>::value << std::endl;
+  std::cout << "BE: " << std::is_enum<BE>::value << std::endl;
+  std::cout << "CE: " << std::is_enum<CE>::value << std::endl;
+  std::cout << "decltype(CE::alpha): " << std::is_enum<decltype(CE::alpha)>::value << std::endl;
 }
 
 void DemoTraits()
@@ -2152,6 +2171,7 @@ void DemoTraits()
     Exe("\tDemoIsEmpty", DemoIsEmpty);
     Exe("\tDemoIsMemberFunctionPointer", DemoIsMemberFunctionPointer);
     Exe("\tDemoIsUnion", DemoIsUnion);
+    Exe("\tDemoIsEnum", DemoIsEnum);
     Exe("\tDemoAlignmentOf", DemoAlignmentOf);
     Exe("\tDemoHasVirtualDestructor", DemoHasVirtualDestructor);
     Exe("\tDemoIsDestructible", DemoIsDestructible);
