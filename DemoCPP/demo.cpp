@@ -2067,6 +2067,24 @@ void DemoBasicTraits2()
     cout << (is_reference<decltype( x )>::value ? "x is a reference" : "x is not a reference") << '\n';
 }
 
+// is_union example
+#include <iostream>
+#include <type_traits>
+
+union AU { int i; float f; };        // named union
+struct BU
+{  union { int foo; float bar; };    // anonymous member union
+};
+
+void DemoIsUnion()
+{
+    std::cout << std::boolalpha;
+    std::cout << "is_union:" << std::endl;
+    std::cout << "int: " << std::is_union<int>::value << std::endl;
+    std::cout << "AU: " << std::is_union<AU>::value << std::endl;
+    std::cout << "BU: " << std::is_union<BU>::value << std::endl;
+}
+
 void DemoTraits()
 { 
     Exe("\tDemoIsBaseOf", DemoIsBaseOf);
@@ -2078,5 +2096,6 @@ void DemoTraits()
     Exe("\tDemoIsPolymorphic", DemoIsPolymorphic);
     Exe("\tDemoIsConvertible", DemoIsConvertible);
     Exe("\tDemoIsEmpty", DemoIsEmpty);
-    Exe("DemoIsMemberFunctionPointer", DemoIsMemberFunctionPointer);
+    Exe("\tDemoIsMemberFunctionPointer", DemoIsMemberFunctionPointer);
+    Exe("\tDemoIsUnion", DemoIsUnion);
 }

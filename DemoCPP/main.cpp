@@ -34,7 +34,6 @@ int main()
   Exe("DemoVirtual", DemoVirtual);
 
   Exe("DemoCallBacks", DemoCallBacks);
-  Exe("DemoIfCompTime", DemoIfCompTime);
   Exe("DemoCheckPath3", DemoCheckPath3);
   Exe("DemoCreateFile", DemoCreateFile);
 
