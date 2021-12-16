@@ -2083,8 +2083,22 @@ void DemoIsUnion()
     std::cout << std::boolalpha;
     std::cout << "is_union   : " << std::endl;
     std::cout << "int        : " << std::is_union<int>::value << std::endl;
-    std::cout << "AU (union ): " << std::is_union<AU>::value << std::endl;
-    std::cout << "BU (struct): " << std::is_union<BU>::value << std::endl;
+    std::cout << "AU (union ): " << std::is_union<AU >::value  << std::endl;
+    std::cout << "BU (struct): " << std::is_union<BU >::value  << std::endl;
+}
+
+// https://www.cplusplus.com/reference/type_traits/alignment_of/
+// alignment_of example
+#include <iostream>
+#include <type_traits>
+
+void DemoAlignmentOf()
+{
+    std::cout << "alignment_of : " << std::endl;
+    std::cout << "char         : " << std::alignment_of<char>::value << std::endl;
+    std::cout << "int          : " << std::alignment_of<int>::value << std::endl;
+    std::cout << "int[20]      : " << std::alignment_of<int[20]>::value << std::endl;
+    std::cout << "long long int: " << std::alignment_of<long long int>::value << std::endl;
 }
 
 void DemoTraits()
@@ -2100,4 +2114,5 @@ void DemoTraits()
     Exe("\tDemoIsEmpty", DemoIsEmpty);
     Exe("\tDemoIsMemberFunctionPointer", DemoIsMemberFunctionPointer);
     Exe("\tDemoIsUnion", DemoIsUnion);
+    Exe("\tDemoAlignmentOf", DemoAlignmentOf);
 }
