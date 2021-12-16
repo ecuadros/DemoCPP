@@ -1274,47 +1274,6 @@ void DemoMakeUnique()
     auto t = make_unique2<BR>(2, i, 3);
 }
 
-class A {};
-class B : A {};
-class C {};
- 
-void DemoIsBaseOf() 
-{
-    cout << boolalpha;
-    cout << "a2b: " << is_base_of_v<A, B> << '\n';
-    cout << "b2a: " << is_base_of_v<B, A> << '\n';
-    cout << "c2b: " << is_base_of<C, B>::value << '\n';
-    cout << "same type: " << is_base_of<C, C>::value << '\n';
-}
-
-template <typename Base>
-struct MyTrait
-{
-    static constexpr bool value = false;
-    //void flip() {value = !value; }
-};
-template <>
-struct MyTrait<A>
-{
-    static constexpr bool value = true;
-    //void flip() {value = !value; }
-};
-
-template <typename Base>
-inline constexpr bool MyTrait_v = MyTrait<Base>::value;
-void DemoTraits()
-{
-    if( MyTrait<int>::value )
-        cout << boolalpha << "MyTrait<int>::value = " << true << endl;
-    else
-       cout << boolalpha << "MyTrait<int>::value = " << false << endl;
-
-    if( MyTrait_v<A> )
-        cout << boolalpha << "MyTrait_v<A> = " << true << endl;
-    else
-       cout << boolalpha << "MyTrait_v<A> = " << false << endl;
-}
-
 // From tmplbook/basics/arrays.cpp and arrays.hpp
 template<typename T>
 struct MyClass;             // primary template
@@ -2031,8 +1990,51 @@ void DemoIsConvertible()
     std::cout << "BC => AC: " << std::is_convertible<BC,AC>::value << std::endl;
 }
 
-void Traits()
+class A {};
+class B : A {};
+class C {};
+ 
+void DemoIsBaseOf() 
+{
+    cout << boolalpha;
+    cout << "a2b: " << is_base_of_v<A, B> << '\n';
+    cout << "b2a: " << is_base_of_v<B, A> << '\n';
+    cout << "c2b: " << is_base_of<C, B>::value << '\n';
+    cout << "same type: " << is_base_of<C, C>::value << '\n';
+}
+
+template <typename Base>
+struct MyTrait
+{
+    static constexpr bool value = false;
+    //void flip() {value = !value; }
+};
+template <>
+struct MyTrait<A>
+{
+    static constexpr bool value = true;
+    //void flip() {value = !value; }
+};
+
+template <typename Base>
+inline constexpr bool MyTrait_v = MyTrait<Base>::value;
+void DemoBasicTraits()
+{
+    if( MyTrait<int>::value )
+        cout << boolalpha << "MyTrait<int>::value = " << true << endl;
+    else
+       cout << boolalpha << "MyTrait<int>::value = " << false << endl;
+
+    if( MyTrait_v<A> )
+        cout << boolalpha << "MyTrait_v<A> = " << true << endl;
+    else
+       cout << boolalpha << "MyTrait_v<A> = " << false << endl;
+}
+
+void DemoTraits()
 { 
+    Exe("\tDemoIsBaseOf", DemoIsBaseOf);
+    Exe("\tDemoBasicTraits", DemoBasicTraits);
     Exe("\tSumTraits", SumTraits);
     Exe("\tDemoDecay", DemoDecay);
     Exe("\tDemoElementType", DemoElementType);

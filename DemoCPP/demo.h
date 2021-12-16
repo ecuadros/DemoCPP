@@ -61,9 +61,6 @@ void DemoMutex();
 void DemoAngleBracketHack();
 void DemoMakeUnique();
 
-void DemoIsBaseOf();
-void DemoTraits();
-
 void DemoTestArray();
 void DemoTemplateParamTypes();
 void DemoForeach();
@@ -85,6 +82,8 @@ void DemoSort1();
 void DemoSort2();
 void DemoPermutation();
 
-void Traits();
+void DemoIsBaseOf();
+void DemoBasicTraits();
+void DemoTraits();
 
 #endif

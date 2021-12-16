@@ -56,8 +56,6 @@ int main()
   cout << "\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" << endl;
   Exe("DemoAngleBracketHack", DemoAngleBracketHack);
   Exe("DemoMakeUnique", DemoMakeUnique);
-  Exe("DemoIsBaseOf", DemoIsBaseOf);
-  Exe("DemoTraits", DemoTraits);
   Exe("DemoTestArray", DemoTestArray);
   Exe("DemoTemplateParamTypes", DemoTemplateParamTypes);
 
@@ -80,7 +78,7 @@ int main()
   Exe("DemoSort2", DemoSort2);
   Exe("DemoPermutation", DemoPermutation);
 
-  Exe("Traits", Traits);
+  Exe("DemoTraits", DemoTraits);
   //exit(0);
   return 0;
 }
