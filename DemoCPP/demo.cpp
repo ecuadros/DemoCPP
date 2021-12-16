@@ -2049,6 +2049,25 @@ void DemoIsEmpty()
   std::cout << "CE (has an int         ): " << std::is_empty<CE>::value << std::endl;
 }
 
+// From https://www.cplusplus.com/reference/type_traits/is_member_function_pointer/
+// is_member_function_pointer example
+#include <iostream>
+#include <type_traits>
+
+struct AM { void fn() {}; };
+
+void DemoIsMemberFunctionPointer()
+{
+    void(AM::*pt)() = &AM::fn;
+    std::cout << std::boolalpha;
+    std::cout << "is_member_function_pointer:" << std::endl;
+    std::cout << "AM*: " << std::is_member_function_pointer<AM*>::value << std::endl;
+    std::cout << "void(AM::*)(): " 
+              << std::is_member_function_pointer<void(AM::*)()>::value << std::endl;
+    std::cout << "decltype(pt): " 
+              << std::is_member_function_pointer<decltype(pt)>::value << std::endl;
+}
+
 void DemoTraits()
 { 
     Exe("\tDemoIsBaseOf", DemoIsBaseOf);
@@ -2059,4 +2078,5 @@ void DemoTraits()
     Exe("\tDemoIsPolymorphic", DemoIsPolymorphic);
     Exe("\tDemoIsConvertible", DemoIsConvertible);
     Exe("\tDemoIsEmpty", DemoIsEmpty);
+    Exe("DemoIsMemberFunctionPointer", DemoIsMemberFunctionPointer);
 }
