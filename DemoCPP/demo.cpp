@@ -2168,23 +2168,38 @@ enum class BS : int { x,y,z };
 
 void DemoSigned()
 {
-  std::cout << std::boolalpha;
-  std::cout << "is_signed:" << std::endl;
-  std::cout << "int: " << std::is_signed<int>::value << std::endl;
-  std::cout << "float: " << std::is_signed<float>::value << std::endl;
-  std::cout << "unsigned long: " << std::is_signed<unsigned long>::value << std::endl;
-  std::cout << "AS: " << std::is_signed<AS>::value << std::endl;
-  std::cout << "BS: " << std::is_signed<BS>::value << std::endl;
+    std::cout << std::boolalpha;
+    std::cout << "is_signed:" << std::endl;
+    std::cout << "int: " << std::is_signed<int>::value << std::endl;
+    std::cout << "float: " << std::is_signed<float>::value << std::endl;
+    std::cout << "unsigned long: " << std::is_signed<unsigned long>::value << std::endl;
+    std::cout << "AS: " << std::is_signed<AS>::value << std::endl;
+    std::cout << "BS: " << std::is_signed<BS>::value << std::endl;
 }
 
 void DemoUnsigned()
 {
-  std::cout << std::boolalpha;
-  std::cout << "is_unsigned  :" << std::endl;
-  std::cout << "int          : " << std::is_unsigned<int>::value << std::endl;
-  std::cout << "unsigned long: " << std::is_unsigned<unsigned long>::value << std::endl;
-  std::cout << "AS: " << std::is_unsigned<AS>::value << std::endl;
-  std::cout << "BS: " << std::is_unsigned<BS>::value << std::endl;
+    std::cout << std::boolalpha;
+    std::cout << "is_unsigned  :" << std::endl;
+    std::cout << "int          : " << std::is_unsigned<int>::value << std::endl;
+    std::cout << "unsigned long: " << std::is_unsigned<unsigned long>::value << std::endl;
+    std::cout << "AS: " << std::is_unsigned<AS>::value << std::endl;
+    std::cout << "BS: " << std::is_unsigned<BS>::value << std::endl;
+}
+
+// From https://www.cplusplus.com/reference/type_traits/is_volatile/
+// is_volatile example
+#include <iostream>
+#include <type_traits>
+
+void DemoISVolatile()
+{
+    std::cout << std::boolalpha;
+    std::cout << "is_volatile:" << std::endl;
+    std::cout << "int: " << std::is_volatile<int>::value << std::endl;
+    std::cout << "volatile int: " << std::is_volatile<volatile int>::value << std::endl;
+    std::cout << "volatile int*: " << std::is_volatile<volatile int*>::value << std::endl;
+    std::cout << "int* volatile: " << std::is_volatile<int* volatile>::value << std::endl;
 }
 
 void DemoTraits()
@@ -2206,4 +2221,5 @@ void DemoTraits()
     Exe("\tDemoIsDestructible", DemoIsDestructible);
     Exe("\tDemoSigned", DemoSigned);
     Exe("\tDemoUnsigned", DemoUnsigned);
+    Exe("\tDemoISVolatile", DemoISVolatile);
 }
