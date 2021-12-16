@@ -11,6 +11,7 @@ void Exe(std::string msg, T func)
 }
 
 // Basics
+void DemoBasics();
 void CounterTest();
 void DemoInitializer1();
 void DemoInitializer2();

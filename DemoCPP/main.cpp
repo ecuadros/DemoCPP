@@ -10,6 +10,7 @@ using namespace std;
 
 int main()
 {
+  Exe("DemoBasics", DemoBasics); 
   Exe("CounterTest", CounterTest);
   Exe("DemoInitializer1", DemoInitializer1);
   Exe("DemoInitializer2", DemoInitializer2);

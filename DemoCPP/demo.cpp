@@ -47,6 +47,26 @@ constexpr auto type_name()
     return name;
 }
 
+// From: https://en.cppreference.com/w/cpp/io/manip/boolalpha 
+#include <sstream>
+#include <locale>
+#include <iostream>
+void DemoBasics()
+{
+    // boolalpha output
+    std::cout << std::boolalpha 
+              << "boolalpha true: " << true << '\n'
+              << "boolalpha false: " << false << '\n';
+    std::cout << std::noboolalpha 
+              << "noboolalpha true: " << true << '\n'
+              << "noboolalpha false: " << false << '\n';
+    // boolalpha parse
+    bool b1, b2;
+    std::istringstream is("true false");
+    is >> std::boolalpha >> b1 >> b2;
+    std::cout << '\"' << is.str() << "\" parsed as " << b1 << ' ' << b2 << '\n';
+}
+
 // From tmplbook/inherit/countertest.cpp
 #include "objectcounter.hpp"
 template<typename CharT>
