@@ -2144,18 +2144,47 @@ void DemoIsDestructible()
 #include <iostream>
 #include <type_traits>
 
-enum  AE {first,second,third};       // unscoped enum (C-style)
-class BE {};
-enum class CE {alpha,beta,gamma};   // scoped enum (C++11-style)
+enum  AEnum {first,second,third};       // unscoped enum (C-style)
+class BEnum {};
+enum class CEnum {alpha,beta,gamma};   // scoped enum (C++11-style)
 
 void DemoIsEnum()
 {
   std::cout << std::boolalpha;
   std::cout << "is_enum:" << std::endl;
-  std::cout << "AE: " << std::is_enum<AE>::value << std::endl;
-  std::cout << "BE: " << std::is_enum<BE>::value << std::endl;
-  std::cout << "CE: " << std::is_enum<CE>::value << std::endl;
-  std::cout << "decltype(CE::alpha): " << std::is_enum<decltype(CE::alpha)>::value << std::endl;
+  std::cout << "AEnum: " << std::is_enum<AEnum>::value << std::endl;
+  std::cout << "BEnum: " << std::is_enum<BEnum>::value << std::endl;
+  std::cout << "CEnum: " << std::is_enum<CEnum>::value << std::endl;
+  std::cout << "decltype(CEnum::alpha): " << std::is_enum<decltype(CEnum::alpha)>::value << std::endl;
+}
+
+// From https://www.cplusplus.com/reference/type_traits/is_signed/
+// is_signed example
+#include <iostream>
+#include <type_traits>
+
+struct AS { };
+enum class BS : int { x,y,z };
+
+void DemoSigned()
+{
+  std::cout << std::boolalpha;
+  std::cout << "is_signed:" << std::endl;
+  std::cout << "int: " << std::is_signed<int>::value << std::endl;
+  std::cout << "float: " << std::is_signed<float>::value << std::endl;
+  std::cout << "unsigned long: " << std::is_signed<unsigned long>::value << std::endl;
+  std::cout << "AS: " << std::is_signed<AS>::value << std::endl;
+  std::cout << "BS: " << std::is_signed<BS>::value << std::endl;
+}
+
+void DemoUnsigned()
+{
+  std::cout << std::boolalpha;
+  std::cout << "is_unsigned  :" << std::endl;
+  std::cout << "int          : " << std::is_unsigned<int>::value << std::endl;
+  std::cout << "unsigned long: " << std::is_unsigned<unsigned long>::value << std::endl;
+  std::cout << "AS: " << std::is_unsigned<AS>::value << std::endl;
+  std::cout << "BS: " << std::is_unsigned<BS>::value << std::endl;
 }
 
 void DemoTraits()
@@ -2175,4 +2204,6 @@ void DemoTraits()
     Exe("\tDemoAlignmentOf", DemoAlignmentOf);
     Exe("\tDemoHasVirtualDestructor", DemoHasVirtualDestructor);
     Exe("\tDemoIsDestructible", DemoIsDestructible);
+    Exe("\tDemoSigned", DemoSigned);
+    Exe("\tDemoUnsigned", DemoUnsigned);
 }
