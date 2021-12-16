@@ -2293,3 +2293,37 @@ void DemoTraits()
     Exe("\tDemoISVolatile", DemoISVolatile);
     Exe("\tDemoIsFunction", DemoIsFunction);
 }
+
+// From https://www.cplusplus.com/reference/numeric/inner_product/
+// inner_product example
+#include <iostream>     // std::cout
+#include <functional>   // std::minus, std::divides
+#include <numeric>      // std::inner_product
+
+int myaccumulator (int x, int y) {return x+y;}
+int myproduct (int x, int y) {return x*y;}
+
+void DemoInnerProduct()
+{
+    int init = 0;
+    int series1[] = {10,20,30, 50};
+    int series2[] = {1 ,2 , 3,  4};
+    vector<int> v1{10,20,30, 50}, v2{1 ,2 , 3,  4};
+
+    std::cout << "using default inner_product: ";
+    std::cout << std::inner_product(series1,series1+4,series2,init)
+              << std::endl;
+
+    std::cout << "using functional operations: ";
+    std::cout << std::inner_product(series1,series1+4,series2,init, std::plus<int>(),std::multiplies<int>()) 
+              << std::endl;
+
+    std::cout << "using custom functions: ";
+    std::cout << std::inner_product(series1,series1+4,series2,init, myaccumulator,myproduct)
+              << std::endl;
+
+    std::cout << "using vectors: ";
+    std::cout << std::inner_product(v1.begin(),v1.end(),v2.end(),init,
+                                    std::plus<int>(),std::multiplies<int>())
+              << std::endl;
+}

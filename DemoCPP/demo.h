@@ -87,4 +87,5 @@ void DemoIsBaseOf();
 void DemoBasicTraits();
 void DemoTraits();
 
+void DemoInnerProduct();
 #endif
