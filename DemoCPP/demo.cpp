@@ -2101,6 +2101,25 @@ void DemoAlignmentOf()
     std::cout << "long long int: " << std::alignment_of<long long int>::value << std::endl;
 }
 
+// From https://www.cplusplus.com/reference/type_traits/has_virtual_destructor/
+// has_virtual_destructor example
+#include <iostream>
+#include <type_traits>
+
+struct AV { };
+struct BV { virtual ~BV(){} };
+struct CV : BV { };
+
+void DemoHasVirtualDestructor()
+{
+  std::cout << std::boolalpha;
+  std::cout << "has_virtual_destructor:" << std::endl;
+  std::cout << "int : " << std::has_virtual_destructor<int>::value << std::endl;
+  std::cout << "AV  : " << std::has_virtual_destructor<A>::value << std::endl;
+  std::cout << "BV  : " << std::has_virtual_destructor<B>::value << std::endl;
+  std::cout << "CV  : " << std::has_virtual_destructor<C>::value << std::endl;
+}
+
 void DemoTraits()
 { 
     Exe("\tDemoIsBaseOf", DemoIsBaseOf);
@@ -2115,4 +2134,5 @@ void DemoTraits()
     Exe("\tDemoIsMemberFunctionPointer", DemoIsMemberFunctionPointer);
     Exe("\tDemoIsUnion", DemoIsUnion);
     Exe("\tDemoAlignmentOf", DemoAlignmentOf);
+    Exe("\tDemoHasVirtualDestructor", DemoHasVirtualDestructor);
 }
