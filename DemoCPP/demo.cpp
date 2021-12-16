@@ -186,6 +186,21 @@ void DemoInitializer3()
   ovl({'h', 'e', 'l', 'l', 'o', 0});     // prints \#2
 }
 
+// From https://www.cplusplus.com/reference/typeinfo/type_info/name/
+// type_info::name example
+#include <iostream>       // std::cout
+#include <typeinfo>       // operator typeid
+
+void DemoTypeId()
+{
+    int i;
+    int * pi;
+    std::cout << "int is: " << typeid(int).name() << '\n';
+    std::cout << "  i is: " << typeid(i).name() << '\n';
+    std::cout << " pi is: " << typeid(pi).name() << '\n';
+    std::cout << "*pi is: " << typeid(*pi).name() << '\n';
+}
+
 #include <iostream>
 #include <type_traits>
 #include <typeinfo>

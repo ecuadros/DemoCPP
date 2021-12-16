@@ -16,6 +16,7 @@ void CounterTest();
 void DemoInitializer1();
 void DemoInitializer2();
 void DemoInitializer3();
+void DemoTypeId();
 void DemoConditional();
 
 void DemoMultipleParams();
