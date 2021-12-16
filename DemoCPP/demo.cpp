@@ -2071,7 +2071,9 @@ void DemoBasicTraits2()
 #include <iostream>
 #include <type_traits>
 
-union AU { int i; float f; };        // named union
+union AU
+{ int i; float f; };        // named union
+
 struct BU
 {  union { int foo; float bar; };    // anonymous member union
 };
@@ -2079,10 +2081,10 @@ struct BU
 void DemoIsUnion()
 {
     std::cout << std::boolalpha;
-    std::cout << "is_union:" << std::endl;
-    std::cout << "int: " << std::is_union<int>::value << std::endl;
-    std::cout << "AU: " << std::is_union<AU>::value << std::endl;
-    std::cout << "BU: " << std::is_union<BU>::value << std::endl;
+    std::cout << "is_union   : " << std::endl;
+    std::cout << "int        : " << std::is_union<int>::value << std::endl;
+    std::cout << "AU (union ): " << std::is_union<AU>::value << std::endl;
+    std::cout << "BU (struct): " << std::is_union<BU>::value << std::endl;
 }
 
 void DemoTraits()
