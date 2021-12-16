@@ -646,73 +646,6 @@ void DemoCallBacks()
     cout << "CountCalls=" << cb.count() << endl;
 }
 
-// From tmpl/ifcomptime.cpp
-
-template< class T >
-struct is_scalarx : integral_constant<bool,
-                     is_arithmetic<T>::value     ||
-                     is_enum<T>::value           ||
-                     is_pointer<T>::value        ||
-                     is_member_pointer<T>::value ||
-                     is_null_pointer<T>::value> {};
-                     
-//class A {};
-
-template <typename T>
-string asString(T x)
-{
-    if constexpr(is_same_v<T, string>)
-      return x;                  // statement invalid if no conversion to string
-    else if constexpr(is_arithmetic_v<T>)
-      return to_string(x);  // statement invalid if x is not numeric
-    else
-      return string(x);     // statement invalid if no conversion to string
-}
-
-class AA {};
-void DemoIfCompTime()
-{
-    cout << asString(42) << '\n';
-    cout << asString(string("hello")) << '\n';
-    cout << asString("hello") << '\n';
-    cout << asString(25.74) << "\n\n";
-
-    cout << "is_arithmetic_v:\n"; // false
-    cout << boolalpha
-        << "A:           " << is_arithmetic_v<AA>           << '\n' // false
-        << "bool:        " << is_arithmetic_v<bool>        << '\n' // true
-        << "int:         " << is_arithmetic_v<int>         << '\n' // true
-        << "int const:   " << is_arithmetic_v<int const>   << '\n' // true
-        << "int &:       " << is_arithmetic_v<int&>        << '\n' // false
-        << "int *:       " << is_arithmetic_v<int*>        << '\n' // false
-        << "float:       " << is_arithmetic_v<float>       << '\n' // true
-        << "float const: " << is_arithmetic_v<float const> << '\n' // true
-        << "float &:     " << is_arithmetic_v<float&>      << '\n' // false
-        << "float *:     " << is_arithmetic_v<float*>      << '\n' // false
-        << "char:        " << is_arithmetic_v<char>        << '\n' // true
-        << "char const:  " << is_arithmetic_v<char const>  << '\n' // true
-        << "char &:      " << is_arithmetic_v<char&>       << '\n' // false
-        << "char *:      " << is_arithmetic_v<char*>       << '\n' // false
-        ;
-
-    class cls { public: int m1, m2; };
-      cout << (is_scalarx<int>::value ? "int is a scalar" : "int is not a scalar") << '\n';
-      cout << (is_scalarx<cls>::value ? "cls is a scalar" : "cls is not a scalar") << '\n';
-    cls obj;
-      cout << (is_object_v<cls> ? "cls is an object" : "cls is not an object") << '\n';
-      cout << (is_object_v<decltype(obj)> ? "obj is an object" : "obj is not an object") << '\n';
-    int x = 5;
-      cout << (is_object<decltype(x)>::value ? "x is an object" : "x is not an object") << '\n';
-
-    auto pm = &cls::m1;
-    cout << (is_member_object_pointer<decltype(pm)>::value ? "pm is a member function" : "pm is not a member function") << '\n';
-    cout << (is_member_object_pointer_v<int> ? "int is a member function" : "int is not a member function") << '\n';
-    cout << (is_member_object_pointer_v<int cls::*> ? "int cls::* is a member function" : "int cls::* is not a member function") << '\n';
-    auto &ref = x;
-    cout << (is_reference<decltype(ref)>::value ? "ref is a reference" : "ref is not a reference") << '\n';
-    cout << (is_reference<decltype( x )>::value ? "x is a reference" : "x is not a reference") << '\n';
-}
-
 // From filesystem/checkpath3.cpp
 #include <filesystem>
 #include <cstdlib>    // for EXIT_FAILURE
@@ -2018,7 +1951,7 @@ struct MyTrait<A>
 
 template <typename Base>
 inline constexpr bool MyTrait_v = MyTrait<Base>::value;
-void DemoBasicTraits()
+void DemoBasicTraits1()
 {
     if( MyTrait<int>::value )
         cout << boolalpha << "MyTrait<int>::value = " << true << endl;
@@ -2068,10 +2001,77 @@ void DemoIsMemberFunctionPointer()
               << std::is_member_function_pointer<decltype(pt)>::value << std::endl;
 }
 
+// From tmpl/ifcomptime.cpp
+template< class T >
+struct is_scalarx : integral_constant<bool,
+                     is_arithmetic<T>::value     ||
+                     is_enum<T>::value           ||
+                     is_pointer<T>::value        ||
+                     is_member_pointer<T>::value ||
+                     is_null_pointer<T>::value> {};
+                     
+//class A {};
+
+template <typename T>
+string asString(T x)
+{
+    if constexpr(is_same_v<T, string>)
+      return x;                  // statement invalid if no conversion to string
+    else if constexpr(is_arithmetic_v<T>)
+      return to_string(x);  // statement invalid if x is not numeric
+    else
+      return string(x);     // statement invalid if no conversion to string
+}
+
+class AA {};
+void DemoBasicTraits2()
+{
+    cout << asString(42) << '\n';
+    cout << asString(string("hello")) << '\n';
+    cout << asString("hello") << '\n';
+    cout << asString(25.74) << "\n\n";
+
+    cout << "is_arithmetic_v:\n"; // false
+    cout << boolalpha
+        << "A:           " << is_arithmetic_v<AA>           << '\n' // false
+        << "bool:        " << is_arithmetic_v<bool>        << '\n' // true
+        << "int:         " << is_arithmetic_v<int>         << '\n' // true
+        << "int const:   " << is_arithmetic_v<int const>   << '\n' // true
+        << "int &:       " << is_arithmetic_v<int&>        << '\n' // false
+        << "int *:       " << is_arithmetic_v<int*>        << '\n' // false
+        << "float:       " << is_arithmetic_v<float>       << '\n' // true
+        << "float const: " << is_arithmetic_v<float const> << '\n' // true
+        << "float &:     " << is_arithmetic_v<float&>      << '\n' // false
+        << "float *:     " << is_arithmetic_v<float*>      << '\n' // false
+        << "char:        " << is_arithmetic_v<char>        << '\n' // true
+        << "char const:  " << is_arithmetic_v<char const>  << '\n' // true
+        << "char &:      " << is_arithmetic_v<char&>       << '\n' // false
+        << "char *:      " << is_arithmetic_v<char*>       << '\n' // false
+        ;
+
+    class cls { public: int m1, m2; };
+      cout << (is_scalarx<int>::value ? "int is a scalar" : "int is not a scalar") << '\n';
+      cout << (is_scalarx<cls>::value ? "cls is a scalar" : "cls is not a scalar") << '\n';
+    cls obj;
+      cout << (is_object_v<cls> ? "cls is an object" : "cls is not an object") << '\n';
+      cout << (is_object_v<decltype(obj)> ? "obj is an object" : "obj is not an object") << '\n';
+    int x = 5;
+      cout << (is_object<decltype(x)>::value ? "x is an object" : "x is not an object") << '\n';
+
+    auto pm = &cls::m1;
+    cout << (is_member_object_pointer<decltype(pm)>::value ? "pm is a member function" : "pm is not a member function") << '\n';
+    cout << (is_member_object_pointer_v<int> ? "int is a member function" : "int is not a member function") << '\n';
+    cout << (is_member_object_pointer_v<int cls::*> ? "int cls::* is a member function" : "int cls::* is not a member function") << '\n';
+    auto &ref = x;
+    cout << (is_reference<decltype(ref)>::value ? "ref is a reference" : "ref is not a reference") << '\n';
+    cout << (is_reference<decltype( x )>::value ? "x is a reference" : "x is not a reference") << '\n';
+}
+
 void DemoTraits()
 { 
     Exe("\tDemoIsBaseOf", DemoIsBaseOf);
-    Exe("\tDemoBasicTraits", DemoBasicTraits);
+    Exe("\tDemoBasicTraits1", DemoBasicTraits1);
+    Exe("\tDemoBasicTraits2", DemoBasicTraits2);
     Exe("\tSumTraits", SumTraits);
     Exe("\tDemoDecay", DemoDecay);
     Exe("\tDemoElementType", DemoElementType);

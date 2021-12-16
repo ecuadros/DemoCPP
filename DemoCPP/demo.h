@@ -38,7 +38,6 @@ void DemoLambdaFunctions();
 void DemoVarTmplAuto();
 
 void DemoCallBacks();
-void DemoIfCompTime();
 void DemoCheckPath3();
 
 void DemoCreateFile();
