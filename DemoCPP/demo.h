@@ -88,4 +88,7 @@ void DemoBasicTraits();
 void DemoTraits();
 
 void DemoInnerProduct();
+
+void DemoUniquePtr();
+void DemoSharedPtr();
 #endif

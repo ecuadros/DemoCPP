@@ -2306,9 +2306,9 @@ int myproduct (int x, int y) {return x*y;}
 void DemoInnerProduct()
 {
     int init = 0;
-    int series1[] = {10,20,30, 50};
-    int series2[] = {1 ,2 , 3,  4};
-    vector<int> v1{10,20,30, 50}, v2{1 ,2 , 3,  4};
+    int series1[] = {10, 20, 30, 50};
+    int series2[] = {1 ,  2,  3,  4};
+    vector<int> v1{10, 20, 30, 50}, v2{1 ,2 , 3,  4};
 
     std::cout << "using default inner_product: ";
     std::cout << std::inner_product(series1,series1+4,series2,init)
@@ -2323,7 +2323,23 @@ void DemoInnerProduct()
               << std::endl;
 
     std::cout << "using vectors: ";
-    std::cout << std::inner_product(v1.begin(),v1.end(),v2.end(),init,
+    std::cout << std::inner_product(v1.begin(),v1.end(),v2.begin(),init,
                                     std::plus<int>(),std::multiplies<int>())
               << std::endl;
+}
+
+// From https://en.cppreference.com/book/intro/smart_pointers
+#include <iostream>
+#include <memory>
+#include <utility>
+ 
+void DemoUniquePtr()
+{
+    std::unique_ptr<int> valuePtr(new int(15));
+    std::unique_ptr<int> valuePtrNow(std::move(valuePtr));
+ 
+    std::cout << "valuePtrNow = " << *valuePtrNow << '\n';
+    std::cout << "Has valuePtr an associated object? "
+              << std::boolalpha
+              << static_cast<bool>(valuePtr) << '\n';
 }

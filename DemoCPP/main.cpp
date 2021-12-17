@@ -82,6 +82,9 @@ int main()
   Exe("DemoTraits", DemoTraits);
 
   Exe("DemoInnerProduct", DemoInnerProduct);
+  Exe("DemoUniquePtr", DemoUniquePtr);
+  //Exe("DemoSharedPtr", DemoSharedPtr);
+  
   //exit(0);
   return 0;
 }
