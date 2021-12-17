@@ -2305,6 +2305,7 @@ int myproduct (int x, int y) {return x*y;}
 
 void DemoInnerProduct()
 {
+    std::cout << "inner_product : " << std::endl;
     int init = 0;
     int series1[] = {10, 20, 30, 50};
     int series2[] = {1 ,  2,  3,  4};
@@ -2335,6 +2336,7 @@ void DemoInnerProduct()
  
 void DemoUniquePtr()
 {
+    std::cout << "unique_ptr : " << std::endl;
     std::unique_ptr<int> valuePtr(new int(15));
     std::unique_ptr<int> valuePtrNow(std::move(valuePtr));
  
@@ -2342,4 +2344,46 @@ void DemoUniquePtr()
     std::cout << "Has valuePtr an associated object? "
               << std::boolalpha
               << static_cast<bool>(valuePtr) << '\n';
+}
+
+// From https://en.cppreference.com/book/intro/smart_pointers
+
+#include <memory>
+ 
+class Foo
+{	public: void doSomething()
+  {   std::cout << "Hi from doSomething()\n";   };
+  ~Foo()
+  {   std::cout << "~Foo() being called\n";   }
+};
+ 
+class Bar
+{ private:
+    std::shared_ptr<Foo> pFoo;
+  public:
+    Bar()
+    {	pFoo = std::shared_ptr<Foo>(new Foo());
+    }
+    std::shared_ptr<Foo> getFoo()
+    {	return pFoo;
+    }
+};
+
+void DemoSharedPtr()
+{
+    std::cout << "shared_ptr : " << std::endl;
+    Bar* pBar = new Bar(); //with the Bar object, a new Foo is created and stored
+    //reference counter = 1
+
+    std::shared_ptr<Foo> pFoo = pBar->getFoo(); //a copy of the shared pointer is created
+    //reference counter = 2
+
+    pFoo->doSomething(); 
+
+    delete pBar; //with pBar the private pFoo is destroyed
+    //reference counter = 1
+
+    return; //with the return the local pFoo is destroyed automatically 
+    //reference counter = 0
+    //internally the std::shared_ptr destroys the reference to the Foo object
 }

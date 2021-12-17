@@ -83,7 +83,7 @@ int main()
 
   Exe("DemoInnerProduct", DemoInnerProduct);
   Exe("DemoUniquePtr", DemoUniquePtr);
-  //Exe("DemoSharedPtr", DemoSharedPtr);
+  Exe("DemoSharedPtr", DemoSharedPtr);
   
   //exit(0);
   return 0;
