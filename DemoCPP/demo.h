@@ -89,6 +89,6 @@ void DemoTraits();
 
 void DemoInnerProduct();
 
-void DemoUniquePtr();
-void DemoSharedPtr();
+void DemoSmartPtr();
+void DemoRegex();
 #endif
