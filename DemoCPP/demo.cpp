@@ -2394,6 +2394,7 @@ void DemoSmartPtr()
     Exe("DemoSharedPtr", DemoSharedPtr);
 }
 
+// From https://www.cplusplus.com/reference/regex/match_results/begin/
 // match_results::begin/end
 // - using smatch, a standard alias of match_results<string::iterator>
 #include <iostream>
@@ -2413,7 +2414,25 @@ void DemoRegexBasics()
         std::cout << *it << std::endl;
 }
 
+// From https://www.cplusplus.com/reference/regex/match_results/operator[]/
+// match_results::operator[]
+// - using cmatch, a standard alias of match_results<const char*>
+#include <iostream>
+#include <string>
+#include <regex>
+
+void DemoRegexOperators()
+{
+    std::cmatch m;
+    std::regex_match ( "subject", m, std::regex("(sub)(.*)") );
+
+    for (unsigned i=0; i<m.size(); ++i)
+      std::cout << "match " << i << ": " << m[i]
+                << " (length: " << m[i].length() << ")\n";
+}
+
 void DemoRegex()
 {
     Exe("DemoRegexBasics", DemoRegexBasics);
+    Exe("DemoRegexOperators", DemoRegexOperators);
 }
