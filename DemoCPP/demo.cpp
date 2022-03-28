@@ -2375,11 +2375,10 @@ void DemoSharedPtr()
     Bar* pBar = new Bar(); //with the Bar object, a new Foo is created and stored
     //reference counter = 1
 
-    std::shared_ptr<Foo> pFoo = pBar->getFoo(); //a copy of the shared pointer is created
+    std::shared_ptr pFoo = pBar->getFoo(); //a copy of the shared pointer is created
     //reference counter = 2
 
     pFoo->doSomething(); 
-
     delete pBar; //with pBar the private pFoo is destroyed
     //reference counter = 1
 
@@ -2407,10 +2406,9 @@ void DemoRegexBasics()
     std::smatch m;
     std::regex e ("(sub)(.*)");
 
-    std::regex_match ( s, m, e );
-
+    std::regex_match (s, m, e);
     std::cout << "matches:" << std::endl;
-    for (std::smatch::iterator it = m.begin(); it!=m.end(); ++it)
+    for(std::smatch::iterator it = m.begin(); it!=m.end(); ++it)
         std::cout << *it << std::endl;
 }
 
@@ -2426,13 +2424,13 @@ void DemoRegexOperators()
     std::cmatch m;
     std::regex_match ( "subject", m, std::regex("(sub)(.*)") );
 
-    for (unsigned i=0; i<m.size(); ++i)
+    for (auto i=0; i<m.size(); ++i)
       std::cout << "match " << i << ": " << m[i]
                 << " (length: " << m[i].length() << ")\n";
 }
 
 void DemoRegex()
 {
-    Exe("DemoRegexBasics", DemoRegexBasics);
+    Exe("DemoRegexBasics",    DemoRegexBasics);
     Exe("DemoRegexOperators", DemoRegexOperators);
 }
