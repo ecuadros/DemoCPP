@@ -1,6 +1,6 @@
 #include<stdlib.h>
 #include<stdio.h>
-//insert a node at the nth position
+
 struct Node {
     int data;
     struct Node* next;
