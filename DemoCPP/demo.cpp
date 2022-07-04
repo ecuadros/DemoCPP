@@ -232,7 +232,7 @@ void DemoMultipleParams()
 }
 
 // From tmplbook/details/tupleoverload.cpp
-template<typename... Ts>
+template<typename ... Ts>
 class Tuple
 {
 };
