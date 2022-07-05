@@ -134,7 +134,7 @@ class LinkedList
     virtual Node *CreateNode(T &data, Node *pNext=nullptr){ return new Node(data, pNext); }
     Node **insert_forward(T &elem)
     {
-        Node **pParent = findPrev(m_pHead, elem);
+        Node **pParent = findPrev(elem);
         Node *pNew = CreateNode(elem);
         ::CreateBridge(*pParent, pNew, &Node::m_pNext);
         if( !pNew->getpNext() )

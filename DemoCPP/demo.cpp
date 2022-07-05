@@ -1645,10 +1645,12 @@ void demoLinkedListSorted()
     cout << "Ascending list" << endl;
     LinkedList< LLTraitAsc<TX> > myAscList;
     demoLinkedList(myAscList);
+    recorrer(myAscList);
 
     cout << "Descending list" << endl;
     LinkedList< LLTraitDesc<TX> > myDescList;
     demoLinkedList(myDescList);
+    recorrer(myDescList);
 }
 
 template <typename DoubleList>
@@ -2433,4 +2435,62 @@ void DemoRegex()
 {
     Exe("DemoRegexBasics",    DemoRegexBasics);
     Exe("DemoRegexOperators", DemoRegexOperators);
+}
+
+void f1(int n)
+{ n++;  }
+void f2(int &n)
+{ n++;  }
+
+void f3(int *pi)
+{ ++*pi;  
+    pi = nullptr;
+}
+void f4(int *&rpi)
+{ ++*rpi;  
+  rpi = nullptr;
+}
+int x = 5, y = 10;
+void printxy()
+{   cout << "x=" << x << ", " << "y=" << y << endl;}
+void DemoPointers()
+{
+    int *p1 = nullptr, *p2 = nullptr, **pp = nullptr;
+    p1 = &x;        p2 = &y;
+    pp = &p1;
+    f1(x);          printxy();
+
+    f2(x);          printxy(); 
+
+    x = 5; y = 10;
+    f3(&x); 
+    f3(&y);        printxy();
+    
+}
+
+void DemoAmp()
+{
+    int a = 5, b = 4, c;
+    if(a < 5 && b > 8 ) // And logico
+    {}
+
+    c = a & b; // And a nivel de bits 00000101
+               //                     00000100
+               //                     00000100
+    cout << c << endl;
+    c = a | b; // Or a nivel de bits
+    c = a ^ b; // Xor a nivel de bits
+    c = ~a;
+
+    // 3er uso cuando esta en el parametro como f3
+    // El parametro se sobrepone con la var que me envian
+    // Ademas puedo declarar un alias de otra variable
+    int &r = c; // r es una var sobrepuesta con c. Es su alias
+    // int &q; error, una ref no se puede dejar de inicializar
+    r = 50; // c = 50;
+
+    // 4to uso a la izquierda de una variable cualquiera
+    int *px = nullptr;
+    px = &a;
+    *px += 8; // a +=8;
 }

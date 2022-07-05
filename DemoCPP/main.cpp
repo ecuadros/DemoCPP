@@ -85,6 +85,8 @@ int main()
   Exe("DemoSmartPtr", DemoSmartPtr);
 
   Exe("DemoRegex", DemoRegex);
+
+  Exe("DemoPointers", DemoPointers);
   
   //exit(0);
   return 0;

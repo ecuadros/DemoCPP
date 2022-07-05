@@ -91,4 +91,7 @@ void DemoInnerProduct();
 
 void DemoSmartPtr();
 void DemoRegex();
+
+void DemoPointers();
+
 #endif
