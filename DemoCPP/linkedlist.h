@@ -39,14 +39,14 @@ private:
 template <typename Container>
 class forward_iterator : public general_iterator<Container,  class forward_iterator<Container> > // 
 {public:   
-    typedef typename Container::Node                                  Node;
-    typedef class general_iterator<Container, forward_iterator<Container> > Parent;  // 
+    typedef class general_iterator<Container, forward_iterator<Container> > Parent; 
+    typedef typename Container::Node                                  Node; // 
     typedef forward_iterator<Container>                                     myself;
 
   public:
     forward_iterator(Container *pContainer, Node *pNode) : Parent (pContainer,pNode) {}
     forward_iterator(myself &other)  : Parent (other) {}
-    forward_iterator(myself &&other) : Parent(other) {}
+    forward_iterator(myself &&other) : Parent(other) {} // Move constructor C++11 en adelante
 
 public:
     forward_iterator operator++() { Parent::m_pNode = (Node *)Parent::m_pNode->getpNext();  
@@ -57,17 +57,17 @@ public:
 template <typename _T>
 struct LLTraitAsc
 {
-    typedef   _T        T;
-    typedef  NodeLE<T>  Node;
-    typedef  less<T>    CompareFn;
+    using  T         = _T;
+    using  Node      = NodeLE<T>;
+    using  CompareFn = less<T>;
 };
 
 template <typename _T>
 struct LLTraitDesc
 {
-    typedef  _T         T;
-    typedef  NodeLE<T>  Node;
-    typedef  greater<T> CompareFn;
+    using  T         = _T;
+    using  Node      = NodeLE<T>;
+    using  CompareFn = greater<T>;
 };
 
 template <typename Traits>

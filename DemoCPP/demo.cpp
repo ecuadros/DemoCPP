@@ -1637,7 +1637,11 @@ void demoLinkedList(LinkedList &mylist)
     }
     cout << endl;
     cout << "Lista en orden: ";
+    //for(size_t pos = 0; pos < mylist.size(); pos++)
+    //    cout << mylist[pos] << endl;
+    
     recorrer(mylist, fx);  cout << endl;
+    exit(0);
 }
 
 void demoLinkedListSorted()
@@ -2437,11 +2441,13 @@ void DemoRegex()
     Exe("DemoRegexOperators", DemoRegexOperators);
 }
 
+int x = 5, y = 10;
+int f0()        {int w = 50;    return w;   }
+int &fr()       {  return x;   } // retorna un int por referencia
 void f1(int n)
 { n++;  }
-void f2(int &n)
+void f2(int &n) // n viene por referencia
 { n++;  }
-
 void f3(int *pi)
 { ++*pi;  
     pi = nullptr;
@@ -2450,21 +2456,35 @@ void f4(int *&rpi)
 { ++*rpi;  
   rpi = nullptr;
 }
-int x = 5, y = 10;
+
 void printxy()
 {   cout << "x=" << x << ", " << "y=" << y << endl;}
 void DemoPointers()
 {
+    int z = f0();           float f = 3.14;
+    int &rk = fr();
+    int &rx = x, &ry = y;
+    // int & rz;
     int *p1 = nullptr, *p2 = nullptr, **pp = nullptr;
     p1 = &x;        p2 = &y;
     pp = &p1;
-    f1(x);          printxy();
+    f1(x);          
+    f1(15);
+    f1(x+7);
+    printxy();
 
-    f2(x);          printxy(); 
+    f2(x);
+    // f2(x+4); Error porque no tengo una var para hacer referencia
+    f2(rx);
+    //f2(f);  f es float. No puede sobreponerse con un int
+    printxy(); 
 
     x = 5; y = 10;
     f3(&x); 
-    f3(&y);        printxy();
+    f3(&y);
+    f3(p1);
+    f3(&rx);
+    printxy();
     
 }
 
@@ -2481,7 +2501,7 @@ void DemoAmp()
     c = a | b; // Or a nivel de bits
     c = a ^ b; // Xor a nivel de bits
     c = ~a;
-
+    c |= a;     c &= b;     c ^= b;
     // 3er uso cuando esta en el parametro como f3
     // El parametro se sobrepone con la var que me envian
     // Ademas puedo declarar un alias de otra variable

@@ -1,6 +1,7 @@
 #ifndef __RECORRRER_H__  
 #define __RECORRRER_H__ 
 #include "object_function.h"
+using namespace std;
 
 void fx(TX &x)
 {  cout << x << "  "; }
@@ -19,7 +20,8 @@ void recorrer(Iterator ItBegin, Iterator ItEnd, F ope)
 // #1
 template <typename Container, typename F>
 void recorrer(Container &container, F ope)
-{  recorrer(container.begin(), container.end(), ope);
+{  
+    recorrer(container.begin(), container.end(), ope);
 }
 
 // TODO implementar el recorrer inverso
