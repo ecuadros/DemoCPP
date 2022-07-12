@@ -2448,9 +2448,9 @@ void f1(int n)
 { n++;  }
 void f2(int &n) // n viene por referencia
 { n++;  }
-void f3(int *pi)
-{ ++*pi;  
-    pi = nullptr;
+void f3(int *pk)
+{ ++*pk;  
+    pk = nullptr;
 }
 void f4(int *&rpi)
 { ++*rpi;  
@@ -2466,26 +2466,32 @@ void DemoPointers()
     int &rx = x, &ry = y;
     // int & rz;
     int *p1 = nullptr, *p2 = nullptr, **pp = nullptr;
-    p1 = &x;        p2 = &y;
-    pp = &p1;
-    f1(x);          
+    p1 = &x;        p2 = &y;        pp  = &p1;
+    pp = &p1;       
+    f1(x);          f1(**pp);
     f1(15);
-    f1(x+7);
+    f1(x+7);        f1(**pp + 10);
     printxy();
 
-    f2(x);
+    x=10;   f2(x);
     // f2(x+4); Error porque no tengo una var para hacer referencia
     f2(rx);
     //f2(f);  f es float. No puede sobreponerse con un int
+    f2(*p1);    // f2(x);
+    f2(**pp);   // f2(x);
     printxy(); 
 
     x = 5; y = 10;
     f3(&x); 
     f3(&y);
     f3(p1);
+    f3(*pp);    // f3(p1);
     f3(&rx);
     printxy();
-    
+
+    // f4(&x); solo se pueden pasar int *
+    f4(p1);
+    f4(*pp);
 }
 
 void DemoAmp()

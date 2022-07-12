@@ -92,7 +92,7 @@ class LinkedList
 
   public:
     LinkedList() {}
-    void    insert(T elem) { insert_forward(elem);  }
+    void    insert(T &elem) { insert_forward(elem);  }
     T &operator[](size_t pos)
     {
       assert(pos <= size());
