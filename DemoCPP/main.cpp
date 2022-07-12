@@ -86,7 +86,9 @@ int main()
 
   Exe("DemoRegex", DemoRegex);
 
-  Exe("DemoPointers", DemoPointers);
+  Exe("Demo Ampersand", DemoAmpersand);
+  Exe("DemoPointers Level1", DemoPointersL1);
+
   
   //exit(0);
   return 0;

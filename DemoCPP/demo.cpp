@@ -2441,6 +2441,33 @@ void DemoRegex()
     Exe("DemoRegexOperators", DemoRegexOperators);
 }
 
+void DemoAmpersand()
+{
+    int a = 5, b = 4, c;
+    if(a < 5 && b > 8 ) // And logico
+    {}
+
+    c = a & b; // And a nivel de bits 00000101
+               //                     00000100
+               //                     00000100
+    cout << c << endl;
+    c = a | b; // Or a nivel de bits
+    c = a ^ b; // Xor a nivel de bits
+    c = ~a;
+    c |= a;     c &= b;     c ^= b;
+    // 3er uso cuando esta en el parametro como f3
+    // El parametro se sobrepone con la var que me envian
+    // Ademas puedo declarar un alias de otra variable
+    int &r = c; // r es una var sobrepuesta con c. Es su alias
+    // int &q; error, una ref no se puede dejar de inicializar
+    r = 50; // c = 50;
+
+    // 4to uso a la izquierda de una variable cualquiera
+    int *px = nullptr;
+    px = &a;
+    *px += 8; // a +=8;
+}
+
 int x = 5, y = 10;
 int f0()        {int w = 50;    return w;   }
 int &fr()       {  return x;   } // retorna un int por referencia
@@ -2459,7 +2486,8 @@ void f4(int *&rpi)
 
 void printxy()
 {   cout << "x=" << x << ", " << "y=" << y << endl;}
-void DemoPointers()
+
+void DemoPointersL1()
 {
     int z = f0();           float f = 3.14;
     int &rk = fr();
@@ -2494,29 +2522,3 @@ void DemoPointers()
     f4(*pp);
 }
 
-void DemoAmp()
-{
-    int a = 5, b = 4, c;
-    if(a < 5 && b > 8 ) // And logico
-    {}
-
-    c = a & b; // And a nivel de bits 00000101
-               //                     00000100
-               //                     00000100
-    cout << c << endl;
-    c = a | b; // Or a nivel de bits
-    c = a ^ b; // Xor a nivel de bits
-    c = ~a;
-    c |= a;     c &= b;     c ^= b;
-    // 3er uso cuando esta en el parametro como f3
-    // El parametro se sobrepone con la var que me envian
-    // Ademas puedo declarar un alias de otra variable
-    int &r = c; // r es una var sobrepuesta con c. Es su alias
-    // int &q; error, una ref no se puede dejar de inicializar
-    r = 50; // c = 50;
-
-    // 4to uso a la izquierda de una variable cualquiera
-    int *px = nullptr;
-    px = &a;
-    *px += 8; // a +=8;
-}
