@@ -94,5 +94,7 @@ void DemoRegex();
 
 void DemoAmpersand();
 void DemoPointersL1();
+void DemoPointersL2Vectors();
+void DemoPointersL2VectorX();
 
 #endif

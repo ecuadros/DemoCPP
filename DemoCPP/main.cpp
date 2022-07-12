@@ -88,7 +88,8 @@ int main()
 
   Exe("Demo Ampersand", DemoAmpersand);
   Exe("DemoPointers Level1", DemoPointersL1);
-
+  Exe("DemoPointersL2Vectors", DemoPointersL2Vectors);
+  Exe("DemoPointersL2VectorX", DemoPointersL2VectorX);
   
   //exit(0);
   return 0;

@@ -1641,7 +1641,6 @@ void demoLinkedList(LinkedList &mylist)
     //    cout << mylist[pos] << endl;
     
     recorrer(mylist, fx);  cout << endl;
-    exit(0);
 }
 
 void demoLinkedListSorted()
@@ -2484,8 +2483,8 @@ void f4(int *&rpi)
   rpi = nullptr;
 }
 
-void printxy()
-{   cout << "x=" << x << ", " << "y=" << y << endl;}
+void printxy(string str)
+{   cout << str << ": x=" << x << ", " << "y=" << y << endl;}
 
 void DemoPointersL1()
 {
@@ -2499,7 +2498,7 @@ void DemoPointersL1()
     f1(x);          f1(**pp);
     f1(15);
     f1(x+7);        f1(**pp + 10);
-    printxy();
+    printxy("f1");
 
     x=10;   f2(x);
     // f2(x+4); Error porque no tengo una var para hacer referencia
@@ -2507,7 +2506,7 @@ void DemoPointersL1()
     //f2(f);  f es float. No puede sobreponerse con un int
     f2(*p1);    // f2(x);
     f2(**pp);   // f2(x);
-    printxy(); 
+    printxy("f2"); 
 
     x = 5; y = 10;
     f3(&x); 
@@ -2515,10 +2514,52 @@ void DemoPointersL1()
     f3(p1);
     f3(*pp);    // f3(p1);
     f3(&rx);
-    printxy();
+    printxy("f3");
 
     // f4(&x); solo se pueden pasar int *
-    f4(p1);
+    f4(p1);     p1 = &x;
     f4(*pp);
+    printxy("f4");
 }
 
+int input(string str)
+{
+    cout << str;
+    int n;
+    cin >> n;
+    return n;
+}
+
+void DemoPointersL2Vectors()
+{
+    int ve[10], n;
+    n = 5; //input("Ingrese tamaño del vector: ");
+    int *pvd = new int[n];
+    for(auto i=0; i < n ; ++i )
+    {
+        pvd[i]      = i*i;
+        *(pvd + i)  = i*i;
+        int *pt = pvd + i;
+        cout << "pvd+" << i << "=" <<pvd+i<< " val=" << pvd[i] << ", " << *(pvd + i) 
+             << " &pvd[" << i << "]=" << &pvd[i] << "(" << pvd+i << ")" << endl;
+    }
+    int *px = nullptr;
+    px = pvd+5;
+    px[-3] = 8;     // *(px-3) = 8;
+    delete [] pvd;
+    pvd = nullptr;
+}
+
+#include "vectorx.h"
+void DemoPointersL2VectorX()
+{
+    VectorX<int>  vi(10);
+    vi.init();
+    vi.print(cout);
+
+    cout << "*****Init\n" << vi << "*****End\n";
+
+    ofstream file("Enzo.txt");
+    file << "Inicio del archivo" <<endl;
+    vi.print(file);
+}
