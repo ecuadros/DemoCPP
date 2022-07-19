@@ -2580,6 +2580,7 @@ void DemoPointersL3Matrix()
     cout << mat1 << endl;
 
     mat3 = mat1 * mat2;
+    cout << mat3 << endl;
 }
 
 float fx()
