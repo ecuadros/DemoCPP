@@ -15,6 +15,11 @@ public:
     {
         create(rows, cols, val);
     }
+    CMatrix(CMatrix<T> &&other)
+    {
+        m_pMat = move(other.m_pMat);
+        other.m_rows = other.m_cols = 0;
+    }
     ~CMatrix()
     {
         destroy();
@@ -57,11 +62,29 @@ public:
         assert(row < m_rows);
         return m_pMat[row];
     }
+    T *operator[](string str)
+    {
+        return m_pMat[0];
+    }
     T &operator()(size_t row, size_t col)
     {
         assert(row < m_rows && col < m_cols);
-        cout << &m_pMat[row][col] << endl;
+        // cout << &m_pMat[row][col] << endl;
         return m_pMat[row][col];
+    }
+    CMatrix<T> operator*(CMatrix<T> &other)
+    {
+        assert(); // Validar dimensiones
+        CMatrix<T> rpta(GetRows(), other.GetCols(), 0);
+        CMatrix<T> &me = *this;
+        for(auto row = 0; row < GetRows(); ++row)
+        {   for(auto col = 0; col < other.GetCols(); ++col)
+            {   rpta[row][col] = 0 ;
+                for(auto i = 0 ; i < GetCols() ; ++i)
+                    rpta[row][col] +=  me[row][i] * other[i][col];
+            }
+        }
+        return rpta;
     }
     void help(size_t row, size_t col)
     {

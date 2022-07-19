@@ -2569,12 +2569,17 @@ void DemoPointersL3Matrix()
 {
     CMatrix<float> mat1(3, 7, 2), mat2(7, 5, 1), mat3;
     
+    //cout << "before ... "; mat1.help(2, 5);
     mat1(2, 5) = 467.6;
-    //mat1[2][5] = 20;
+    //cout << "after  ... "; mat1.help(2, 5);
+    mat1[1][4]   = 345;
+    *(mat1[1]+5) = 678;
+      mat1[1][6] = 802;
+    mat1["Miguel"][2]= 123;
     cout << "mat1[2][5]=" << mat1[2][5] << endl;
     cout << mat1 << endl;
 
-    //mat3 = mat1 * mat2;
+    mat3 = mat1 * mat2;
 }
 
 float fx()
