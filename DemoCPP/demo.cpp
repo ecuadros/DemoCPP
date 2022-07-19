@@ -2563,3 +2563,30 @@ void DemoPointersL2VectorX()
     file << "Inicio del archivo" <<endl;
     vi.print(file);
 }
+
+#include "matrix.h"
+void DemoPointersL3Matrix()
+{
+    CMatrix<float> mat1(3, 7, 2), mat2(7, 5, 1), mat3;
+    
+    mat1(2, 5) = 467.6;
+    //mat1[2][5] = 20;
+    cout << "mat1[2][5]=" << mat1[2][5] << endl;
+    cout << mat1 << endl;
+
+    //mat3 = mat1 * mat2;
+}
+
+float fx()
+{   return 10.5;    }
+
+/**
+ * @brief 
+ * 
+ */
+void DemoPointerstoFn()
+{
+float (*pf[5])() = {&fx};
+    pf[3] = &fx;
+    float rpta = (*pf[3])();
+}

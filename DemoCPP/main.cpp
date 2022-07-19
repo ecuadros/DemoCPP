@@ -90,6 +90,7 @@ int main()
   Exe("DemoPointers Level1", DemoPointersL1);
   Exe("DemoPointersL2Vectors", DemoPointersL2Vectors);
   Exe("DemoPointersL2VectorX", DemoPointersL2VectorX);
+  Exe("DemoPointersL3Matrix", DemoPointersL3Matrix);
   
   //exit(0);
   return 0;

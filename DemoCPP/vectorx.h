@@ -7,14 +7,14 @@ using namespace std;
 template <typename T>
 class VectorX
 {
-    private:
+private:
         T *m_pVector  = nullptr;
         size_t m_size = 0;
-    public:
+public:
     VectorX(size_t size) : m_size(size) 
     {   create();
     }
-    private:
+private:
     void create()
     {   destroy();
         m_pVector = new T[m_size];

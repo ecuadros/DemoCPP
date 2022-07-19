@@ -96,5 +96,7 @@ void DemoAmpersand();
 void DemoPointersL1();
 void DemoPointersL2Vectors();
 void DemoPointersL2VectorX();
+void DemoPointersL3Matrix();
+void DemoPointerstoFn();
 
 #endif

@@ -1,0 +1,90 @@
+#ifndef __MATRIX_H__  
+#define __MATRIX_H__ 
+
+#include <iostream>
+using namespace std;
+
+template <typename T>
+class CMatrix
+{
+private:
+    size_t m_rows = 0, m_cols = 0;
+    T **m_pMat = nullptr;
+public:
+    CMatrix(size_t rows = 0, size_t cols = 0, T val = 0)
+    {
+        create(rows, cols, val);
+    }
+    ~CMatrix()
+    {
+        destroy();
+    }
+
+private:
+    void create(size_t rows, size_t cols, T &val)
+    {
+        destroy();
+        m_rows = rows;  m_cols = cols;
+        m_pMat = new T *[m_rows];
+        for(auto i = 0; i < m_rows; ++i)
+        {    m_pMat[i]  = new T[m_cols];
+        // *(m_pMat +i ) = new T[m_cols];
+        }
+        init(val);
+    }
+    void init(T &val)
+    {
+        for(auto row = 0; row < m_rows; ++row)
+            for(auto col = 0; col < m_cols; ++col)
+            {
+                     m_pMat[row][col] = val;
+            //    (*(m_pMat+row))[col] = val;
+            //   *(*(m_pMat+row)+col)  = val;
+            //     *(m_pMat[row]+col)  = val;
+            }
+    }
+    void destroy()
+    {
+        for(auto row = 0; row < m_rows; ++row)
+            delete [] m_pMat[row];
+        delete [] m_pMat;
+        m_rows = m_cols = 0;
+        m_pMat = nullptr;
+    }
+public:    
+    T *operator[](size_t row)
+    {
+        assert(row < m_rows);
+        return m_pMat[row];
+    }
+    T &operator()(size_t row, size_t col)
+    {
+        assert(row < m_rows && col < m_cols);
+        cout << &m_pMat[row][col] << endl;
+        return m_pMat[row][col];
+    }
+    void help(size_t row, size_t col)
+    {
+        assert(row < m_rows && col < m_cols);
+        cout << &m_pMat[row][col] << endl;
+        cout <<  m_pMat[row][col] << endl;
+    }
+    ostream &print(ostream &os)
+    {
+        for(auto row = 0; row < m_rows; ++row)
+        {   for(auto col = 0; col < m_cols; ++col)
+                os << m_pMat[row][col] << " ";
+            os << endl;
+        } 
+        os << endl;   
+        return os;
+    }
+};
+
+template <typename T>
+ostream &operator<<(ostream &os, CMatrix<T> &mat)
+{
+    mat.print(os);
+    return os;
+}
+#endif
