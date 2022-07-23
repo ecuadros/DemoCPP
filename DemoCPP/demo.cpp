@@ -1519,17 +1519,29 @@ void DemoLen()
 #include <cstring>
 #include <string>
 
+/**
+ * @brief Funcion que retorna el valor máximo entre dos variables de cualquier tipo
+ * @return valor máximo
+ */
 // maximum of two values of any type:
 template<typename T>
 T Max (T a, T b)
 {   return  b < a ? a : b;
 }
 
+/**
+ * @brief Funcion que retorna el máximo entre dos punteros
+ * @return puntero máximo
+ */
 // maximum of two pointers:
 template<typename T>
 T* Max (T* a, T* b)
 {  return  *b < *a  ? a : b;    }
 
+/**
+ * @brief Funcion que retorna el valor máximo entre dos variables de tipo caracter (char)
+ * @return caracter máximo
+ */
 // maximum of two C-strings:
 char const* Max (char const* a, char const* b)
 {   return  std::strcmp(b,a) < 0  ? a : b;    }
@@ -1538,6 +1550,10 @@ template<typename T, typename ... Q>
 auto Max(const T&a, const T&b, const Q& ... args)
 {    return Max(Max(a, b), args...);        }
 
+/**
+ * @title DemoMax
+ * @brief Funcion que obtiene el valor máximo n variables de tipo int, string o puntero
+ */
 void DemoMax()
 {
     int a = 7, b = 42, c = 35, d = 18;
@@ -1685,6 +1701,10 @@ void demoDoubleLinkedListSorted()
     demoDoubleLinkedList(myDescList); 
 }
 
+/**
+ * @title DemoDSMap
+ * @brief Funcion que muestra la busqueda en un map a partir del key, e imprime el resultado
+ */
 void DemoDSMap()
 {
     std::map<std::string, double> coll;
@@ -1976,12 +1996,21 @@ void DemoIsBaseOf()
     cout << "same type: " << is_base_of<C, C>::value << '\n';
 }
 
+/**
+ * @brief Estructura MyTrait
+ * @return valor booleano
+ */
 template <typename Base>
 struct MyTrait
 {
     static constexpr bool value = false;
     //void flip() {value = !value; }
 };
+
+/**
+ * @brief Estructura MyTrait<A>
+ * @return valor booleano
+ */
 template <>
 struct MyTrait<A>
 {
@@ -1989,6 +2018,10 @@ struct MyTrait<A>
     //void flip() {value = !value; }
 };
 
+/**
+ * @title DemoBasicTraits1
+ * @brief Funcion que muestra la validación de Traits, cuya funcionalidad es similar a una interfaz
+ */
 template <typename Base>
 inline constexpr bool MyTrait_v = MyTrait<Base>::value;
 void DemoBasicTraits1()
@@ -2308,6 +2341,11 @@ void DemoTraits()
 int myaccumulator (int x, int y) {return x+y;}
 int myproduct (int x, int y) {return x*y;}
 
+/**
+ * @title DemoInnerProduct
+ * @brief Funcion que devuelve el resultado de la acumulación de los productos internos 
+ * a partir de los pares formados por los conjuntos de elementos declarados
+ */
 void DemoInnerProduct()
 {
     std::cout << "inner_product : " << std::endl;
