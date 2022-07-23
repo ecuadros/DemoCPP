@@ -1316,6 +1316,9 @@ void printT(T arg)
     cout << "Type for arg: " << type_name<decltype(arg)>() << "\n\n";
 }
 
+/**
+ * @brief 
+ */ 
 void DemoTestArray()
 {
     int a[42];
@@ -1338,6 +1341,9 @@ void tmplParamIsReference(T)
 {   std::cout << "T is reference: " << std::is_reference_v<T> << '\n';
 }
 
+/**
+ * @brief 
+ */ 
 void DemoTemplateParamTypes()
 {
     std::cout << std::boolalpha;
@@ -1386,6 +1392,9 @@ class FuncObj
     }
 };
 
+/**
+ * @brief 
+ */ 
 void DemoForeach()
 {
     std::vector<int> primes = {2, 3};
@@ -1419,6 +1428,9 @@ class MyClassInvoke
     { std::cout << "MyClass::memfunc() called for: " << i << " and str: " << str << '\n';  }
 };
 
+/**
+ * @brief 
+ */ 
 void DemoForeachInvoke()
 {
     std::vector<int> primes = {2, 3};
