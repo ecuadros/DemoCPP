@@ -2440,6 +2440,17 @@ void DemoRegex()
     Exe("DemoRegexOperators", DemoRegexOperators);
 }
 
+
+
+/**
+ * @brief DemoAmpersand()
+ * Está función muestra el uso del carácter &
+ * (a && b) indica and lógico
+ * (a & b) indica and a nivel de bits
+ * (int &r = c) indica que r es una variable sobrepuesta con c, si se hace r=5 entonces c=5
+ * (px = &x) indica que px apunta a x 
+ *  
+ */
 void DemoAmpersand()
 {
     int a = 5, b = 4, c;
@@ -2486,6 +2497,14 @@ void f4(int *&rpi)
 void printxy(string str)
 {   cout << str << ": x=" << x << ", " << "y=" << y << endl;}
 
+/**
+ * @brief DemoPointerL1
+ * (int &rk = x) indica que rk es una variable sobrepuesta con x, si se hace rk=5 entonces x=5
+ * (int *p1) indica que p1 es un puntero a una variable entera
+ * (int **pp) indica que pp es un puntero a un puntero que apunta a una variable entera 
+ * (int p1 = &x) indica que p1 apunta a x
+ * (int &rk = fr()) indica que rk es un alias de la función fr, es decir que rk(5) equivale a fr(5)
+ */
 void DemoPointersL1()
 {
     int z = f0();           float f = 3.14;
@@ -2530,6 +2549,12 @@ int input(string str)
     return n;
 }
 
+/**
+ * @brief DemoPointersL2Vectors
+ * Esta función inicializa en forma dinámica un vector que contiene apuntadores a variables enteras
+ * luego a cada elemento de la matriz le asigna un valor y muestra que pvd[i] es equivaklente a *(pvd + i)
+ * Imprime para cada elemento de la matriz: la dirección que contiene y su valor 
+ *  */
 void DemoPointersL2Vectors()
 {
     int ve[10], n;
@@ -2550,6 +2575,18 @@ void DemoPointersL2Vectors()
     pvd = nullptr;
 }
 
+
+/**
+ * @file demo.cpp
+ * @author Miguel Ruiz
+ * @brief DemoPointersL2VectorX()
+ * Está función muestra la manera de cambiar la salida de información hacia la pantalla o hacia un archivo
+ * la función init(), que se encuentra en vector.h, inicializa una matriz de vectores
+ * para imprimir a print(), que se encuentra en vector.h, se le pasa el tipo de salida (cout o file)
+ *  * @version 0.1
+ * @date 2022-07-23
+ * 
+ */
 #include "vectorx.h"
 void DemoPointersL2VectorX()
 {
@@ -2587,12 +2624,15 @@ float fx()
 {   return 10.5;    }
 
 /**
- * @brief 
- * 
+ * @brief DemoPointerstoFn()
+ * Está función muestra la creación de punteros a funciones
+ * (float (*pf[5])() = {&fx}) declara una matriz de cinco elementos con punteros a variables float
+ * (pf[3] = &fx) en el elemento pf[3] se guarda la direcci´´on de ka función fx
+ * rpta contiene lo que retorna fx()
  */
 void DemoPointerstoFn()
 {
-float (*pf[5])() = {&fx};
+    float (*pf[5])() = {&fx};
     pf[3] = &fx;
     float rpta = (*pf[3])();
 }
