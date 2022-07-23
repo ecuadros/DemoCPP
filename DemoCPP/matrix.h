@@ -72,6 +72,7 @@ public:
         // cout << &m_pMat[row][col] << endl;
         return m_pMat[row][col];
     }
+    /*
     CMatrix<T> operator*(CMatrix<T> &other)
     {
         assert(); // Validar dimensiones
@@ -86,6 +87,7 @@ public:
         }
         return rpta;
     }
+    */
     void help(size_t row, size_t col)
     {
         assert(row < m_rows && col < m_cols);

@@ -19,8 +19,8 @@
 #include "doublelinkedlist.h"
 #include "types.h"
 #include "recorrer.h"
-#include "../../cppstd17/tmpl/foldtraverse.hpp"
-#include "../../cppstd17/tmpl/ishomogeneous.hpp"
+#include "../cppstd17/tmpl/foldtraverse.hpp"
+#include "../cppstd17/tmpl/ishomogeneous.hpp"
 
 using namespace std;
 
@@ -880,7 +880,7 @@ void DemoConvert()
 }
 
 // From "../../cppstd17/lib/incomplete.cpp"
-#include "../../cppstd17/lib/incomplete.hpp"
+#include "../cppstd17/lib/incomplete.hpp"
 void DemoIncomplete()
 {
     // create node tree:
@@ -954,10 +954,10 @@ void DemoMapNodeMove()
 }
 
 // From ../../cppstd17/lib/varioantpoly1.cpp
-#include "../../cppstd17/lib/coord.hpp"
-#include "../../cppstd17/lib/line.hpp"
-#include "../../cppstd17/lib/circle.hpp"
-#include "../../cppstd17/lib/rectangle.hpp"
+#include "../cppstd17/lib/coord.hpp"
+#include "../cppstd17/lib/line.hpp"
+#include "../cppstd17/lib/circle.hpp"
+#include "../cppstd17/lib/rectangle.hpp"
 
 using GeoObj = std::variant<Line, Circle, Rectangle>;
 // create and initialize a collection of geometric objects:
@@ -2579,8 +2579,8 @@ void DemoPointersL3Matrix()
     cout << "mat1[2][5]=" << mat1[2][5] << endl;
     cout << mat1 << endl;
 
-    mat3 = mat1 * mat2;
-    cout << mat3 << endl;
+    //mat3 = mat1 * mat2;
+    //cout << mat3 << endl;
 }
 
 float fx()
