@@ -19,8 +19,8 @@
 #include "doublelinkedlist.h"
 #include "types.h"
 #include "recorrer.h"
-#include "../../cppstd17/tmpl/foldtraverse.hpp"
-#include "../../cppstd17/tmpl/ishomogeneous.hpp"
+#include "../cppstd17/tmpl/foldtraverse.hpp"
+#include "../cppstd17/tmpl/ishomogeneous.hpp"
 
 using namespace std;
 
@@ -880,7 +880,7 @@ void DemoConvert()
 }
 
 // From "../../cppstd17/lib/incomplete.cpp"
-#include "../../cppstd17/lib/incomplete.hpp"
+#include "../cppstd17/lib/incomplete.hpp"
 void DemoIncomplete()
 {
     // create node tree:
@@ -954,10 +954,10 @@ void DemoMapNodeMove()
 }
 
 // From ../../cppstd17/lib/varioantpoly1.cpp
-#include "../../cppstd17/lib/coord.hpp"
-#include "../../cppstd17/lib/line.hpp"
-#include "../../cppstd17/lib/circle.hpp"
-#include "../../cppstd17/lib/rectangle.hpp"
+#include "../cppstd17/lib/coord.hpp"
+#include "../cppstd17/lib/line.hpp"
+#include "../cppstd17/lib/circle.hpp"
+#include "../cppstd17/lib/rectangle.hpp"
 
 using GeoObj = std::variant<Line, Circle, Rectangle>;
 // create and initialize a collection of geometric objects:
@@ -1502,6 +1502,11 @@ std::size_t len (...)
 {   return 0;
 }
 
+/**
+ * @brief Función en la que se muestra como trabaja la función propia "len",
+ * la cual recibe como argumento un objeto que tiene la propiedad "size", y devuelve el valor de dicha
+ * propiedad. Si la variable no tiene dicha propiedad, devuelve el valor de "0".
+ */
 void DemoLen()
 {
     vector<int> v1{0, 8, 15, 42, 13, -1, 0};
@@ -1513,6 +1518,7 @@ void DemoLen()
     cout << "v2 -> " << len(v2) << " elements\n";
     cout << "v3 -> " << len(v3) << " elements\n";
     cout << "v4 -> " << len(v4) << " elements\n";
+    //cout << "v4.size(): "<< v4.size();
 }
 
 // From tmpl/basics/max3val.cpp
@@ -1811,28 +1817,36 @@ class myclass
   bool operator() (int i,int j) { return (i<j);}
 };
 
+/**
+ * @brief Función que muestra las distintas formas de ordena un vector
+ * haciendo uso de la función "sort".
+ * 
+ **/
 void DemoSort1()
 {
-    vector<int> v1 {70, 50,    80, 90, 60, 30, 10,    40, 50, 40, 60, 70, 20, 50};
-    print(v1);
+    //vector<int> v1 {70, 50,    80, 90, 60, 30, 10,    40, 50, 40, 60, 70, 20, 50};
+    vector<int> v1 {19, 92, 18, 83, 17, 74, 16, 65, 15, 56, 14, 47, 13, 38};
+    //https://en.cppreference.com/w/cpp/container/vector
+    cout << "V1 (Original): \n"; print(v1);
     vector<int> v2(v1), v3(v1), v4(v1), v5(v1), v6(v1), v7(v1);
-    sort(v2.begin()+2, v2.begin()+7);
-    print(v2);
 
+    sort(v2.begin()+2, v2.begin()+7);
+    cout << "V2 (Ordenado desde el indice 2 al 7): \n"; print(v2);
+    
     sort(v3.begin(), v3.end());
-    print(v3);
+    cout << "V3 (Ordenado por completo): \n"; print(v3);
 
     sort(v4.begin(), v4.end(), less<int>()); // less<int> by default
-    print(v4);
+    cout << "V4 (Ordenado de menor a mayor (por defecto)): \n"; print(v4);
 
     sort(v5.begin(), v5.end(), greater<int>());
-    print(v5);
+    cout << "V5 (Ordenado de mayor a menor): \n"; print(v5);
 
-    sort(v6.begin(), v6.end(), [](int a, int b){return a<b;} );
-    print(v6);
+    sort(v6.begin(), v6.end(), [](int a, int b){return a>b;} );
+    cout << "V6 (Ordenado de mayor a menor usando funci\242n a>b): \n"; print(v6);
 
     sort(v7.begin(), v7.end(), myclass());
-    print(v7);
+    cout << "V7 (Ordenado de mayor a menor usando una clase propia): \n"; print(v7);
 }
 
 bool compare(pair<int, int> a, pair<int, int> b)
@@ -1842,20 +1856,44 @@ bool compare(pair<int, int> a, pair<int, int> b)
     return a.first  > b.first;    // luego de > a < por el 1ro
 }
 
+/**
+ * @brief Función en la que se muestra la forma en que "sort" puede ordenar el tipo "pair" con la función definida
+ * propia "compare", la cual compara dos variables de tipo "pair", retornando la variable que tenga la menor segunda componente
+ * o, si tiene la segunda compontente igual, retorna la variable que tiene la mayor primera componente.
+ * 
+ */
 void DemoSort2()
 {
-    pair<int, int> pairs[] = {{1, 2}, {2, 1}, {7, 1}, {5, 3}, {4,1}, {3, 1}};
-    sort(pairs, pairs+6, compare);
+    pair<int, int> pairs[] = {{1, 2}, {2, 1}, {7, 1}, {10, 1}, {5, 3}, {4,1}, {3, 2}, {4, 2}, {3, 1}, {4, 3}};
+    //sort(pairs, pairs+6, compare);
+    
+    sort(pairs, pairs+len(pairs));
+    cout << "Orden predeterminado: " << endl;
+    for(auto p:pairs)
+        cout << p.first << ", " << p.second << endl;
+
+    sort(pairs, pairs+len(pairs), compare);
+    cout << "\nOrden con \"compare\" : " << endl;
     for(auto p:pairs)
         cout << p.first << ", " << p.second << endl;
     // print(pair)
 }
 
+/**
+ * @brief Funcion en la que dado un vector cualquiera, muestra todas las permutaciones previas
+ * siguiendo el orden lexicográfico del vector ordenado.
+ * 
+ */
 void DemoPermutation()
 {
-    vector<int> v1 {70, 50, 80, 90, 60};
+    //vector<int> v1 {70, 50, 80, 90, 60, 40};
+    //vector<int> v1 {70, 50, 80, 90, 60};
+    vector<int> v1 {70, 50, 80, 9};
+    vector<int> v2(v1);
     // sort(v1.begin(), v1.end());
-    print(v1);
+    
+    cout << "\nVector original: "; print(v1);
+    cout << "Permutaciones Previas:" << endl;
     int x = 1;
     do
     {
@@ -1864,6 +1902,18 @@ void DemoPermutation()
         x++;
     }//while(next_permutation(v1.begin(), v1.end()));
     while(prev_permutation(v1.begin(), v1.end()));
+
+    sort(v2.begin(), v2.end(), greater());
+    cout << "\nVector ordenado: "; print(v2);
+    cout << "Permutaciones Totales:" << endl;
+    x = 1;
+    do
+    {
+        cout << setw(3) << left << x << ": "; 
+        print(v2);
+        x++;
+    }//while(next_permutation(v1.begin(), v1.end()));
+    while(prev_permutation(v2.begin(), v2.end()));
 }
 
 template<typename Iter>
@@ -2567,7 +2617,7 @@ void DemoPointersL2VectorX()
 #include "matrix.h"
 void DemoPointersL3Matrix()
 {
-    CMatrix<float> mat1(3, 7, 2), mat2(7, 5, 1), mat3;
+    CMatrix<float> mat1(3, 7, 2), mat2(7, 5, 1), mat3, mat4(2,3,1), mat5(2,3,2), mat6;
     
     //cout << "before ... "; mat1.help(2, 5);
     mat1(2, 5) = 467.6;
@@ -2578,9 +2628,23 @@ void DemoPointersL3Matrix()
     mat1["Miguel"][2]= 123;
     cout << "mat1[2][5]=" << mat1[2][5] << endl;
     cout << mat1 << endl;
+    cout << "Matriz 2:" << endl;
+    cout << mat2 << endl;
 
     mat3 = mat1 * mat2;
+    //mat1 * mat2;
+    cout << "Matriz 3 (Producto):" << endl;
     cout << mat3 << endl;
+    
+    cout << "Matriz 4:" << endl;
+    cout << mat4 << endl;
+
+    cout << "Matriz 5:" << endl;
+    cout << mat5 << endl;
+
+    mat6 = mat4 + mat5;
+    cout << "Matriz 6 (Suma):" << endl;
+    cout << mat6 << endl;
 }
 
 float fx()

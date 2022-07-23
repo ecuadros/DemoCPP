@@ -15,7 +15,7 @@ public:
     {
         create(rows, cols, val);
     }
-    CMatrix(CMatrix<T> &&other)
+    CMatrix(CMatrix<T> &other)
     {
         m_pMat = move(other.m_pMat);
         other.m_rows = other.m_cols = 0;
@@ -72,11 +72,15 @@ public:
         // cout << &m_pMat[row][col] << endl;
         return m_pMat[row][col];
     }
+    size_t GetRows()
+    {   return m_rows;   }
+    size_t GetCols()
+    {   return m_cols;   }
     CMatrix<T> operator*(CMatrix<T> &other)
     {
-        assert(); // Validar dimensiones
         CMatrix<T> rpta(GetRows(), other.GetCols(), 0);
         CMatrix<T> &me = *this;
+        assert(me.GetCols() == other.GetRows()); // Validar dimensiones
         for(auto row = 0; row < GetRows(); ++row)
         {   for(auto col = 0; col < other.GetCols(); ++col)
             {   rpta[row][col] = 0 ;
@@ -84,6 +88,17 @@ public:
                     rpta[row][col] +=  me[row][i] * other[i][col];
             }
         }
+        //cout << rpta;
+        return rpta;
+    }
+    CMatrix<T> operator+(CMatrix<T> &other)
+    {
+        CMatrix<T> rpta(GetRows(), GetCols(), 0);
+        CMatrix<T> &me = *this;
+        assert(me.GetRows() == other.GetRows() && me.GetCols() == other.GetCols());
+        for (auto row = 0; row < GetRows(); ++row)
+            for (auto col = 0; col < GetCols(); ++col)
+                rpta[row][col] = me[row][col] + other[row][col];
         return rpta;
     }
     void help(size_t row, size_t col)
