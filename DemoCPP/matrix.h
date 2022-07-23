@@ -85,7 +85,7 @@ public:
 
     CMatrix<T> operator*(CMatrix<T> &other)
     {
-        assert( GetCols() == other.GetRows() ); // Validar dimensiones
+        assert(GetCols() == other.GetRows()); // Validar dimensiones
         CMatrix<T> rpta(GetRows(), other.GetCols(), 0);
         CMatrix<T> &me = *this;
         for(auto row = 0; row < GetRows(); ++row)
@@ -113,6 +113,14 @@ public:
         } 
         os << endl;   
         return os;
+    }
+    size_t GetRows()
+    {
+        return m_rows;
+    }
+    size_t GetCols()
+    {
+        return m_cols;
     }
 };
 
