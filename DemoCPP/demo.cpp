@@ -2653,7 +2653,7 @@ void DemoPointersL2VectorX()
 #include "matrix.h"
 void DemoPointersL3Matrix()
 {
-    CMatrix<float> mat1(3, 7, 2), mat2(7, 5, 1), mat3;
+    CMatrix<float> mat1(3, 7, 2), mat2(7, 5, 1);
     
     //cout << "before ... "; mat1.help(2, 5);
     mat1(2, 5) = 467.6;
@@ -2665,8 +2665,10 @@ void DemoPointersL3Matrix()
     cout << "mat1[2][5]=" << mat1[2][5] << endl;
     cout << mat1 << endl;
 
-    mat3 = mat1 * mat2;
+    CMatrix<float> mat3 = mat1 * mat2;
     cout << mat3 << endl;
+    cout << "Rows de mat3: " << mat3.GetRows() << ". Cols de mat3: " << mat3.GetCols() << endl;
+
 }
 
 float fx()
