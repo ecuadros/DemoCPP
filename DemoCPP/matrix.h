@@ -72,6 +72,17 @@ public:
         // cout << &m_pMat[row][col] << endl;
         return m_pMat[row][col];
     }
+    
+    //getters
+    size_t GetRows()
+    {
+        return m_rows;
+    }
+    size_t GetCols()
+    {
+        return m_cols;
+    }
+
     CMatrix<T> operator*(CMatrix<T> &other)
     {
         assert(GetCols() == other.GetRows()); // Validar dimensiones
@@ -86,6 +97,7 @@ public:
         }
         return rpta;
     }
+    
     void help(size_t row, size_t col)
     {
         assert(row < m_rows && col < m_cols);
