@@ -10,7 +10,7 @@ using namespace std;
 
 int main()
 {
-  Exe("DemoBasics",  DemoBasics); 
+  /*Exe("DemoBasics",  DemoBasics); 
   Exe("CounterTest", CounterTest);
   Exe("DemoInitializer1", DemoInitializer1);
   Exe("DemoInitializer2", DemoInitializer2);
@@ -21,7 +21,9 @@ int main()
   Exe("DemoMultipleParams", DemoMultipleParams);
   Exe("DemoTupleOverload", DemoTupleOverload);
   Exe("DemoVariadicOverload", DemoVariadicOverload);
+  
   Exe("demoVariadic", demoVariadic);
+  
   Exe("DemoFoldedFunctions", DemoFoldedFunctions);
   Exe("DemoHomogeneous", DemoHomogeneous);
   Exe("DemoInvoke", DemoInvoke);
@@ -39,22 +41,27 @@ int main()
   Exe("DemoCheckPath3", DemoCheckPath3);
   Exe("DemoCreateFile", DemoCreateFile);
 
-  //  Exe("DemoTimeAsString", DemoTimeAsString);
+  Exe("DemoTimeAsString", DemoTimeAsString);
   Exe("DemoSymlink", DemoSymlink);
   Exe("DemoConvert", DemoConvert);
   Exe("DemoIncomplete", DemoIncomplete);
-
+  
   Exe("DemoMapHandle", DemoMapHandle);
+  
   Exe("DemoMapNodeMerge", DemoMapNodeMerge);
   Exe("DemoMapNodeMove", DemoMapNodeMove);
-
+  
   Exe("DemoVariantPoly1", DemoVariantPoly1);
+  
   Exe("DemoVariantPoly2", DemoVariantPoly2);
+  
   Exe("DemoVariantPoly3", DemoVariantPoly3);
+  
   Exe("DemoVariantPoly4", DemoVariantPoly4);
   Exe("DemoMutex", DemoMutex);
 
   cout << "\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" << endl;
+    
   Exe("DemoAngleBracketHack", DemoAngleBracketHack);
   Exe("DemoMakeUnique", DemoMakeUnique);
   Exe("DemoTestArray", DemoTestArray);
@@ -90,6 +97,7 @@ int main()
   Exe("DemoPointers Level1", DemoPointersL1);
   Exe("DemoPointersL2Vectors", DemoPointersL2Vectors);
   Exe("DemoPointersL2VectorX", DemoPointersL2VectorX);
+  */
   Exe("DemoPointersL3Matrix", DemoPointersL3Matrix);
   
   //exit(0);
