@@ -1317,7 +1317,7 @@ void printT(T arg)
 }
 
 /**
- * @brief 
+ * @brief  built array test by class MyClass structure
  */ 
 void DemoTestArray()
 {
@@ -1342,7 +1342,7 @@ void tmplParamIsReference(T)
 }
 
 /**
- * @brief 
+ * @brief boolean for test of template type
  */ 
 void DemoTemplateParamTypes()
 {
@@ -1393,7 +1393,7 @@ class FuncObj
 };
 
 /**
- * @brief 
+ * @brief function calling pointers for walk through the list
  */ 
 void DemoForeach()
 {
