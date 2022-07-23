@@ -191,6 +191,11 @@ void DemoInitializer3()
 #include <iostream>       // std::cout
 #include <typeinfo>       // operator typeid
 
+/**
+ *  Función que muestra el tipo de un objeto en tiempo de ejecución de algunas variables
+ *  usando la función typeid()
+ *
+ */
 void DemoTypeId()
 {
     int i;
@@ -204,7 +209,9 @@ void DemoTypeId()
 #include <iostream>
 #include <type_traits>
 #include <typeinfo>
- 
+/**
+ * @brief Función que muestra el uso de de la función std::conditional
+ */
 void DemoConditional()
 {
     typedef std::conditional<true, int, double>::type Type1;
@@ -216,15 +223,24 @@ void DemoConditional()
     std::cout << type_name<Type3>() << '\n';
 }
 
+/**
+ * Función que retorna una tupla
+ * @return tuple
+ */
 auto foo()
 {
-    struct retVals        // Declare a local structure 
+    struct retVals        // Declare a local structure
     { int i1, i2;
       string str;
     };
-    return make_tuple(10, 20, "Hi", 5.4, 8.2); // Return the 
+    return make_tuple(10, 20, "Hi", 5.4, 8.2); // Return the
 }
 
+/**
+ * @brief Muestra el manejo de una función que devuelve múlitples valores
+ *
+ * @see foo()
+ */
 void DemoMultipleParams()
 {
     auto [v1, v2, v3, v4, v5] = foo(); // structured binding declaration
@@ -232,29 +248,67 @@ void DemoMultipleParams()
 }
 
 // From tmplbook/details/tupleoverload.cpp
+/**
+ * Clase Tuple que usa template Ts
+ * @tparam Ts
+ */
 template<typename ... Ts>
 class Tuple
 {
 };
 
+/**
+ * Sobrecarga de la función f que recibe como parámetro la clase Tupla
+ * que a su vez tiene un solo parámetro, un puntero
+ *
+ * @tparam T
+ * @return std::string
+ *
+ * @see Tuple(), f(Tuple<Ts*...>), f(Tuple<Ts...>)
+ */
 template<typename T>
 std::string f(Tuple<T*>)
 {
     return "f(Tuple<T*>)";
 }
 
+/**
+ * Sobrecarga de la función f que recibe como parámetro la clase Tupla
+ * que a su vez contiene uno o más parámetros por valor
+ *
+ * @tparam Ts
+ * @return std::string
+ *
+ * @see Tuple(), f(Tuple<Ts*...>), f(Tuple<T*>)
+ */
 template<typename... Ts>
 std::string f(Tuple<Ts...>)
 {
     return "f(Tuple<Ts...>)";
 }
 
+/**
+ * Sobrecarga de la función f que recibe como parámetro la clase Tupla
+ * que a su vez contiene uno o más parámetros que son punteros
+ *
+ * @tparam Ts
+ * @return std::string
+ *
+ * * @see Tuple(), f(Tuple<Ts...>), f(Tuple<T*>)
+ */
 template<typename... Ts>
 std::string f(Tuple<Ts*...>)
 {
     return "f(Tuple<Ts*...>)";
 }
 
+/**
+ * @brief Desarrolla el uso de las funciones sobrecargadas de f que reciben como parámetro
+ * Tuplas definidas con diferentes templates.
+ *
+ * @see Tuple(), f(Tuple<Ts*...>), f(Tuple<Ts...>), f(Tuple<T*>)
+ *
+ */
 void DemoTupleOverload()
 {
     std::cout << "f(Tuple<int, double>())   -> " << f(Tuple<int, double>())    << endl;  // calls f<>(Tuple<Ts...>)
@@ -263,18 +317,50 @@ void DemoTupleOverload()
 }
 
 // From tmplbook/details/variadicoverload.cpp
+/**
+ * Sobrecarga de la función fw que recibe un puntero como parámetro
+ *
+ * @tparam T
+ * @return std::string
+ *
+ * @see fw(Ts*...), fw(Ts...)
+ */
 template<typename T>
 std::string fw(T *)
 { return "f<>(T *)";       }
 
+/**
+ * Sobrecarga de la función fw que recibe uno o más parámetros por valor
+ *
+ * @tparam Ts
+ * @param ...
+ * @return std::string
+ *
+ * @see fw(Ts*...), fw(T *)
+ */
 template<typename... Ts>
 std::string fw(Ts...)
 {  return "f<>(Ts ...)";   }
 
+/**
+ * Sobrecarga de la función fw que recibe uno o más punteros usando template variádico
+ *
+ * @tparam Ts
+ * @param ...
+ * @return std::string
+ *
+ * @see fw(Ts...), fw(T *)
+ */
 template<typename... Ts>
 std::string fw(Ts*...)
 {  return "f<>(Ts *...)";  }
 
+/**
+ * Función que hace uso de las diferentes sobrecargas de la función fw
+ * que contienen diferentes templates variádicos
+ *
+ * @see fw(Ts*...), fw(Ts...), fw(T *)
+ */
 void DemoVariadicOverload()
 {
   std::cout << "fw(0, 0.0)                          -> " 
