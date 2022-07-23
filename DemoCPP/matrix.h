@@ -91,6 +91,16 @@ public:
         //cout << rpta;
         return rpta;
     }
+    CMatrix<T> operator+(CMatrix<T> &other)
+    {
+        CMatrix<T> rpta(GetRows(), GetCols(), 0);
+        CMatrix<T> &me = *this;
+        assert(me.GetRows() == other.GetRows() && me.GetCols() == other.GetCols());
+        for (auto row = 0; row < GetRows(); ++row)
+            for (auto col = 0; col < GetCols(); ++col)
+                rpta[row][col] = me[row][col] + other[row][col];
+        return rpta;
+    }
     void help(size_t row, size_t col)
     {
         assert(row < m_rows && col < m_cols);
