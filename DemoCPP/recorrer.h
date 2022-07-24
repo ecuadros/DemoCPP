@@ -4,7 +4,7 @@
 using namespace std;
 
 template <typename T>
-void fx(TX &x)
+void fx(T &x)
 {  cout << x << "  "; }
 
 template <typename T>
@@ -33,16 +33,17 @@ void recorrer_inverso(Container &container, F ope)
 { recorrer(container.rbegin(), container.rend(), ope);
 }
 
-template <typename Container, typename T>
-void recorrer(Container<T> &container)
+template <typename Container>
+void recorrer(Container &container)
 {
+    using T = Container::T;
     recorrer(container, fx<T>);  cout << endl; // recorre imprimiendo
     recorrer(container, inc<T>);  // recorre incrementando
     recorrer(container, fx<T>);  cout << endl; // recorre imprimiendo
 
     // funciones lambda
     recorrer(container, [](T &n){ n-= 5;}); cout << endl; // -5 a todos
-    recorrer(container, fx<TX>);  cout << endl; // recorre imprimiendo
+    recorrer(container, fx<T>);  cout << endl; // recorre imprimiendo
     
     OperacionEspecial<T> ope; 
     recorrer(container, ope);  
