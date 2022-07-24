@@ -1741,8 +1741,8 @@ void demoLinkedList(Container &mylist)
     cout << "Lista en orden: ";
     //for(size_t pos = 0; pos < mylist.size(); pos++)
     //    cout << mylist[pos] << endl;
-    
-    recorrer(mylist, fx<typename Container::T>);  cout << endl;
+    using T = typename Container::value_type;
+    recorrer(mylist, fx<T>);  cout << endl;
 }
 
 void demoLinkedListSorted()
@@ -1770,10 +1770,11 @@ void demoDoubleLinkedList(Container &mylist)
     }
     cout << endl;
     cout << "Lista en orden : ";
-    recorrer(mylist, fx<typename Container::T>);  cout << endl;
+    using T = typename Container::value_type;
+    recorrer(mylist, fx<T>);  cout << endl;
     
     cout << "Lista invertida: ";
-    recorrer_inverso(mylist, fx<typename Container::T>);  cout << endl;
+    recorrer_inverso(mylist, fx<T>);  cout << endl;
 }
 
 void demoDoubleLinkedListSorted()
@@ -2709,18 +2710,7 @@ void imprime(T &x)
 void DemoVectorSTL()
 {
     vector<TX> vals{0, 5, 10, 15, 20, 30, 40};
-    recorrer(vals, imprime<TX>);  cout << endl; // recorre imprimiendo
-    /*recorrer(vals, inc);  // recorre incrementando
-    recorrer(vals, imprime);  cout << endl; // recorre imprimiendo
-
-    // funciones lambda
-    recorrer(vals, [](TX &n){ n-= 5;}); cout << endl; // -5 a todos
-    recorrer(vals, imprime);  cout << endl; // recorre imprimiendo
-    
-    OperacionEspecial<TX> ope; 
-    recorrer(vals, ope);  
-    recorrer(vals, imprime);  cout << endl;*/
-    exit(0);
+    recorrer(vals);
 }
 
 #include "matrix.h"

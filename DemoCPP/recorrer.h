@@ -36,7 +36,7 @@ void recorrer_inverso(Container &container, F ope)
 template <typename Container>
 void recorrer(Container &container)
 {
-    using T = Container::T;
+    using T = typename Container::value_type;
     recorrer(container, fx<T>);  cout << endl; // recorre imprimiendo
     recorrer(container, inc<T>);  // recorre incrementando
     recorrer(container, fx<T>);  cout << endl; // recorre imprimiendo
