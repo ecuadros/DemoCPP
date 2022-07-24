@@ -62,7 +62,7 @@ void DemoCallBacks();
 void DemoCheckPath3();
 
 void DemoCreateFile();
-void DemoTimeAsString();
+//void DemoTimeAsString();
 void DemoSymlink();
 
 void DemoConvert();
@@ -146,7 +146,10 @@ void DemoAmpersand();
 void DemoPointersL1();
 void DemoPointersL2Vectors();
 void DemoPointersL2VectorX();
+void DemoVectorSTL();
+
 void DemoPointersL3Matrix();
-void DemoPointerstoFn();
+void DemoPointerstoFn1();
+void DemoPointerstoFn2();
 
 #endif

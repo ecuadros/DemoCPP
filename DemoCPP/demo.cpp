@@ -1728,8 +1728,8 @@ void DemoBitset()
     //bs3.
 }
 
-template <typename LinkedList>
-void demoLinkedList(LinkedList &mylist)
+template <typename Container>
+void demoLinkedList(Container &mylist)
 {
     cout << "Inserting:       ";
     for(auto x=0; x<nElem; x++)
@@ -1742,7 +1742,7 @@ void demoLinkedList(LinkedList &mylist)
     //for(size_t pos = 0; pos < mylist.size(); pos++)
     //    cout << mylist[pos] << endl;
     
-    recorrer(mylist, fx);  cout << endl;
+    recorrer(mylist, fx<typename Container::T>);  cout << endl;
 }
 
 void demoLinkedListSorted()
@@ -1758,8 +1758,8 @@ void demoLinkedListSorted()
     recorrer(myDescList);
 }
 
-template <typename DoubleList>
-void demoDoubleLinkedList(DoubleList &mylist)
+template <typename Container>
+void demoDoubleLinkedList(Container &mylist)
 {
     cout << "Inserting:       ";
     for(auto x=0; x<nElem; x++)
@@ -1770,10 +1770,10 @@ void demoDoubleLinkedList(DoubleList &mylist)
     }
     cout << endl;
     cout << "Lista en orden : ";
-    recorrer(mylist, fx);  cout << endl;
+    recorrer(mylist, fx<typename Container::T>);  cout << endl;
     
     cout << "Lista invertida: ";
-    recorrer_inverso(mylist, fx);  cout << endl;
+    recorrer_inverso(mylist, fx<typename Container::T>);  cout << endl;
 }
 
 void demoDoubleLinkedListSorted()
@@ -2654,20 +2654,34 @@ int input(string str)
     return n;
 }
 
+void ProcessVector(int *pv, size_t n)
+{
+    for(auto i = 0 ; i < n ; ++i )
+        cout << pv[i] << " ";
+    cout << endl;
+}
+
 void DemoPointersL2Vectors()
 {
-    int ve[10], n;
-    n = 5; //input("Ingrese tamaño del vector: ");
-    int *pvd = new int[n];
+    using T = int;
+    const size_t size = 10;
+    T ve[size] = {5, 6, 7, 2,1,8, 15, 11, 4, 86};
+    T *pv = nullptr;
+    pv = ve; // captura la direccion del inicio del vector.
+             // tambien significa ov = &ve[0];
+    ProcessVector(pv, size);
+    
+    size_t n = 5; //input("Ingrese tamaño del vector: ");
+    T *pvd = new T[n];
     for(auto i=0; i < n ; ++i )
     {
         pvd[i]      = i*i;
         *(pvd + i)  = i*i;
-        int *pt = pvd + i;
+        T *pt = pvd + i;
         cout << "pvd+" << i << "=" <<pvd+i<< " val=" << pvd[i] << ", " << *(pvd + i) 
              << " &pvd[" << i << "]=" << &pvd[i] << "(" << pvd+i << ")" << endl;
     }
-    int *px = nullptr;
+    T *px = nullptr;
     px = pvd+5;
     px[-3] = 8;     // *(px-3) = 8;
     delete [] pvd;
@@ -2686,6 +2700,27 @@ void DemoPointersL2VectorX()
     ofstream file("Enzo.txt");
     file << "Inicio del archivo" <<endl;
     vi.print(file);
+}
+
+template <typename T>
+void imprime(T &x)
+{  cout << x << "  "; }
+
+void DemoVectorSTL()
+{
+    vector<TX> vals{0, 5, 10, 15, 20, 30, 40};
+    recorrer(vals, imprime<TX>);  cout << endl; // recorre imprimiendo
+    /*recorrer(vals, inc);  // recorre incrementando
+    recorrer(vals, imprime);  cout << endl; // recorre imprimiendo
+
+    // funciones lambda
+    recorrer(vals, [](TX &n){ n-= 5;}); cout << endl; // -5 a todos
+    recorrer(vals, imprime);  cout << endl; // recorre imprimiendo
+    
+    OperacionEspecial<TX> ope; 
+    recorrer(vals, ope);  
+    recorrer(vals, imprime);  cout << endl;*/
+    exit(0);
 }
 
 #include "matrix.h"
@@ -2707,20 +2742,53 @@ void DemoPointersL3Matrix()
     CMatrix<float> mat3 = mat1 * mat2;
     cout << mat3 << endl;
     cout << "Rows de mat3: " << mat3.GetRows() << ". Cols de mat3: " << mat3.GetCols() << endl;
-
 }
 
-
-float fx()
-{   return 10.5;    }
+string fx()
+{   //cout << "fx" << endl;   
+    return "fx";    
+}
+string fy()
+{   //cout << "fy" << endl;   
+    return "fy";
+}
+string fz()
+{   //cout << "fz" << endl;   
+    return "fz";
+}
 
 /**
  * @brief 
  * 
  */
-void DemoPointerstoFn()
+void DemoPointerstoFn1()
 {
-float (*pf[5])() = {&fx};
-    pf[3] = &fx;
-    float rpta = (*pf[3])();
+string (*apf[4])() = {&fx, &fy, &fz};
+    apf[3] = &fx;
+
+    string rpta = (*apf[3])();
+    cout << "rpta: " << rpta << endl;
+    
+    string (*pf1)() = &fy;
+    rpta = (*pf1)(); // Forma antigua
+    cout << "rpta: " << rpta << endl;
+    rpta = pf1();
+    cout << "rpta: " << rpta << endl;
+
+    auto pf2 = &fz;
+    rpta = pf2();
+    cout << "rpta: " << rpta << endl;
+
+    for(auto pf: apf)
+    {   cout << pf() << endl;    }
 }
+
+void DemoPointerstoFn2()
+{
+    // Simplificando los tipos
+    using T1 = string (*)();
+    T1 apf[4] = {fx, fy, fz, fx};
+    for(auto pf: apf)
+    {   cout << pf() << endl;    }
+}
+
