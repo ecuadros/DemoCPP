@@ -114,14 +114,6 @@ public:
         os << endl;   
         return os;
     }
-    size_t GetRows()
-    {
-        return m_rows;
-    }
-    size_t GetCols()
-    {
-        return m_cols;
-    }
 };
 
 template <typename T>
