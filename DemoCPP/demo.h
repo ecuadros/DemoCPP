@@ -68,8 +68,32 @@ void DemoSymlink();
 void DemoConvert();
 void DemoIncomplete();
 
+/**
+ * @brief Función que muestra un ejemplo de como crear un map entre un int y un string,
+ * donde el primer elemente es la key y el segundo el value,
+ * alterar el valor de un campo del map obteniendolo a traves del primer campo
+ * y como moverlo ese valor hacia el final de la variable map.
+ * Ejemplo:
+ * @code map<int, string> m_map {{1, "uno"}, {2, "dos"}};
+ */
 void DemoMapHandle();
+
+/**
+ * @brief Función que muestra un ejemplo de merge entre un multimap y un map.
+ * Multimap a diferencia de map, admite keys duplicados. En el ejemplo de merge solo
+ * se copian a la variable destino los elementos que no estan repetidos, si es que
+ * se trata de un map. En caso de los multimap, por su propia definicion, se copiarian
+ * todos los elementos del origen al destino, sin excepcion.
+ * Ejemplo:
+ * @code multimap<int, string> m_multimap {{1, "uno"}, {1, "one"}};
+ */
 void DemoMapNodeMerge();
+
+/**
+ * @brief Función que muestra un ejemplo de dos formas como extraer un valor de un map
+ * a traves de un iterador y con la llave. En la funcion de ejemplo, estos valores obtenidos,
+ * se extraeran de su origen y se insertaran al map destino
+ */
 void DemoMapNodeMove();
 
 
@@ -126,6 +150,12 @@ void DemoBitset();
 void demoLinkedListSorted();
 void demoDoubleLinkedListSorted();
 void DemoDSMap();
+
+/**
+ * @brief Función que muestra un ejemplo de dos tipos de stack que se pueden crear,
+ * uno de ints y otro de floats, tambien se muestra la insercion de elementos, 
+ * el valor obtenido mediante top() y tambien como eliminar ese valor mediante pop()
+ */
 void DemoStack();
 void DemoMultiset();
 
