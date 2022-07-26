@@ -131,7 +131,7 @@ class LinkedList
         return &rpPrev; // Retorna la direccion del puntero que me apunta
       return findPrev((Node *&)rpPrev->getpNextRef(), elem);
     }
-    virtual Node *CreateNode(value_type &data, Node *pNext=nullptr){ return new Node(data, pNext); }
+    Node *CreateNode(value_type &data, Node *pNext=nullptr){ return new Node(data, pNext); }
     Node **insert_forward(value_type &elem)
     {
         Node **pParent = findPrev(elem);

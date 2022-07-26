@@ -102,6 +102,10 @@ int main()
   Exe("DemoPointersL3Matrix", DemoPointersL3Matrix);
   Exe("DemoPointerstoFn1", DemoPointerstoFn1);
   Exe("DemoPointerstoFn2", DemoPointerstoFn2);
+  Exe("DemoPointerstoFn3", DemoPointerstoFn3);
+  Exe("DemoPointersToStruct", DemoPointersToStruct);
+  Exe("DemoPointersToMembers1", DemoPointersToMembers1);
+  Exe("DemoPointersToMembers2", DemoPointersToMembers2);
   return 0;
 }
 

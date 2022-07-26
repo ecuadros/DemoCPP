@@ -151,5 +151,9 @@ void DemoVectorSTL();
 void DemoPointersL3Matrix();
 void DemoPointerstoFn1();
 void DemoPointerstoFn2();
+void DemoPointerstoFn3();
+void DemoPointersToStruct();
+void DemoPointersToMembers1();
+void DemoPointersToMembers2();
 
 #endif

@@ -758,6 +758,10 @@ class CountCalls
     auto count() const {  return calls; }
 };
 
+void TestFn(int x, float f, string str)
+{
+    cout << "x =" << x << " f=" << f << " str: " << str << endl;
+}
 void DemoCallBacks()
 {
     vector<int> vals{0, 8, 15, 42, 13, -1, 0};
@@ -765,6 +769,8 @@ void DemoCallBacks()
     cb(vals);
     cb(vals);
     cout << "CountCalls=" << cb.count() << endl;
+    CountCalls cc(TestFn);
+    cc(5, 8.3, "20");
 }
 
 // From filesystem/checkpath3.cpp
@@ -2466,12 +2472,12 @@ void DemoInnerProduct()
  
 void DemoUniquePtr()
 {
-    std::cout << "unique_ptr : " << std::endl;
-    std::unique_ptr<int> valuePtr(new int(15));
-    std::unique_ptr<int> valuePtrNow(std::move(valuePtr));
+    cout << "unique_ptr : " << std::endl;
+    unique_ptr<int> valuePtr(new int(15));
+    unique_ptr<int> valuePtrNow(std::move(valuePtr));
  
-    std::cout << "valuePtrNow = " << *valuePtrNow << '\n';
-    std::cout << "Has valuePtr an associated object? "
+    cout << "valuePtrNow = " << *valuePtrNow << '\n';
+    cout << "Has valuePtr an associated object? "
               << std::boolalpha
               << static_cast<bool>(valuePtr) << '\n';
 }
@@ -2505,7 +2511,7 @@ void DemoSharedPtr()
     Bar* pBar = new Bar(); //with the Bar object, a new Foo is created and stored
     //reference counter = 1
 
-    std::shared_ptr pFoo = pBar->getFoo(); //a copy of the shared pointer is created
+    shared_ptr pFoo = pBar->getFoo(); //a copy of the shared pointer is created
     //reference counter = 2
 
     pFoo->doSomething(); 
@@ -2734,17 +2740,17 @@ void DemoPointersL3Matrix()
     cout << "Rows de mat3: " << mat3.GetRows() << ". Cols de mat3: " << mat3.GetCols() << endl;
 }
 
-string fx()
+string func1()
 {   //cout << "fx" << endl;   
-    return "fx";    
+    return "func1";    
 }
-string fy()
+string func2()
 {   //cout << "fy" << endl;   
-    return "fy";
+    return "func2";
 }
-string fz()
+string func3()
 {   //cout << "fz" << endl;   
-    return "fz";
+    return "func3";
 }
 
 /**
@@ -2753,19 +2759,19 @@ string fz()
  */
 void DemoPointerstoFn1()
 {
-string (*apf[4])() = {&fx, &fy, &fz};
-    apf[3] = &fx;
+string (*apf[4])() = {&func1, &func2, &func3};
+    apf[3] = &func1;
 
     string rpta = (*apf[3])();
     cout << "rpta: " << rpta << endl;
     
-    string (*pf1)() = &fy;
+    string (*pf1)() = &func2;
     rpta = (*pf1)(); // Forma antigua
     cout << "rpta: " << rpta << endl;
     rpta = pf1();
     cout << "rpta: " << rpta << endl;
 
-    auto pf2 = &fz;
+    auto pf2 = &func3;
     rpta = pf2();
     cout << "rpta: " << rpta << endl;
 
@@ -2773,12 +2779,157 @@ string (*apf[4])() = {&fx, &fy, &fz};
     {   cout << pf() << endl;    }
 }
 
+using Type1 = string (*)();
 void DemoPointerstoFn2()
 {
     // Simplificando los tipos
-    using T1 = string (*)();
-    T1 apf[4] = {fx, fy, fz, fx};
+    Type1 apf[4] = {func1, func2, func3, func1};
     for(auto pf: apf)
     {   cout << pf() << endl;    }
 }
+
+using Type2 = float (*)(float, float);
+float sum(float op1, float op2)     {   return op1+op2; }
+float rest(float op1, float op2)    {   return op1-op2; }
+float mult(float op1, float op2)    {   return op1*op2; }
+float divi(float op1, float op2)    {   return op1/op2; }
+void callFn(int ope, float op1, float op2)
+{
+    // Simplificando los tipos
+    Type2 apf[4] = {&sum, rest, mult, &divi};
+    cout << (*apf[ope])(op1, op2) << endl;
+}
+void DemoPointerstoFn3()
+{
+    float x = 20, y = 5;
+    cout << "Deberia multiplicar:"; callFn(2, x, y); // deberia multiplicar
+    cout << "Deberia sumar      :"; callFn(0, x, y); // deberia sumar
+    //cout << "Deberia dar problemas:"; callFn(50, x, y); // deberia sumar
+}
+
+struct MyS
+{
+    int x = 5, y = 6;
+    float f, g;
+    void method1() { cout << "MyS Hello from " << this << endl; }
+};
+class MyC
+{public:
+    float x = 10.5, y = 12.5;
+    string str;
+    void method1() { cout << "MyC Hello from " << this << endl; }
+};
+
+template <typename T>
+void MyFn1(T &obj)
+{
+    obj.method1(); 
+    // cout << obj.x << endl;
+}
+
+void DemoPointersToStruct()
+{
+    MyS s1, *ps1 = nullptr, *ps2 = nullptr;
+    //MyS &r1 = *new MyS(); // ojo porque deberias detruirlo explicitamente
+    MyS &rs = s1;
+    MyC c1, *pc1 = nullptr, *pc2 = nullptr;
+    cout << "Con struct\n";
+    s1.method1();
+    rs.method1();
+
+    ps1 = new MyS();
+    ps1->method1();
+    
+    ps2 = &s1;
+    ps2->method1();
+    delete ps1; ps1 = nullptr;
+
+    cout << "Con class\n";
+    c1.method1();
+    pc1 = new MyC();
+    pc1->method1();
+    //c1.method1();
+    cout << "Llamando a MyFn\n";
+    MyFn1(s1);
+    MyFn1(rs);
+    // MyFn1(*ps1);
+    MyFn1(c1);
+    MyFn1(*pc1);
+    delete pc1;
+}
+
+class Aritmetica
+{public:
+    float val1 = 20, val2 = 15;
+    void print() {   cout << "val1: " <<val1 << " val2: " << val2 << endl;   }
+
+    float sum(float op1, float op2)     {   return op1+op2; }
+    float rest(float op1, float op2)    {   return op1-op2; }
+    float mult(float op1, float op2)    {   return op1*op2; }
+    float divi(float op1, float op2)    {   return op1/op2; }
+};
+
+void DemoPointersToMembers1()
+{
+    Aritmetica ari;
+    float *pf = &ari.val1;
+    *pf = 50;
+    ari.print();
+    
+    Aritmetica *pAri = nullptr;
+    pAri = new Aritmetica;
+    pf = &pAri->val1;
+    pf = &(*pAri).val1;
+    pf = &pAri[0].val1;
+    *pf = 70;
+    pAri->print();
+    delete pAri;
+}
+
+void FuncionPointertoMembers(Aritmetica *pObj, float (Aritmetica::*pMet)(float, float), float v1, float v2)
+{
+    float res = (pObj->*pMet)(v1, v2);
+    cout << "Res=" << res << endl;
+}
+
+void DemoPointersToMembers2()
+{
+    float val1 = 50;
+    Aritmetica obj;
+    Aritmetica *pObj = nullptr;   pObj = new Aritmetica;
+
+    float Aritmetica::*pAtt = &Aritmetica::val1;
+    obj.*pAtt = 30;
+    obj.print();
+
+    pObj->*pAtt = 40;
+    Aritmetica &rArit = *pObj;   rArit.*pAtt = 40;
+    (*pObj).*pAtt = 40; 
+    pObj->val1 = 40;
+    pObj->print();
+
+    float v1 = 60, v2 = 20, rpta;
+    float (Aritmetica::*pMet)(float, float) = &Aritmetica::sum;
+    // float (Aritmetica::*pMet)(float, float) = nullptr;
+    // pMet = &Aritmetica::sum
+
+    rpta = obj.sum(v1, v2);
+    rpta = (obj.*pMet)(v1, v2);
+
+    rpta = pObj->sum(v1, v2);
+    rpta = (pObj->*pMet)(v1, v2);
+
+    FuncionPointertoMembers(pObj, &Aritmetica::sum, v1, v2);
+    FuncionPointertoMembers(pObj, &Aritmetica::rest, v1, v2);
+    FuncionPointertoMembers(pObj, &Aritmetica::mult, v1, v2);
+    FuncionPointertoMembers(pObj, &Aritmetica::divi, v1, v2);
+    
+}
+
+int val1 = 100;
+void DemoScope()
+{
+
+}
+
 
