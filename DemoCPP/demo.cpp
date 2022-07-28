@@ -19,8 +19,8 @@
 #include "doublelinkedlist.h"
 #include "types.h"
 #include "recorrer.h"
-#include "../../cppstd17/tmpl/foldtraverse.hpp"
-#include "../../cppstd17/tmpl/ishomogeneous.hpp"
+#include "../cppstd17/tmpl/foldtraverse.hpp"
+#include "../cppstd17/tmpl/ishomogeneous.hpp"
 
 using namespace std;
 
@@ -191,6 +191,11 @@ void DemoInitializer3()
 #include <iostream>       // std::cout
 #include <typeinfo>       // operator typeid
 
+/**
+ *  Función que muestra el tipo de un objeto en tiempo de ejecución de algunas variables
+ *  usando la función typeid()
+ *
+ */
 void DemoTypeId()
 {
     int i;
@@ -204,7 +209,9 @@ void DemoTypeId()
 #include <iostream>
 #include <type_traits>
 #include <typeinfo>
- 
+/**
+ * @brief Función que muestra el uso de de la función std::conditional
+ */
 void DemoConditional()
 {
     typedef std::conditional<true, int, double>::type Type1;
@@ -216,15 +223,24 @@ void DemoConditional()
     std::cout << type_name<Type3>() << '\n';
 }
 
+/**
+ * Función que retorna una tupla
+ * @return tuple
+ */
 auto foo()
 {
-    struct retVals        // Declare a local structure 
+    struct retVals        // Declare a local structure
     { int i1, i2;
       string str;
     };
-    return make_tuple(10, 20, "Hi", 5.4, 8.2); // Return the 
+    return make_tuple(10, 20, "Hi", 5.4, 8.2); // Return the
 }
 
+/**
+ * @brief Muestra el manejo de una función que devuelve múlitples valores
+ *
+ * @see foo()
+ */
 void DemoMultipleParams()
 {
     auto [v1, v2, v3, v4, v5] = foo(); // structured binding declaration
@@ -232,29 +248,67 @@ void DemoMultipleParams()
 }
 
 // From tmplbook/details/tupleoverload.cpp
+/**
+ * Clase Tuple que usa template Ts
+ * @tparam Ts
+ */
 template<typename ... Ts>
 class Tuple
 {
 };
 
+/**
+ * Sobrecarga de la función f que recibe como parámetro la clase Tupla
+ * que a su vez tiene un solo parámetro, un puntero
+ *
+ * @tparam T
+ * @return std::string
+ *
+ * @see Tuple(), f(Tuple<Ts*...>), f(Tuple<Ts...>)
+ */
 template<typename T>
 std::string f(Tuple<T*>)
 {
     return "f(Tuple<T*>)";
 }
 
+/**
+ * Sobrecarga de la función f que recibe como parámetro la clase Tupla
+ * que a su vez contiene uno o más parámetros por valor
+ *
+ * @tparam Ts
+ * @return std::string
+ *
+ * @see Tuple(), f(Tuple<Ts*...>), f(Tuple<T*>)
+ */
 template<typename... Ts>
 std::string f(Tuple<Ts...>)
 {
     return "f(Tuple<Ts...>)";
 }
 
+/**
+ * Sobrecarga de la función f que recibe como parámetro la clase Tupla
+ * que a su vez contiene uno o más parámetros que son punteros
+ *
+ * @tparam Ts
+ * @return std::string
+ *
+ * * @see Tuple(), f(Tuple<Ts...>), f(Tuple<T*>)
+ */
 template<typename... Ts>
 std::string f(Tuple<Ts*...>)
 {
     return "f(Tuple<Ts*...>)";
 }
 
+/**
+ * @brief Desarrolla el uso de las funciones sobrecargadas de f que reciben como parámetro
+ * Tuplas definidas con diferentes templates.
+ *
+ * @see Tuple(), f(Tuple<Ts*...>), f(Tuple<Ts...>), f(Tuple<T*>)
+ *
+ */
 void DemoTupleOverload()
 {
     std::cout << "f(Tuple<int, double>())   -> " << f(Tuple<int, double>())    << endl;  // calls f<>(Tuple<Ts...>)
@@ -263,18 +317,50 @@ void DemoTupleOverload()
 }
 
 // From tmplbook/details/variadicoverload.cpp
+/**
+ * Sobrecarga de la función fw que recibe un puntero como parámetro
+ *
+ * @tparam T
+ * @return std::string
+ *
+ * @see fw(Ts*...), fw(Ts...)
+ */
 template<typename T>
 std::string fw(T *)
 { return "f<>(T *)";       }
 
+/**
+ * Sobrecarga de la función fw que recibe uno o más parámetros por valor
+ *
+ * @tparam Ts
+ * @param ...
+ * @return std::string
+ *
+ * @see fw(Ts*...), fw(T *)
+ */
 template<typename... Ts>
 std::string fw(Ts...)
 {  return "f<>(Ts ...)";   }
 
+/**
+ * Sobrecarga de la función fw que recibe uno o más punteros usando template variádico
+ *
+ * @tparam Ts
+ * @param ...
+ * @return std::string
+ *
+ * @see fw(Ts...), fw(T *)
+ */
 template<typename... Ts>
 std::string fw(Ts*...)
 {  return "f<>(Ts *...)";  }
 
+/**
+ * Función que hace uso de las diferentes sobrecargas de la función fw
+ * que contienen diferentes templates variádicos
+ *
+ * @see fw(Ts*...), fw(Ts...), fw(T *)
+ */
 void DemoVariadicOverload()
 {
   std::cout << "fw(0, 0.0)                          -> " 
@@ -672,6 +758,10 @@ class CountCalls
     auto count() const {  return calls; }
 };
 
+void TestFn(int x, float f, string str)
+{
+    cout << "x =" << x << " f=" << f << " str: " << str << endl;
+}
 void DemoCallBacks()
 {
     vector<int> vals{0, 8, 15, 42, 13, -1, 0};
@@ -679,6 +769,8 @@ void DemoCallBacks()
     cb(vals);
     cb(vals);
     cout << "CountCalls=" << cb.count() << endl;
+    CountCalls cc(TestFn);
+    cc(5, 8.3, "20");
 }
 
 // From filesystem/checkpath3.cpp
@@ -880,7 +972,7 @@ void DemoConvert()
 }
 
 // From "../../cppstd17/lib/incomplete.cpp"
-#include "../../cppstd17/lib/incomplete.hpp"
+#include "../cppstd17/lib/incomplete.hpp"
 void DemoIncomplete()
 {
     // create node tree:
@@ -954,10 +1046,10 @@ void DemoMapNodeMove()
 }
 
 // From ../../cppstd17/lib/varioantpoly1.cpp
-#include "../../cppstd17/lib/coord.hpp"
-#include "../../cppstd17/lib/line.hpp"
-#include "../../cppstd17/lib/circle.hpp"
-#include "../../cppstd17/lib/rectangle.hpp"
+#include "../cppstd17/lib/coord.hpp"
+#include "../cppstd17/lib/line.hpp"
+#include "../cppstd17/lib/circle.hpp"
+#include "../cppstd17/lib/rectangle.hpp"
 
 using GeoObj = std::variant<Line, Circle, Rectangle>;
 // create and initialize a collection of geometric objects:
@@ -1519,17 +1611,29 @@ void DemoLen()
 #include <cstring>
 #include <string>
 
+/**
+ * @brief Funcion que retorna el valor máximo entre dos variables de cualquier tipo
+ * @return valor máximo
+ */
 // maximum of two values of any type:
 template<typename T>
 T Max (T a, T b)
 {   return  b < a ? a : b;
 }
 
+/**
+ * @brief Funcion que retorna el máximo entre dos punteros
+ * @return puntero máximo
+ */
 // maximum of two pointers:
 template<typename T>
 T* Max (T* a, T* b)
 {  return  *b < *a  ? a : b;    }
 
+/**
+ * @brief Funcion que retorna el valor máximo entre dos variables de tipo caracter (char)
+ * @return caracter máximo
+ */
 // maximum of two C-strings:
 char const* Max (char const* a, char const* b)
 {   return  std::strcmp(b,a) < 0  ? a : b;    }
@@ -1538,6 +1642,10 @@ template<typename T, typename ... Q>
 auto Max(const T&a, const T&b, const Q& ... args)
 {    return Max(Max(a, b), args...);        }
 
+/**
+ * @title DemoMax
+ * @brief Funcion que obtiene el valor máximo n variables de tipo int, string o puntero
+ */
 void DemoMax()
 {
     int a = 7, b = 42, c = 35, d = 18;
@@ -1626,8 +1734,8 @@ void DemoBitset()
     //bs3.
 }
 
-template <typename LinkedList>
-void demoLinkedList(LinkedList &mylist)
+template <typename Container>
+void demoLinkedList(Container &mylist)
 {
     cout << "Inserting:       ";
     for(auto x=0; x<nElem; x++)
@@ -1639,8 +1747,8 @@ void demoLinkedList(LinkedList &mylist)
     cout << "Lista en orden: ";
     //for(size_t pos = 0; pos < mylist.size(); pos++)
     //    cout << mylist[pos] << endl;
-    
-    recorrer(mylist, fx);  cout << endl;
+    using T = typename Container::value_type;
+    recorrer(mylist, fx<T>);  cout << endl;
 }
 
 void demoLinkedListSorted()
@@ -1656,8 +1764,8 @@ void demoLinkedListSorted()
     recorrer(myDescList);
 }
 
-template <typename DoubleList>
-void demoDoubleLinkedList(DoubleList &mylist)
+template <typename Container>
+void demoDoubleLinkedList(Container &mylist)
 {
     cout << "Inserting:       ";
     for(auto x=0; x<nElem; x++)
@@ -1668,10 +1776,11 @@ void demoDoubleLinkedList(DoubleList &mylist)
     }
     cout << endl;
     cout << "Lista en orden : ";
-    recorrer(mylist, fx);  cout << endl;
+    using T = typename Container::value_type;
+    recorrer(mylist, fx<T>);  cout << endl;
     
     cout << "Lista invertida: ";
-    recorrer_inverso(mylist, fx);  cout << endl;
+    recorrer_inverso(mylist, fx<T>);  cout << endl;
 }
 
 void demoDoubleLinkedListSorted()
@@ -1685,6 +1794,10 @@ void demoDoubleLinkedListSorted()
     demoDoubleLinkedList(myDescList); 
 }
 
+/**
+ * @title DemoDSMap
+ * @brief Funcion que muestra la busqueda en un map a partir del key, e imprime el resultado
+ */
 void DemoDSMap()
 {
     std::map<std::string, double> coll;
@@ -1976,12 +2089,21 @@ void DemoIsBaseOf()
     cout << "same type: " << is_base_of<C, C>::value << '\n';
 }
 
+/**
+ * @brief Estructura MyTrait
+ * @return valor booleano
+ */
 template <typename Base>
 struct MyTrait
 {
     static constexpr bool value = false;
     //void flip() {value = !value; }
 };
+
+/**
+ * @brief Estructura MyTrait<A>
+ * @return valor booleano
+ */
 template <>
 struct MyTrait<A>
 {
@@ -1989,6 +2111,10 @@ struct MyTrait<A>
     //void flip() {value = !value; }
 };
 
+/**
+ * @title DemoBasicTraits1
+ * @brief Funcion que muestra la validación de Traits, cuya funcionalidad es similar a una interfaz
+ */
 template <typename Base>
 inline constexpr bool MyTrait_v = MyTrait<Base>::value;
 void DemoBasicTraits1()
@@ -2308,6 +2434,11 @@ void DemoTraits()
 int myaccumulator (int x, int y) {return x+y;}
 int myproduct (int x, int y) {return x*y;}
 
+/**
+ * @title DemoInnerProduct
+ * @brief Funcion que devuelve el resultado de la acumulación de los productos internos 
+ * a partir de los pares formados por los conjuntos de elementos declarados
+ */
 void DemoInnerProduct()
 {
     std::cout << "inner_product : " << std::endl;
@@ -2341,12 +2472,12 @@ void DemoInnerProduct()
  
 void DemoUniquePtr()
 {
-    std::cout << "unique_ptr : " << std::endl;
-    std::unique_ptr<int> valuePtr(new int(15));
-    std::unique_ptr<int> valuePtrNow(std::move(valuePtr));
+    cout << "unique_ptr : " << std::endl;
+    unique_ptr<int> valuePtr(new int(15));
+    unique_ptr<int> valuePtrNow(std::move(valuePtr));
  
-    std::cout << "valuePtrNow = " << *valuePtrNow << '\n';
-    std::cout << "Has valuePtr an associated object? "
+    cout << "valuePtrNow = " << *valuePtrNow << '\n';
+    cout << "Has valuePtr an associated object? "
               << std::boolalpha
               << static_cast<bool>(valuePtr) << '\n';
 }
@@ -2380,7 +2511,7 @@ void DemoSharedPtr()
     Bar* pBar = new Bar(); //with the Bar object, a new Foo is created and stored
     //reference counter = 1
 
-    std::shared_ptr pFoo = pBar->getFoo(); //a copy of the shared pointer is created
+    shared_ptr pFoo = pBar->getFoo(); //a copy of the shared pointer is created
     //reference counter = 2
 
     pFoo->doSomething(); 
@@ -2445,10 +2576,10 @@ void DemoRegex()
 /**
  * @brief DemoAmpersand()
  * Está función muestra el uso del carácter &
- * (a && b) indica and lógico
- * (a & b) indica and a nivel de bits
- * (int &r = c) indica que r es una variable sobrepuesta con c, si se hace r=5 entonces c=5
- * (px = &x) indica que px apunta a x 
+ * a && b           indica and lógico
+ * a & b            indica and a nivel de bits
+ * int &r = c       indica que r es una variable sobrepuesta con c, si se hace r=5 entonces c=5
+ * px = &x          indica que px apunta a x 
  *  
  */
 void DemoAmpersand()
@@ -2498,12 +2629,12 @@ void printxy(string str)
 {   cout << str << ": x=" << x << ", " << "y=" << y << endl;}
 
 /**
- * @brief DemoPointerL1
- * (int &rk = x) indica que rk es una variable sobrepuesta con x, si se hace rk=5 entonces x=5
- * (int *p1) indica que p1 es un puntero a una variable entera
- * (int **pp) indica que pp es un puntero a un puntero que apunta a una variable entera 
- * (int p1 = &x) indica que p1 apunta a x
- * (int &rk = fr()) indica que rk es un alias de la función fr, es decir que rk(5) equivale a fr(5)
+ * @brief DemoPointersL1
+ * int &rk = x          indica que rk es una variable sobrepuesta con x, si se hace rk=5 entonces x=5
+ * int *p1              indica que p1 es un puntero a una variable entera
+ * int **pp             indica que pp es un puntero a un puntero que apunta a una variable entera 
+ * int p1 = &x          indica que p1 apunta a x
+ * int &rk = fr()       indica que rk es un alias de la función fr, es decir que rk(5) equivale a fr(5)
  */
 void DemoPointersL1()
 {
@@ -2549,6 +2680,13 @@ int input(string str)
     return n;
 }
 
+void ProcessVector(int *pv, size_t n)
+{
+    for(auto i = 0 ; i < n ; ++i )
+        cout << pv[i] << " ";
+    cout << endl;
+}
+
 /**
  * @brief DemoPointersL2Vectors
  * Esta función inicializa en forma dinámica un vector que contiene apuntadores a variables enteras
@@ -2557,18 +2695,25 @@ int input(string str)
  *  */
 void DemoPointersL2Vectors()
 {
-    int ve[10], n;
-    n = 5; //input("Ingrese tamaño del vector: ");
-    int *pvd = new int[n];
+    using T = int;
+    const size_t size = 10;
+    T ve[size] = {5, 6, 7, 2,1,8, 15, 11, 4, 86};
+    T *pv = nullptr;
+    pv = ve; // captura la direccion del inicio del vector.
+             // tambien significa ov = &ve[0];
+    ProcessVector(pv, size);
+    
+    size_t n = 5; //input("Ingrese tamaño del vector: ");
+    T *pvd = new T[n];
     for(auto i=0; i < n ; ++i )
     {
         pvd[i]      = i*i;
         *(pvd + i)  = i*i;
-        int *pt = pvd + i;
+        T *pt = pvd + i;
         cout << "pvd+" << i << "=" <<pvd+i<< " val=" << pvd[i] << ", " << *(pvd + i) 
              << " &pvd[" << i << "]=" << &pvd[i] << "(" << pvd+i << ")" << endl;
     }
-    int *px = nullptr;
+    T *px = nullptr;
     px = pvd+5;
     px[-3] = 8;     // *(px-3) = 8;
     delete [] pvd;
@@ -2577,15 +2722,10 @@ void DemoPointersL2Vectors()
 
 
 /**
- * @file demo.cpp
- * @author Miguel Ruiz
  * @brief DemoPointersL2VectorX()
  * Está función muestra la manera de cambiar la salida de información hacia la pantalla o hacia un archivo
  * la función init(), que se encuentra en vector.h, inicializa una matriz de vectores
  * para imprimir a print(), que se encuentra en vector.h, se le pasa el tipo de salida (cout o file)
- *  * @version 0.1
- * @date 2022-07-23
- * 
  */
 #include "vectorx.h"
 void DemoPointersL2VectorX()
@@ -2601,38 +2741,232 @@ void DemoPointersL2VectorX()
     vi.print(file);
 }
 
+template <typename T>
+void imprime(T &x)
+{  cout << x << "  "; }
+
+void DemoVectorSTL()
+{
+    vector<TX> vals{0, 5, 10, 15, 20, 30, 40};
+    recorrer(vals);
+}
+
 #include "matrix.h"
 void DemoPointersL3Matrix()
 {
-    CMatrix<float> mat1(3, 7, 2), mat2(7, 5, 1), mat3;
+    CMatrix<float> mat1(3, 7, 2), mat2(7, 5, 1);
     
     //cout << "before ... "; mat1.help(2, 5);
-    mat1(2, 5) = 467.6;
+    //mat1(2, 5) = 467.6;
     //cout << "after  ... "; mat1.help(2, 5);
-    mat1[1][4]   = 345;
-    *(mat1[1]+5) = 678;
-      mat1[1][6] = 802;
-    mat1["Miguel"][2]= 123;
-    cout << "mat1[2][5]=" << mat1[2][5] << endl;
+    //mat1[1][4]   = 345;
+    //*(mat1[1]+5) = 678;
+    //  mat1[1][6] = 802;
+    //mat1["Miguel"][2]= 123;
+    //cout << "mat1[2][5]=" << mat1[2][5] << endl;
     cout << mat1 << endl;
+    cout << mat2 << endl;
 
-    mat3 = mat1 * mat2;
+    CMatrix<float> mat3 = mat1 * mat2;
     cout << mat3 << endl;
+    cout << "Rows de mat3: " << mat3.GetRows() << ". Cols de mat3: " << mat3.GetCols() << endl;
 }
 
-float fx()
-{   return 10.5;    }
+string func1()
+{   //cout << "fx" << endl;   
+    return "func1";    
+}
+string func2()
+{   //cout << "fy" << endl;   
+    return "func2";
+}
+string func3()
+{   //cout << "fz" << endl;   
+    return "func3";
+}
 
 /**
- * @brief DemoPointerstoFn()
+ * @brief DemoPointerstoFn1()
  * Está función muestra la creación de punteros a funciones
- * (float (*pf[5])() = {&fx}) declara una matriz de cinco elementos con punteros a variables float
- * (pf[3] = &fx) en el elemento pf[3] se guarda la direcci´´on de ka función fx
- * rpta contiene lo que retorna fx()
+ * string (*apf[4])() = {&func1, &func2, &func3}            declara una matriz de cuatro elementos punteros a funciones que devuelven strings
+ * apf[3] = &func1                                          apf[3] guarda la dirección de la función func1
+ * rpta                                                     contiene lo que retorna (apf[3])()
+ * string (*pf1)() = &func2                                 pf1, que es un puntero a una función que devuelve string, contiene la dirección de func2
+ * auto pf2 = &func3                                        pf2, que contiene la dirección de func3, su tipo auto es igua al tipo de variable devuelta por func3 
  */
-void DemoPointerstoFn()
+void DemoPointerstoFn1()
 {
-    float (*pf[5])() = {&fx};
-    pf[3] = &fx;
-    float rpta = (*pf[3])();
+    string (*apf[4])() = {&func1, &func2, &func3};
+    apf[3] = &func1;
+
+    string rpta = (*apf[3])();
+    cout << "rpta: " << rpta << endl;
+    
+    string (*pf1)() = &func2;
+    rpta = (*pf1)(); // Forma antigua
+    cout << "rpta: " << rpta << endl;
+    rpta = pf1();
+    cout << "rpta: " << rpta << endl;
+
+    auto pf2 = &func3;
+    rpta = pf2();
+    cout << "rpta: " << rpta << endl;
+
+    for(auto pf: apf)
+    {   cout << pf() << endl;    }
 }
+
+using Type1 = string (*)();
+void DemoPointerstoFn2()
+{
+    // Simplificando los tipos
+    Type1 apf[4] = {func1, func2, func3, func1};
+    for(auto pf: apf)
+    {   cout << pf() << endl;    }
+}
+
+using Type2 = float (*)(float, float);
+float sum(float op1, float op2)     {   return op1+op2; }
+float rest(float op1, float op2)    {   return op1-op2; }
+float mult(float op1, float op2)    {   return op1*op2; }
+float divi(float op1, float op2)    {   return op1/op2; }
+void callFn(int ope, float op1, float op2)
+{
+    // Simplificando los tipos
+    Type2 apf[4] = {&sum, rest, mult, &divi};
+    cout << (*apf[ope])(op1, op2) << endl;
+}
+void DemoPointerstoFn3()
+{
+    float x = 20, y = 5;
+    cout << "Deberia multiplicar:"; callFn(2, x, y); // deberia multiplicar
+    cout << "Deberia sumar      :"; callFn(0, x, y); // deberia sumar
+    //cout << "Deberia dar problemas:"; callFn(50, x, y); // deberia sumar
+}
+
+struct MyS
+{
+    int x = 5, y = 6;
+    float f, g;
+    void method1() { cout << "MyS Hello from " << this << endl; }
+};
+class MyC
+{public:
+    float x = 10.5, y = 12.5;
+    string str;
+    void method1() { cout << "MyC Hello from " << this << endl; }
+};
+
+template <typename T>
+void MyFn1(T &obj)
+{
+    obj.method1(); 
+    // cout << obj.x << endl;
+}
+
+void DemoPointersToStruct()
+{
+    MyS s1, *ps1 = nullptr, *ps2 = nullptr;
+    //MyS &r1 = *new MyS(); // ojo porque deberias detruirlo explicitamente
+    MyS &rs = s1;
+    MyC c1, *pc1 = nullptr, *pc2 = nullptr;
+    cout << "Con struct\n";
+    s1.method1();
+    rs.method1();
+
+    ps1 = new MyS();
+    ps1->method1();
+    
+    ps2 = &s1;
+    ps2->method1();
+    delete ps1; ps1 = nullptr;
+
+    cout << "Con class\n";
+    c1.method1();
+    pc1 = new MyC();
+    pc1->method1();
+    //c1.method1();
+    cout << "Llamando a MyFn\n";
+    MyFn1(s1);
+    MyFn1(rs);
+    // MyFn1(*ps1);
+    MyFn1(c1);
+    MyFn1(*pc1);
+    delete pc1;
+}
+
+class Aritmetica
+{public:
+    float val1 = 20, val2 = 15;
+    void print() {   cout << "val1: " <<val1 << " val2: " << val2 << endl;   }
+
+    float sum(float op1, float op2)     {   return op1+op2; }
+    float rest(float op1, float op2)    {   return op1-op2; }
+    float mult(float op1, float op2)    {   return op1*op2; }
+    float divi(float op1, float op2)    {   return op1/op2; }
+};
+
+void DemoPointersToMembers1()
+{
+    Aritmetica ari;
+    float *pf = &ari.val1;
+    *pf = 50;
+    ari.print();
+    
+    Aritmetica *pAri = nullptr;
+    pAri = new Aritmetica;
+    pf = &pAri->val1;
+    pf = &(*pAri).val1;
+    pf = &pAri[0].val1;
+    *pf = 70;
+    pAri->print();
+    delete pAri;
+}
+
+void FuncionPointertoMembers(Aritmetica *pObj, float (Aritmetica::*pMet)(float, float), float v1, float v2)
+{
+    float res = (pObj->*pMet)(v1, v2);
+    cout << "Res=" << res << endl;
+}
+
+void DemoPointersToMembers2()
+{
+    float val1 = 50;
+    Aritmetica obj;
+    Aritmetica *pObj = nullptr;   pObj = new Aritmetica;
+
+    float Aritmetica::*pAtt = &Aritmetica::val1;
+    obj.*pAtt = 30;
+    obj.print();
+
+    pObj->*pAtt = 40;
+    Aritmetica &rArit = *pObj;   rArit.*pAtt = 40;
+    (*pObj).*pAtt = 40; 
+    pObj->val1 = 40;
+    pObj->print();
+
+    float v1 = 60, v2 = 20, rpta;
+    float (Aritmetica::*pMet)(float, float) = &Aritmetica::sum;
+    // float (Aritmetica::*pMet)(float, float) = nullptr;
+    // pMet = &Aritmetica::sum
+
+    rpta = obj.sum(v1, v2);
+    rpta = (obj.*pMet)(v1, v2);
+
+    rpta = pObj->sum(v1, v2);
+    rpta = (pObj->*pMet)(v1, v2);
+
+    FuncionPointertoMembers(pObj, &Aritmetica::sum, v1, v2);
+    FuncionPointertoMembers(pObj, &Aritmetica::rest, v1, v2);
+    FuncionPointertoMembers(pObj, &Aritmetica::mult, v1, v2);
+    FuncionPointertoMembers(pObj, &Aritmetica::divi, v1, v2);
+    
+}
+
+int val1 = 100;
+void DemoScope()
+{
+
+}
+
+

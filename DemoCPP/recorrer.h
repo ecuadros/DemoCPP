@@ -3,10 +3,12 @@
 #include "object_function.h"
 using namespace std;
 
-void fx(TX &x)
+template <typename T>
+void fx(T &x)
 {  cout << x << "  "; }
 
-void inc(TX &x)
+template <typename T>
+void inc(T &x)
 {  ++x; }
 
 template <typename Iterator, typename F>
@@ -34,17 +36,18 @@ void recorrer_inverso(Container &container, F ope)
 template <typename Container>
 void recorrer(Container &container)
 {
-    recorrer(container, fx);  cout << endl; // recorre imprimiendo
-    recorrer(container, inc);  // recorre incrementando
-    recorrer(container, fx);  cout << endl; // recorre imprimiendo
+    using T = typename Container::value_type;
+    recorrer(container, fx<T>);  cout << endl; // recorre imprimiendo
+    recorrer(container, inc<T>);  // recorre incrementando
+    recorrer(container, fx<T>);  cout << endl; // recorre imprimiendo
 
     // funciones lambda
-    recorrer(container, [](TX &n){ n-= 5;}); cout << endl; // -5 a todos
-    recorrer(container, fx);  cout << endl; // recorre imprimiendo
+    recorrer(container, [](T &n){ n-= 5;}); cout << endl; // -5 a todos
+    recorrer(container, fx<T>);  cout << endl; // recorre imprimiendo
     
-    OperacionEspecial<TX> ope; 
+    OperacionEspecial<T> ope; 
     recorrer(container, ope);  
-    recorrer(container, fx);  cout << endl;
+    recorrer(container, fx<T>);  cout << endl;
 }
 
 #endif

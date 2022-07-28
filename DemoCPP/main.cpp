@@ -21,7 +21,9 @@ int main()
   Exe("DemoMultipleParams", DemoMultipleParams);
   Exe("DemoTupleOverload", DemoTupleOverload);
   Exe("DemoVariadicOverload", DemoVariadicOverload);
+  
   Exe("demoVariadic", demoVariadic);
+  
   Exe("DemoFoldedFunctions", DemoFoldedFunctions);
   Exe("DemoHomogeneous", DemoHomogeneous);
   Exe("DemoInvoke", DemoInvoke);
@@ -39,22 +41,27 @@ int main()
   Exe("DemoCheckPath3", DemoCheckPath3);
   Exe("DemoCreateFile", DemoCreateFile);
 
-  //  Exe("DemoTimeAsString", DemoTimeAsString);
+  // Exe("DemoTimeAsString", DemoTimeAsString);
   Exe("DemoSymlink", DemoSymlink);
   Exe("DemoConvert", DemoConvert);
   Exe("DemoIncomplete", DemoIncomplete);
-
+  
   Exe("DemoMapHandle", DemoMapHandle);
+  
   Exe("DemoMapNodeMerge", DemoMapNodeMerge);
   Exe("DemoMapNodeMove", DemoMapNodeMove);
-
+  
   Exe("DemoVariantPoly1", DemoVariantPoly1);
+  
   Exe("DemoVariantPoly2", DemoVariantPoly2);
+  
   Exe("DemoVariantPoly3", DemoVariantPoly3);
+  
   Exe("DemoVariantPoly4", DemoVariantPoly4);
   Exe("DemoMutex", DemoMutex);
 
   cout << "\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" << endl;
+    
   Exe("DemoAngleBracketHack", DemoAngleBracketHack);
   Exe("DemoMakeUnique", DemoMakeUnique);
   Exe("DemoTestArray", DemoTestArray);
@@ -90,9 +97,15 @@ int main()
   Exe("DemoPointers Level1", DemoPointersL1);
   Exe("DemoPointersL2Vectors", DemoPointersL2Vectors);
   Exe("DemoPointersL2VectorX", DemoPointersL2VectorX);
-  Exe("DemoPointersL3Matrix", DemoPointersL3Matrix);
+  Exe("DemoVectorSTL", DemoVectorSTL);
   
-  //exit(0);
+  Exe("DemoPointersL3Matrix", DemoPointersL3Matrix);
+  Exe("DemoPointerstoFn1", DemoPointerstoFn1);
+  Exe("DemoPointerstoFn2", DemoPointerstoFn2);
+  Exe("DemoPointerstoFn3", DemoPointerstoFn3);
+  Exe("DemoPointersToStruct", DemoPointersToStruct);
+  Exe("DemoPointersToMembers1", DemoPointersToMembers1);
+  Exe("DemoPointersToMembers2", DemoPointersToMembers2);
   return 0;
 }
 

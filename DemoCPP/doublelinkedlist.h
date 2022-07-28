@@ -61,7 +61,7 @@ template <typename Traits>
 class DoubleLinkedList : public LinkedList<Traits>
 {
  public:
-    typedef typename Traits::T          T;
+    typedef typename Traits::T          value_type;
     typedef typename Traits::Node       Node;
     typedef typename Traits::CompareFn  CompareFn;
     typedef DoubleLinkedList<Traits>    myself;
@@ -70,7 +70,7 @@ class DoubleLinkedList : public LinkedList<Traits>
     typedef backward_iterator<myself>   riterator;
 public:
     DoubleLinkedList() {}
-    void    insert(T elem)
+    void    insert(value_type elem)
     {   
         Node *pPrevTail = Parent::m_pTail;
         Node *pNew = *Parent::insert_forward(elem);
@@ -81,13 +81,13 @@ public:
     }
     riterator rbegin() { riterator iter(this, Parent::m_pTail);     return iter;    }
     riterator rend()   { riterator iter(this, nullptr);             return iter;    }
-    void    push_front(T elem)
+    void    push_front(value_type elem)
     {
         Parent::push_front(elem);
         if(Parent::size() > 1)
             ((Node *)Parent::m_pHead->m_pNext)->m_pPrev = Parent::m_pHead;
     }
-    void    push_back(T elem)
+    void    push_back(value_type elem)
     {   Node *pPrevTail = Parent::m_pTail;
         Parent::push_back(elem);
         Parent::m_pTail->setpPrev(pPrevTail);
