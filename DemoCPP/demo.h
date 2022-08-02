@@ -125,6 +125,7 @@ void DemoSizeScope();
 void DemoBitset();
 void demoLinkedListSorted();
 void demoDoubleLinkedListSorted();
+void DemoBinaryTree();
 void DemoDSMap();
 void DemoStack();
 void DemoMultiset();

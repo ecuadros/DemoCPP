@@ -1794,6 +1794,31 @@ void demoDoubleLinkedListSorted()
     demoDoubleLinkedList(myDescList); 
 }
 
+template <typename Container>
+void DemoBinaryTree(Container &container)
+{   using T = typename Container::value_type;
+    vector<T> values = {50, 30, 20, 80, 60, 70, 40, 90};
+    for(auto &v: values)
+    {
+        container.insert(v);
+    }    
+    cout << endl;
+    cout << "BinaryTree : ";
+    container.inorden(cout);
+}
+
+#include "binarytree.h"
+void DemoBinaryTree()
+{   cout << "Ascending Binarytree ..." << endl;
+    BinaryTree< BinaryTreeAscTraits<TX> > myAscBinaryTree;
+    DemoBinaryTree(myAscBinaryTree);
+
+    cout << "Descending Binarytree ..." << endl;
+    BinaryTree< BinaryTreeDescTraits<TX> > myDescBinaryTree;
+    DemoBinaryTree(myDescBinaryTree);
+    exit(0);
+}
+
 /**
  * @title DemoDSMap
  * @brief Funcion que muestra la busqueda en un map a partir del key, e imprime el resultado

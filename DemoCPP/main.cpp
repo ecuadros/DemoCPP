@@ -78,6 +78,7 @@ int main()
   Exe("DemoBitset", DemoBitset); 
   Exe("demoLinkedListSorted", demoLinkedListSorted);
   Exe("demoDoubleLinkedListSorted", demoDoubleLinkedListSorted);
+  Exe("DemoBinaryTree", DemoBinaryTree);
   Exe("DemoDSMap", DemoDSMap);
   Exe("DemoStack", DemoStack);
   Exe("DemoMultiset", DemoMultiset);
