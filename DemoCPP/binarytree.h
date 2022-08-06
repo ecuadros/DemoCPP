@@ -92,16 +92,38 @@ protected:
         return internal_insert1(elem, rParent->getChildRef(branch));
     }
 public:
-    void inorden(ostream &os)
-    {   inorden(m_pRoot, os);   }
+    void inorder(ostream &os){   
+        inorder(m_pRoot, os);   
+    }
+    void preorder(ostream &os) {
+        preorder(m_pRoot, os);
+    }
+    void postorder(ostream &os) {
+        postorder(m_pRoot, os);
+    }
 
 protected:
-    void inorden(Node  *pNode, ostream &os)
-    {
+    void inorder(Node  *pNode, ostream &os){
         if( pNode )
-        {   inorden(pNode->getChild(0), os);
+        {   inorder(pNode->getChild(0), os);
             os << pNode->getDataRef() << endl;
-            inorden(pNode->getChild(1), os);
+            inorder(pNode->getChild(1), os);
+        }
+    }
+
+    void preorder(Node *pNode, ostream &os) {
+        if (pNode) {
+            os << pNode -> getDataRef() << endl;
+            preorder(pNode -> getChild(0), os);
+            preorder(pNode -> getChild(1), os);
+        }
+    }
+
+    void postorder(Node *pNode, ostream &os) {
+        if (pNode) {
+            postorder(pNode -> getChild(0), os);
+            postorder(pNode -> getChild(1), os);
+            os << pNode -> getDataRef() << endl;
         }
     }
 };

@@ -1804,7 +1804,12 @@ void DemoBinaryTree(Container &container)
     }    
     cout << endl;
     cout << "BinaryTree : " << endl;
-    container.inorden(cout);
+    cout << "In order : " << endl;
+    container.inorder(cout);
+    cout << "Pre order : " << endl;
+    container.preorder(cout);
+    cout << "Post order : " << endl;
+    container.postorder(cout);
 }
 
 #include "binarytree.h"
