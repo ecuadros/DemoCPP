@@ -1594,6 +1594,11 @@ std::size_t len (...)
 {   return 0;
 }
 
+/**
+ * @brief Función en la que se muestra como trabaja la función propia "len",
+ * la cual recibe como argumento un objeto que tiene la propiedad "size", y devuelve el valor de dicha
+ * propiedad. Si la variable no tiene dicha propiedad, devuelve el valor de "0".
+ */
 void DemoLen()
 {
     vector<int> v1{0, 8, 15, 42, 13, -1, 0};
@@ -1801,21 +1806,29 @@ void DemoBinaryTree(Container &container)
     for(auto &v: values)
     {
         container.insert(v);
+        //cout << v << endl;
     }    
     cout << endl;
-    cout << "BinaryTree : ";
+    cout << "BinaryTree (inorden): ";
     container.inorden(cout);
+    cout << "\nBinaryTree (preorden): ";
+    container.preorden(cout);
+    cout << "\nBinaryTree (postorden): ";
+    container.postorden(cout);
+    cout << "\nTotal de elementos: " << container.size();
 }
 
 #include "binarytree.h"
 void DemoBinaryTree()
-{   cout << "Ascending Binarytree ..." << endl;
-    BinaryTree< BinaryTreeAscTraits<TX> > myAscBinaryTree;
-    DemoBinaryTree(myAscBinaryTree);
-
+{
     cout << "Descending Binarytree ..." << endl;
     BinaryTree< BinaryTreeDescTraits<TX> > myDescBinaryTree;
+    //recorrer(myDescBinaryTree, inc<TX>);
     DemoBinaryTree(myDescBinaryTree);
+    
+    cout << "\n\nAscending Binarytree ..." << endl;
+    BinaryTree< BinaryTreeAscTraits<TX> > myAscBinaryTree;
+    DemoBinaryTree(myAscBinaryTree);
     exit(0);
 }
 
@@ -1949,28 +1962,36 @@ class myclass
   bool operator() (int i,int j) { return (i<j);}
 };
 
+/**
+ * @brief Función que muestra las distintas formas de ordena un vector
+ * haciendo uso de la función "sort".
+ * 
+ **/
 void DemoSort1()
 {
-    vector<int> v1 {70, 50,    80, 90, 60, 30, 10,    40, 50, 40, 60, 70, 20, 50};
-    print(v1);
+    //vector<int> v1 {70, 50,    80, 90, 60, 30, 10,    40, 50, 40, 60, 70, 20, 50};
+    vector<int> v1 {19, 92, 18, 83, 17, 74, 16, 65, 15, 56, 14, 47, 13, 38};
+    //https://en.cppreference.com/w/cpp/container/vector
+    cout << "V1 (Original): \n"; print(v1);
     vector<int> v2(v1), v3(v1), v4(v1), v5(v1), v6(v1), v7(v1);
-    sort(v2.begin()+2, v2.begin()+7);
-    print(v2);
 
+    sort(v2.begin()+2, v2.begin()+7);
+    cout << "V2 (Ordenado desde el indice 2 al 7): \n"; print(v2);
+    
     sort(v3.begin(), v3.end());
-    print(v3);
+    cout << "V3 (Ordenado por completo): \n"; print(v3);
 
     sort(v4.begin(), v4.end(), less<int>()); // less<int> by default
-    print(v4);
+    cout << "V4 (Ordenado de menor a mayor (por defecto)): \n"; print(v4);
 
     sort(v5.begin(), v5.end(), greater<int>());
-    print(v5);
+    cout << "V5 (Ordenado de mayor a menor): \n"; print(v5);
 
-    sort(v6.begin(), v6.end(), [](int a, int b){return a<b;} );
-    print(v6);
+    sort(v6.begin(), v6.end(), [](int a, int b){return a>b;} );
+    cout << "V6 (Ordenado de mayor a menor usando funci\242n a>b): \n"; print(v6);
 
     sort(v7.begin(), v7.end(), myclass());
-    print(v7);
+    cout << "V7 (Ordenado de mayor a menor usando una clase propia): \n"; print(v7);
 }
 
 bool compare(pair<int, int> a, pair<int, int> b)
@@ -1980,20 +2001,44 @@ bool compare(pair<int, int> a, pair<int, int> b)
     return a.first  > b.first;    // luego de > a < por el 1ro
 }
 
+/**
+ * @brief Función en la que se muestra la forma en que "sort" puede ordenar el tipo "pair" con la función definida
+ * propia "compare", la cual compara dos variables de tipo "pair", retornando la variable que tenga la menor segunda componente
+ * o, si tiene la segunda compontente igual, retorna la variable que tiene la mayor primera componente.
+ * 
+ */
 void DemoSort2()
 {
-    pair<int, int> pairs[] = {{1, 2}, {2, 1}, {7, 1}, {5, 3}, {4,1}, {3, 1}};
-    sort(pairs, pairs+6, compare);
+    pair<int, int> pairs[] = {{1, 2}, {2, 1}, {7, 1}, {10, 1}, {5, 3}, {4,1}, {3, 2}, {4, 2}, {3, 1}, {4, 3}};
+    //sort(pairs, pairs+6, compare);
+    
+    sort(pairs, pairs+len(pairs));
+    cout << "Orden predeterminado: " << endl;
+    for(auto p:pairs)
+        cout << p.first << ", " << p.second << endl;
+
+    sort(pairs, pairs+len(pairs), compare);
+    cout << "\nOrden con \"compare\" : " << endl;
     for(auto p:pairs)
         cout << p.first << ", " << p.second << endl;
     // print(pair)
 }
 
+/**
+ * @brief Funcion en la que dado un vector cualquiera, muestra todas las permutaciones previas
+ * siguiendo el orden lexicográfico del vector ordenado.
+ * 
+ */
 void DemoPermutation()
 {
-    vector<int> v1 {70, 50, 80, 90, 60};
+    //vector<int> v1 {70, 50, 80, 90, 60, 40};
+    //vector<int> v1 {70, 50, 80, 90, 60};
+    vector<int> v1 {70, 50, 80, 9};
+    vector<int> v2(v1);
     // sort(v1.begin(), v1.end());
-    print(v1);
+    
+    cout << "\nVector original: "; print(v1);
+    cout << "Permutaciones Previas:" << endl;
     int x = 1;
     do
     {
@@ -2002,6 +2047,18 @@ void DemoPermutation()
         x++;
     }//while(next_permutation(v1.begin(), v1.end()));
     while(prev_permutation(v1.begin(), v1.end()));
+
+    sort(v2.begin(), v2.end(), greater());
+    cout << "\nVector ordenado: "; print(v2);
+    cout << "Permutaciones Totales:" << endl;
+    x = 1;
+    do
+    {
+        cout << setw(3) << left << x << ": "; 
+        print(v2);
+        x++;
+    }//while(next_permutation(v1.begin(), v1.end()));
+    while(prev_permutation(v2.begin(), v2.end()));
 }
 
 template<typename Iter>
@@ -2729,9 +2786,13 @@ void DemoPointersL2VectorX()
 
     cout << "*****Init\n" << vi << "*****End\n";
 
-    ofstream file("Enzo.txt");
-    file << "Inicio del archivo" <<endl;
-    vi.print(file);
+    string nombreArchivo = "Enzo.txt";
+    if (!std::filesystem::exists(nombreArchivo))
+    {
+        ofstream file(nombreArchivo);
+        file << "Inicio del archivo" <<endl;
+        vi.print(file);
+    }
 }
 
 template <typename T>
@@ -2745,24 +2806,85 @@ void DemoVectorSTL()
 }
 
 #include "matrix.h"
+//template <typename T>
+float f_suma(size_t &v1, size_t &v2)
+{
+    return static_cast<float>(v1 + v2);
+}
+/**
+ * @brief Función en la que se define una clase para hacer operaciones con Matrices.
+ * 
+ */
 void DemoPointersL3Matrix()
 {
-    CMatrix<float> mat1(3, 7, 2), mat2(7, 5, 1);
+    using TPT = float;
+    using SM = SumarIndices<TPT>;
+    /*
+    CMatrix<TPT,SM> mat8(3,7,3);
+    cout << mat8 << endl;
+    SM S; S.A = 1; S.n1 = 0;
+    CMatrix<TPT,SM> mat9(4,5,S);
+    cout << mat9 << endl;
+    CMatrix<TPT,SM> mat10(5,4,S);
+    cout << mat10 << endl;
+    */
+    SM S1;
+    CMatrix<TPT,SM> mat11(4,4,S1);
+    cout << "Matriz 11:" << endl;
+    cout << mat11 << endl;
+    S1.A = 1; S1.plus1 = 1; S1.n1 = 0;
+    CMatrix<TPT,SM> mat12(4,4,S1);
+    cout << "Matriz 12:" << endl;
+    cout << mat12 << endl;
+    cout << "Valor      3-1\t: " << *mat12[2] << endl;
+    cout << "Direccion  3-1\t: " << mat12[2] << endl;
+    cout << "\nValor    3-2\t: " << *(mat12[2]+1) << endl;
+    cout << "Direccion  3-2\t: " << mat12[2]+1 << endl;
+    cout << "\nValor    3-4\t: " << mat12[2][3] << endl;
+    cout << "Direccion  3-4\t: " << &mat12[2][3] << endl;
+    cout << "Direccion  3-4\t: " << (mat12[2]+3) << endl;
+    cout << "Valor siguiente de  3-4\t: " << *(mat12[2]+4) << endl;
+    CMatrix<TPT,SM> mat13;
+    mat13 = mat11 + mat12;
+    cout << "\nMatriz 13:" << endl;
+    cout << mat13 << endl;
+    /*
     
+    size_t n1 = 2, n2 = 3;
+    CMatrix<float> mat10(4,5,f_suma(n1,n2));
+    cout << mat10 << endl;
+    cout << f_suma(n1, n2) << endl;
+    exit(0);
+    CMatrix<float> mat1(3, 7, 2), mat2(7, 5, 1), mat3, mat4(2,3,1), mat5(2,3,2), mat6;
     //cout << "before ... "; mat1.help(2, 5);
-    //mat1(2, 5) = 467.6;
+    mat1(2, 5) = 467.6;
     //cout << "after  ... "; mat1.help(2, 5);
-    //mat1[1][4]   = 345;
-    //*(mat1[1]+5) = 678;
-    //  mat1[1][6] = 802;
-    //mat1["Miguel"][2]= 123;
-    //cout << "mat1[2][5]=" << mat1[2][5] << endl;
+    mat1[1][4]   = 345;
+    *(mat1[1]+5) = 678;
+      mat1[1][6] = 802;
+    mat1["Miguel"][2]= 123;
+    cout << "mat1[2][5]=" << mat1[2][5] << endl;
     cout << mat1 << endl;
+    exit(0);
+    cout << "Matriz 2:" << endl;
     cout << mat2 << endl;
 
-    CMatrix<float> mat3 = mat1 * mat2;
+    mat3 = mat1 * mat2;
+    //mat1 * mat2;
+    cout << "Matriz 3 (Producto):" << endl;
     cout << mat3 << endl;
-    cout << "Rows de mat3: " << mat3.GetRows() << ". Cols de mat3: " << mat3.GetCols() << endl;
+    
+    cout << "Matriz 4:" << endl;
+    cout << mat4 << endl;
+
+    cout << "Matriz 5:" << endl;
+    cout << mat5 << endl;
+
+    mat6 = mat4 + mat5;
+    cout << "Matriz 6 (Suma):" << endl;
+    cout << mat6 << endl;
+    /*
+    */
 }
 
 string func1()
