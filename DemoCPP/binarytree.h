@@ -51,7 +51,7 @@ struct BinaryTreeAscTraits
 {
     using  T         = _T;
     using  Node      = NodeBinaryTree<T>;
-    using  CompareFn = less<T>;
+    using  CompareFn = greater<T>;
 };
 
 template <typename _T>
@@ -59,7 +59,7 @@ struct BinaryTreeDescTraits
 {
     using  T         = _T;
     using  Node      = NodeBinaryTree<T>;
-    using  CompareFn = greater<T>;
+    using  CompareFn = less<T>;
 };
 
 template <typename Traits>
@@ -83,7 +83,7 @@ public:
     void    insert(value_type &elem) { internal_insert1(elem, m_pRoot);  }
 
 protected:
-    Node *CreateNode(value_type &elem){ return new Node(data); }
+    Node *CreateNode(value_type &elem){ return new Node(elem); }
     Node *internal_insert1(value_type &elem, Node *&rParent)
     {
         if( !rParent ) //  llegué al fondo de una rama

@@ -1803,7 +1803,7 @@ void DemoBinaryTree(Container &container)
         container.insert(v);
     }    
     cout << endl;
-    cout << "BinaryTree : ";
+    cout << "BinaryTree : " << endl;
     container.inorden(cout);
 }
 
