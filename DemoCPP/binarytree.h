@@ -17,15 +17,21 @@ private:
   public:
     T       m_data;
     vector<Node *> m_pChild = {nullptr, nullptr}; // 2 hijos inicializados en nullptr
+    bool    m_visitedFlag = false;
+    Node* m_pParent = nullptr;
   public:
-    NodeBinaryTree(T data, Node *p0 = nullptr, Node *p1 = nullptr) 
+    NodeBinaryTree(T data, Node *p0 = nullptr, Node *p1 = nullptr, Node* p2 = nullptr) 
         : m_data(data)
-    {   m_pChild[0] = p0;   m_pChild[1] = p1;   }
+    {   m_pChild[0] = p0;   m_pChild[1] = p1;   m_pParent = p2;   }
     T         getData()                {   return m_data;    }
     T        &getDataRef()             {   return m_data;    }
-    void      setpChild(Node *pChild, size_t pos)  {   m_pChild[pos] = pChild;  }
+    // void      setpChild(Node *pChild, size_t pos)  {   m_pChild[pos] = pChild;  }
     Node    * getChild(size_t branch){ return m_pChild[branch];  }
     Node    *&getChildRef(size_t branch){ return m_pChild[branch];  }
+    void      setParent(Node *pParent) { m_pParent = pParent; }
+    Node    *&getParentRef()  { return m_pParent; }
+    void     changeVisitedFlag()  { m_visitedFlag = !m_visitedFlag; }
+    bool    &getVisitedFlag() { return m_visitedFlag; }
 };
 
 template <typename Container>
@@ -41,9 +47,19 @@ class binary_tree_iterator : public general_iterator<Container,  class binary_tr
     binary_tree_iterator(myself &&other) : Parent(other) {} // Move constructor C++11 en adelante
 
 public:
-    binary_tree_iterator operator++() { //Parent::m_pNode = (Node *)Parent::m_pNode->getpNext();  
-                                        return *this;
-                                  }
+    binary_tree_iterator operator++() {
+      Parent::m_pNode -> changeVisitedFlag();
+      Parent::m_pNode = getNext(Parent::m_pNode);
+      return *this;
+    }
+protected:
+    Node *getNext(Node* &rCurrent) {
+      Node* possibleNext = rCurrent -> getChildRef(1);
+      if (possibleNext && possibleNext -> getVisitedFlag() != true)  return Parent::m_pContainer -> getMostLeft(possibleNext);
+      Node* parent = rCurrent -> getParentRef();
+      if (parent -> getVisitedFlag() != true) return parent;
+      return getNext(parent);
+    }
 };
 
 template <typename _T>
@@ -80,16 +96,32 @@ protected:
 public: 
     size_t  size()  const       { return m_size;       }
     bool    empty() const       { return size() == 0;  }
-    void    insert(value_type &elem) { internal_insert1(elem, m_pRoot);  }
+    void    insert(value_type &elem) { internal_insert1(elem, m_pRoot, m_pRoot);  }
+    iterator  begin() { iterator iter(this, this -> getMostLeft(m_pRoot)); return iter; }
+    iterator  end() { iterator iter(this, this -> getMostRight(m_pRoot)); return iter; }
+    Node *&getMostLeft(Node* &rCurrent) {
+      if (rCurrent -> getChildRef(0) == nullptr)  return rCurrent;
+      return getMostLeft(rCurrent -> getChildRef(0));
+    }
+    Node *&getMostRight(Node* &rCurrent) {
+      if (rCurrent -> getChildRef(1) == nullptr)  return rCurrent;
+      return getMostRight(rCurrent -> getChildRef(1));
+    }
 
 protected:
     Node *CreateNode(value_type &elem){ return new Node(elem); }
-    Node *internal_insert1(value_type &elem, Node *&rParent)
+    Node *internal_insert1(value_type &elem, Node *&rCurrent, Node* &rParent)
     {
-        if( !rParent ) //  llegué al fondo de una rama
-            return (rParent = CreateNode(elem));
-        size_t branch = Compfn(elem, rParent->getDataRef() );
-        return internal_insert1(elem, rParent->getChildRef(branch));
+        if( !rCurrent ) //  llegué al fondo de una rama
+        {
+          rCurrent = CreateNode(elem);
+          if (rCurrent != rParent) {
+            rCurrent -> setParent(rParent);
+          }
+          return rCurrent;
+        }
+        size_t branch = Compfn(elem, rCurrent->getDataRef() );
+        return internal_insert1(elem, rCurrent->getChildRef(branch), rCurrent);
     }
 public:
     void inorder(ostream &os){   

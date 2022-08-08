@@ -1810,6 +1810,10 @@ void DemoBinaryTree(Container &container)
     container.preorder(cout);
     cout << "Post order : " << endl;
     container.postorder(cout);
+
+    cout << "Using recorrer function: " << endl;
+    recorrer(container, fx <T>);
+    cout << endl;
 }
 
 #include "binarytree.h"
