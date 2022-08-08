@@ -74,7 +74,7 @@ template <typename Traits>
 class LinkedList
 {
   public:
-    typedef typename Traits::T          T;
+    typedef typename Traits::T          value_type;
     typedef typename Traits::Node       Node;
     
     typedef typename Traits::CompareFn  CompareFn;
@@ -92,8 +92,8 @@ class LinkedList
 
   public:
     LinkedList() {}
-    void    insert(T &elem) { insert_forward(elem);  }
-    T &operator[](size_t pos)
+    void    insert(value_type &elem) { insert_forward(elem);  }
+    value_type &operator[](size_t pos)
     {
       assert(pos <= size());
       Node *pTmp = m_pHead;
@@ -104,7 +104,7 @@ class LinkedList
     iterator begin() { iterator iter(this, m_pHead);    return iter;    }
     iterator end()   { iterator iter(this, nullptr);    return iter;    }
 
-    void    push_front(T elem)
+    void    push_front(value_type elem)
     {
         Node *pNew = CreateNode(elem);
         pNew->setpNext(m_pHead);
@@ -113,7 +113,7 @@ class LinkedList
         if(m_size == 1)
           m_pTail = pNew;
     } 
-    void    push_back(T elem)
+    void    push_back(value_type elem)
     {   Node *pNew = CreateNode(elem, nullptr);
         if(m_pTail)
           m_pTail->setpNext(pNew);
@@ -124,15 +124,15 @@ class LinkedList
     }
 
   protected:
-    Node **findPrev(T &elem) {   return findPrev(m_pHead, elem);   }
-    Node **findPrev(Node *&rpPrev, T &elem)
+    Node **findPrev(value_type &elem) {   return findPrev(m_pHead, elem);   }
+    Node **findPrev(Node *&rpPrev, value_type &elem)
     {   
       if(!rpPrev || Compfn(elem, rpPrev->getData()) )
         return &rpPrev; // Retorna la direccion del puntero que me apunta
       return findPrev((Node *&)rpPrev->getpNextRef(), elem);
     }
-    virtual Node *CreateNode(T &data, Node *pNext=nullptr){ return new Node(data, pNext); }
-    Node **insert_forward(T &elem)
+    Node *CreateNode(value_type &data, Node *pNext=nullptr){ return new Node(data, pNext); }
+    Node **insert_forward(value_type &elem)
     {
         Node **pParent = findPrev(elem);
         Node *pNew = CreateNode(elem);
@@ -142,12 +142,12 @@ class LinkedList
         return pParent;
     }
   public:
-    T  PopHead()
+    value_type PopHead()
     {
         if(m_pHead)
         {
             Node *pNode = m_pHead;
-            T data = pNode->getData();
+            value_type data = pNode->getData();
             m_pHead = m_pHead->getpNext();
             delete pNode;
             m_size--;
