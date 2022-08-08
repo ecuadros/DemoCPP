@@ -10,7 +10,7 @@ using namespace std;
 
 int main()
 {
-  Exe("DemoBasics",  DemoBasics); 
+  /*Exe("DemoBasics",  DemoBasics); 
   Exe("CounterTest", CounterTest);
   Exe("DemoInitializer1", DemoInitializer1);
   Exe("DemoInitializer2", DemoInitializer2);
@@ -77,8 +77,12 @@ int main()
 
   Exe("DemoBitset", DemoBitset); 
   Exe("demoLinkedListSorted", demoLinkedListSorted);
+  
   Exe("demoDoubleLinkedListSorted", demoDoubleLinkedListSorted);
+  */
   Exe("DemoBinaryTree", DemoBinaryTree);
+  
+  /*
   Exe("DemoDSMap", DemoDSMap);
   Exe("DemoStack", DemoStack);
   Exe("DemoMultiset", DemoMultiset);
@@ -107,6 +111,8 @@ int main()
   Exe("DemoPointersToStruct", DemoPointersToStruct);
   Exe("DemoPointersToMembers1", DemoPointersToMembers1);
   Exe("DemoPointersToMembers2", DemoPointersToMembers2);
+*/
+
   return 0;
 }
 

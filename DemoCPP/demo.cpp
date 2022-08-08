@@ -1791,25 +1791,61 @@ void demoDoubleLinkedListSorted()
 
     cout << "Descending double list" << endl;
     DoubleLinkedList< DLLDescTraits<TX> > myDescList;
-    demoDoubleLinkedList(myDescList); 
+    demoDoubleLinkedList(myDescList);
+}
+
+template <typename T>
+void duplicate(T& x) 
+{ 
+    x = 2 * x;
+}
+
+template <typename T>
+void printTree(T& x)
+{
+    cout << x << "  ";
+}
+
+template <typename T>
+void printInFileTree(T& x)
+{
+    ofstream file("binarytree.txt");
+    file << x << endl ;
 }
 
 template <typename Container>
 void DemoBinaryTree(Container &container)
-{   using T = typename Container::value_type;
+{   
+    using T = typename Container::value_type;
     vector<T> values = {50, 30, 20, 80, 60, 70, 40, 90};
     for(auto &v: values)
     {
         container.insert(v);
     }    
     cout << endl;
-    cout << "BinaryTree : ";
+    cout << "BinaryTree : " << endl;
+    cout << "*************" << endl;
+    cout << "Recorrido inorden: " << endl;
     container.inorden(cout);
+    cout << "Recorrido postorden: " << endl;
+    container.postorden(cout);
+    cout << "Recorrido preorden: " << endl;
+    container.preorden(cout);
+    
+    // aplicando función
+
+    cout << "Recorrido aplicando funci'on duplicar (recorrido inorden) " << endl;               
+    container.inordenApply(duplicate);
+    cout << "Aplicando funci'on imprimir: " << endl;               
+    container.inordenApply(printTree);
+        
+    container.inordenApply(printInFileTree);
 }
 
 #include "binarytree.h"
 void DemoBinaryTree()
-{   cout << "Ascending Binarytree ..." << endl;
+{   
+    cout << "Ascending Binarytree ..." << endl;
     BinaryTree< BinaryTreeAscTraits<TX> > myAscBinaryTree;
     DemoBinaryTree(myAscBinaryTree);
 
@@ -1817,6 +1853,8 @@ void DemoBinaryTree()
     BinaryTree< BinaryTreeDescTraits<TX> > myDescBinaryTree;
     DemoBinaryTree(myDescBinaryTree);
     exit(0);
+
+    
 }
 
 /**
