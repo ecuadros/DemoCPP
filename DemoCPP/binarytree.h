@@ -17,16 +17,18 @@ private:
   typedef NodeBinaryTree<T> Node;
   public:
     T       m_data;
+    Node *  m_pParent = nullptr;
     vector<Node *> m_pChild = {nullptr, nullptr}; // 2 hijos inicializados en nullptr
   public:
-    NodeBinaryTree(T data, Node *p0 = nullptr, Node *p1 = nullptr) 
-        : m_data(data)
+    NodeBinaryTree(Node *pParent, T data, Node *p0 = nullptr, Node *p1 = nullptr) 
+        : m_pParent(pParent), m_data(data)
     {   m_pChild[0] = p0;   m_pChild[1] = p1;   }
     T         getData()                {   return m_data;    }
     T        &getDataRef()             {   return m_data;    }
     void      setpChild(Node *pChild, size_t pos)  {   m_pChild[pos] = pChild;  }
     Node    * getChild(size_t branch){ return m_pChild[branch];  }
     Node    *&getChildRef(size_t branch){ return m_pChild[branch];  }
+    Node    * getParent() { return m_pParent;   }
 };
 
 template <typename Container>
@@ -81,16 +83,16 @@ protected:
 public: 
     size_t  size()  const       { return m_size;       }
     bool    empty() const       { return size() == 0;  }
-    void    insert(value_type &elem) { internal_insert1(elem, m_pRoot);  }
+    void    insert(value_type &elem) { internal_insert1(elem, m_pRoot, nullptr);  }
 
 protected:
-    Node *CreateNode(value_type &elem){ return new Node(elem); }
-    Node *internal_insert1(value_type &elem, Node *&rParent)
+    Node *CreateNode(Node *pParent, value_type &elem){ return new Node(pParent, elem); }
+    Node *internal_insert1(value_type &elem, Node *&rpOrigin, Node *pParent)
     {
-        if( !rParent ) //  llegué al fondo de una rama
-            return (rParent = CreateNode(elem));
-        size_t branch = Compfn(elem, rParent->getDataRef() );
-        return internal_insert1(elem, rParent->getChildRef(branch));
+        if( !rpOrigin ) //  llegué al fondo de una rama
+            return (rpOrigin = CreateNode(pParent, elem));
+        size_t branch = Compfn(elem, rpOrigin->getDataRef() );
+        return internal_insert1(elem, rpOrigin->getChildRef(branch), rpOrigin);
     }
 public:
     void inorder  (ostream &os)    {   inorder  (m_pRoot, os, 0);   }
@@ -103,9 +105,9 @@ protected:
     void inorder(Node  *pNode, ostream &os, size_t level)
     {
         if( pNode )
-        {   
+        {   Node *pParent = pNode->getParent();
             inorder(pNode->getChild(0), os, level+1);
-            os << string("  ") * level << pNode->getDataRef() << endl;
+            os << string("  ") * level << pNode->getDataRef() << "(" << (pParent?pParent->getData(): -1) << ")" <<endl;
             inorder(pNode->getChild(1), os, level+1);
         }
     }
