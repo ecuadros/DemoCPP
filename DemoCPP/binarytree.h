@@ -5,6 +5,7 @@
 #include <cassert>
 //#include "iterator.h"
 //#include "types.h"
+#include "util.h"
 using namespace std;
 
 template <typename T>
@@ -83,7 +84,7 @@ public:
     void    insert(value_type &elem) { internal_insert1(elem, m_pRoot);  }
 
 protected:
-    Node *CreateNode(value_type &elem){ return new Node(data); }
+    Node *CreateNode(value_type &elem){ return new Node(elem); }
     Node *internal_insert1(value_type &elem, Node *&rParent)
     {
         if( !rParent ) //  llegué al fondo de una rama
@@ -92,16 +93,50 @@ protected:
         return internal_insert1(elem, rParent->getChildRef(branch));
     }
 public:
-    void inorden(ostream &os)
-    {   inorden(m_pRoot, os);   }
+    void inorder  (ostream &os)    {   inorder  (m_pRoot, os, 0);   }
+    void postorder(ostream &os)    {   postorder(m_pRoot, os, 0); }
+    void preorder (ostream &os)    {   preorder (m_pRoot, os, 0);  }
+    void inorder(void (*visit) (value_type& item))
+    {   inorder(m_pRoot, visit);    }
 
 protected:
-    void inorden(Node  *pNode, ostream &os)
+    void inorder(Node  *pNode, ostream &os, size_t level)
     {
         if( pNode )
-        {   inorden(pNode->getChild(0), os);
-            os << pNode->getDataRef() << endl;
-            inorden(pNode->getChild(1), os);
+        {   
+            inorder(pNode->getChild(0), os, level+1);
+            os << string("  ") * level << pNode->getDataRef() << endl;
+            inorder(pNode->getChild(1), os, level+1);
+        }
+    }
+
+    void postorder(Node  *pNode, ostream &os, size_t level)
+    {
+        if( pNode )
+        {   
+            postorder(pNode->getChild(0), os, level+1);
+            postorder(pNode->getChild(1), os, level+1);
+            os << string("  ") * level << pNode->getDataRef() << endl;
+        }
+    }
+
+    void preorder(Node  *pNode, ostream &os, size_t level)
+    {
+        if( pNode )
+        {   
+            os << string("  ") * level << pNode->getDataRef() << endl;
+            preorder(pNode->getChild(0), os, level+1);
+            preorder(pNode->getChild(1), os, level+1);            
+        }
+    }
+
+    void inorder(Node  *pNode, void (*visit) (value_type& item))
+    {
+        if( pNode )
+        {   
+            inorder(pNode->getChild(0), *visit);
+            (*visit)(pNode->getDataRef());
+            inorder(pNode->getChild(1), *visit);
         }
     }
 };
