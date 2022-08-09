@@ -83,16 +83,16 @@ protected:
 public: 
     size_t  size()  const       { return m_size;       }
     bool    empty() const       { return size() == 0;  }
-    void    insert(value_type &elem) { internal_insert1(elem, m_pRoot, nullptr);  }
+    void    insert(value_type &elem) { internal_insert1(elem, nullptr, m_pRoot);  }
 
 protected:
     Node *CreateNode(Node *pParent, value_type &elem){ return new Node(pParent, elem); }
-    Node *internal_insert1(value_type &elem, Node *&rpOrigin, Node *pParent)
+    Node *internal_insert1(value_type &elem, Node *pParent, Node *&rpOrigin)
     {
         if( !rpOrigin ) //  llegué al fondo de una rama
             return (rpOrigin = CreateNode(pParent, elem));
         size_t branch = Compfn(elem, rpOrigin->getDataRef() );
-        return internal_insert1(elem, rpOrigin->getChildRef(branch), rpOrigin);
+        return internal_insert1(elem, rpOrigin, rpOrigin->getChildRef(branch));
     }
 public:
     void inorder  (ostream &os)    {   inorder  (m_pRoot, os, 0);   }
