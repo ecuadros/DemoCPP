@@ -17,18 +17,15 @@ private:
   typedef NodeBinaryTree<T> Node;
   public:
     T       m_data;
-    size_t  m_branch;
     Node *  m_pParent = nullptr;
     vector<Node *> m_pChild = {nullptr, nullptr}; // 2 hijos inicializados en nullptr
   public:
     NodeBinaryTree(Node *pParent, T data, Node *p0 = nullptr, Node *p1 = nullptr) 
-        : m_pParent(pParent), m_data(data), m_branch(2)
+        : m_pParent(pParent), m_data(data)
     {   m_pChild[0] = p0;   m_pChild[1] = p1;   }
     T         getData()                {   return m_data;    }
     T        &getDataRef()             {   return m_data;    }
     void      setpChild(Node *pChild, size_t pos)  {   m_pChild[pos] = pChild;  }
-    void      setBranch(size_t branch){   m_branch = branch;   }
-    size_t    getBranch(){   return m_branch;   }
     Node    * getChild(size_t branch){ return m_pChild[branch];  }
     Node    *&getChildRef(size_t branch){ return m_pChild[branch];  }
     Node    * getParent() { return m_pParent;   }
@@ -93,14 +90,8 @@ protected:
     Node *internal_insert1(value_type &elem, Node *pParent, Node *&rpOrigin)
     {
         if( !rpOrigin ) //  llegué al fondo de una rama
-        {   
-            Node *Node_elem = CreateNode(pParent, elem);
-            if (m_size > 0) {
-                size_t branch = Compfn(elem, pParent->getDataRef() );
-                Node_elem->setBranch(branch);
-            }
-            ++m_size;
-            return (rpOrigin = Node_elem);
+        {   ++m_size;
+            return (rpOrigin = CreateNode(pParent, elem));
         }
         size_t branch = Compfn(elem, rpOrigin->getDataRef() );
         return internal_insert1(elem, rpOrigin, rpOrigin->getChildRef(branch));
@@ -149,7 +140,8 @@ protected:
         if( pNode )
         {   Node *pParent = pNode->getParent();
             print(pNode->getChild(1), os, level+1);
-            os << string(" | ") * level << pNode->getDataRef() << "(" << (pParent?(pNode->getBranch()?"R-":"L-") + to_string(pParent->getData()):"Root") << ")" <<endl;
+            //os << string(" | ") * level << pNode->getDataRef() << "(" << (pParent?(pNode->getBranch()?"R-":"L-") + to_string(pParent->getData()):"Root") << ")" <<endl;
+            os << string(" | ") * level << pNode->getDataRef() << "(" << (pParent?to_string(pParent->getData()):"Root") << ")" <<endl;
             print(pNode->getChild(0), os, level+1);
         }
     }
