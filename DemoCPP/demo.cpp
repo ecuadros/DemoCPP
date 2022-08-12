@@ -1803,17 +1803,21 @@ void DemoBinaryTree(Container &container)
         container.insert(v);
     }    
     cout << endl;
+    cout << "BinaryTree : ";
     cout << "BinaryTree : " << endl;
-    cout << "In order : " << endl;
+    cout << "*************" << endl;
+    cout << "Recorrido inorden: " << endl;
     container.inorder(cout);
-    cout << "Pre order : " << endl;
-    container.preorder(cout);
-    cout << "Post order : " << endl;
+    cout << "Recorrido postorden: " << endl;
     container.postorder(cout);
+    cout << "Recorrido preorden: " << endl;
+    container.preorder(cout);
 
-    cout << "Using recorrer function: " << endl;
-    recorrer(container, fx <T>);
-    cout << endl;
+    // aplicando función
+    cout << "Recorrido aplicando funci'on duplicar (recorrido inorden) " << endl;               
+    //container.inorder(duplicate);
+    cout << "Aplicando funci'on imprimir: " << endl;               
+    //container.inorder(printTree);
 }
 
 #include "binarytree.h"
@@ -2605,6 +2609,17 @@ void DemoRegex()
     Exe("DemoRegexOperators", DemoRegexOperators);
 }
 
+
+
+/**
+ * @brief DemoAmpersand()
+ * Está función muestra el uso del carácter &
+ * a && b           indica and lógico
+ * a & b            indica and a nivel de bits
+ * int &r = c       indica que r es una variable sobrepuesta con c, si se hace r=5 entonces c=5
+ * px = &x          indica que px apunta a x 
+ *  
+ */
 void DemoAmpersand()
 {
     int a = 5, b = 4, c;
@@ -2651,6 +2666,14 @@ void f4(int *&rpi)
 void printxy(string str)
 {   cout << str << ": x=" << x << ", " << "y=" << y << endl;}
 
+/**
+ * @brief DemoPointersL1
+ * int &rk = x          indica que rk es una variable sobrepuesta con x, si se hace rk=5 entonces x=5
+ * int *p1              indica que p1 es un puntero a una variable entera
+ * int **pp             indica que pp es un puntero a un puntero que apunta a una variable entera 
+ * int p1 = &x          indica que p1 apunta a x
+ * int &rk = fr()       indica que rk es un alias de la función fr, es decir que rk(5) equivale a fr(5)
+ */
 void DemoPointersL1()
 {
     int z = f0();           float f = 3.14;
@@ -2702,6 +2725,12 @@ void ProcessVector(int *pv, size_t n)
     cout << endl;
 }
 
+/**
+ * @brief DemoPointersL2Vectors
+ * Esta función inicializa en forma dinámica un vector que contiene apuntadores a variables enteras
+ * luego a cada elemento de la matriz le asigna un valor y muestra que pvd[i] es equivaklente a *(pvd + i)
+ * Imprime para cada elemento de la matriz: la dirección que contiene y su valor 
+ *  */
 void DemoPointersL2Vectors()
 {
     using T = int;
@@ -2729,6 +2758,13 @@ void DemoPointersL2Vectors()
     pvd = nullptr;
 }
 
+
+/**
+ * @brief DemoPointersL2VectorX()
+ * Está función muestra la manera de cambiar la salida de información hacia la pantalla o hacia un archivo
+ * la función init(), que se encuentra en vector.h, inicializa una matriz de vectores
+ * para imprimir a print(), que se encuentra en vector.h, se le pasa el tipo de salida (cout o file)
+ */
 #include "vectorx.h"
 void DemoPointersL2VectorX()
 {
@@ -2788,12 +2824,17 @@ string func3()
 }
 
 /**
- * @brief 
- * 
+ * @brief DemoPointerstoFn1()
+ * Está función muestra la creación de punteros a funciones
+ * string (*apf[4])() = {&func1, &func2, &func3}            declara una matriz de cuatro elementos punteros a funciones que devuelven strings
+ * apf[3] = &func1                                          apf[3] guarda la dirección de la función func1
+ * rpta                                                     contiene lo que retorna (apf[3])()
+ * string (*pf1)() = &func2                                 pf1, que es un puntero a una función que devuelve string, contiene la dirección de func2
+ * auto pf2 = &func3                                        pf2, que contiene la dirección de func3, su tipo auto es igua al tipo de variable devuelta por func3 
  */
 void DemoPointerstoFn1()
 {
-string (*apf[4])() = {&func1, &func2, &func3};
+    string (*apf[4])() = {&func1, &func2, &func3};
     apf[3] = &func1;
 
     string rpta = (*apf[3])();
