@@ -45,7 +45,7 @@ class binary_tree_iterator : public general_iterator<Container,  class binary_tr
     binary_tree_iterator(myself &&other) : Parent(other) {} // Move constructor C++11 en adelante
 
   public:
-    backward_iterator operator++() {
+    binary_tree_iterator operator++() {
       return *this;
     }
 
