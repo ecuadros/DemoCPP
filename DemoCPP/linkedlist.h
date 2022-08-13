@@ -38,7 +38,8 @@ private:
 
 template <typename Container>
 class forward_iterator : public general_iterator<Container,  class forward_iterator<Container> > // 
-{public:   
+{public: 
+    // TODO: subir al padre  
     typedef class general_iterator<Container, forward_iterator<Container> > Parent; 
     typedef typename Container::Node                                  Node; // 
     typedef forward_iterator<Container>                                     myself;

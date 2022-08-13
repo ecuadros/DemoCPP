@@ -31,12 +31,15 @@ private:
     Node    * getParent() { return m_pParent;   }
 };
 
+#define _DEF(_Container, _iter)  \
+public: \
+    typedef class general_iterator<_Container, _iter<Container> > Parent;     \
+    typedef typename _Container::Node                             Node;       \
+    typedef _iter<_Container>                                     myself;
+
 template <typename Container>
 class binary_tree_iterator : public general_iterator<Container,  class binary_tree_iterator<Container> > // 
-{public:   
-    typedef class general_iterator<Container, binary_tree_iterator<Container> > Parent; 
-    typedef typename Container::Node                                  Node; // 
-    typedef binary_tree_iterator<Container>                               myself;
+{  _DEF(Container, binary_tree_iterator); // TODO: llebvar esta misma idea a todos container ya existentes
 
   public:
     binary_tree_iterator(Container *pContainer, Node *pNode) : Parent (pContainer,pNode) {}
