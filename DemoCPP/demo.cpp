@@ -1798,26 +1798,27 @@ template <typename Container>
 void DemoBinaryTree(Container &container)
 {   using T = typename Container::value_type;
     vector<T> values = {50, 30, 20, 80, 60, 70, 40, 90};
+    // vector<T> values = {150, 100, 10, 90, 80, 20, 30, 50, 40, 60, 70};
     for(auto &v: values)
     {
         container.insert(v);
     }    
-    // cout << endl;
-    // cout << "BinaryTree : ";
-    // cout << "BinaryTree : " << endl;
-    // cout << "*************" << endl;
-    // cout << "Recorrido inorden: " << endl;
-    // container.inorder(cout);
-    // cout << "Recorrido postorden: " << endl;
-    // container.postorder(cout);
-    // cout << "Recorrido preorden: " << endl;
-    // container.preorder(cout);
+    cout << endl;
+    cout << "BinaryTree : ";
+    cout << endl;
+    cout << "Recorrido inorden: " << endl;
+    container.inorder(cout);
+    cout << "Recorrido postorden: " << endl;
+    container.postorder(cout);
+    cout << "Recorrido preorden: " << endl;
+    container.preorder(cout);
 
     // // aplicando función
     // cout << "Recorrido aplicando funci'on duplicar (recorrido inorden) " << endl;               
     // //container.inorder(duplicate);
     // cout << "Aplicando funci'on imprimir: " << endl;               
     // //container.inorder(printTree);
+    cout << "Usando funcion recorrer:" << endl;
     recorrer(container, fx <T>);
     cout << endl;
 }
