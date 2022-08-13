@@ -1802,22 +1802,24 @@ void DemoBinaryTree(Container &container)
     {
         container.insert(v);
     }    
-    cout << endl;
-    cout << "BinaryTree : ";
-    cout << "BinaryTree : " << endl;
-    cout << "*************" << endl;
-    cout << "Recorrido inorden: " << endl;
-    container.inorder(cout);
-    cout << "Recorrido postorden: " << endl;
-    container.postorder(cout);
-    cout << "Recorrido preorden: " << endl;
-    container.preorder(cout);
+    // cout << endl;
+    // cout << "BinaryTree : ";
+    // cout << "BinaryTree : " << endl;
+    // cout << "*************" << endl;
+    // cout << "Recorrido inorden: " << endl;
+    // container.inorder(cout);
+    // cout << "Recorrido postorden: " << endl;
+    // container.postorder(cout);
+    // cout << "Recorrido preorden: " << endl;
+    // container.preorder(cout);
 
-    // aplicando función
-    cout << "Recorrido aplicando funci'on duplicar (recorrido inorden) " << endl;               
-    //container.inorder(duplicate);
-    cout << "Aplicando funci'on imprimir: " << endl;               
-    //container.inorder(printTree);
+    // // aplicando función
+    // cout << "Recorrido aplicando funci'on duplicar (recorrido inorden) " << endl;               
+    // //container.inorder(duplicate);
+    // cout << "Aplicando funci'on imprimir: " << endl;               
+    // //container.inorder(printTree);
+    recorrer(container, fx <T>);
+    cout << endl;
 }
 
 #include "binarytree.h"

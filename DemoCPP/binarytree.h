@@ -29,6 +29,8 @@ class NodeBinaryTree
     Node    * getChild(size_t branch){ return m_pChild[branch];  }
     Node    *&getChildRef(size_t branch){ return m_pChild[branch];  }
     Node    * getParent() { return m_pParent;   }
+    void      visitNode() { m_visitedFlag = !m_visitedFlag; }
+    bool     &getVisitedFlag()  { return m_visitedFlag; }
 };
 
 template <typename Container>
@@ -46,7 +48,18 @@ class binary_tree_iterator : public general_iterator<Container,  class binary_tr
 
   public:
     binary_tree_iterator operator++() {
+      Parent::m_pNode -> visitNode();
+      Parent::m_pNode = getNext(Parent::m_pNode);
       return *this;
+    }
+
+  protected:
+    Node *getNext(Node *&rCurrent) {
+      Node *rightChild = rCurrent -> getChildRef(1);
+      if (rightChild && rightChild -> getVisitedFlag() != true) return Parent::m_pContainer -> getMostLeft(rightChild);
+      Node *parent = rCurrent -> getParent();
+      if (!parent || parent -> getVisitedFlag() != true) return parent;
+      return getNext(parent);
     }
 
 };
@@ -86,6 +99,8 @@ class BinaryTree
     size_t  size()  const       { return m_size;       }
     bool    empty() const       { return size() == 0;  }
     void    insert(value_type &elem) { first_insert(elem);  }
+    iterator  begin()     { iterator  iter(this, this -> getMostLeft(m_pRoot));  return iter;  }
+    iterator  end()       { iterator  iter(this, nullptr); return iter;  }
 
   protected:
     Node *CreateNode(Node *pParent, value_type &elem){ return new Node(pParent, elem); }
@@ -106,6 +121,12 @@ class BinaryTree
       }
       size_t newBranch = Compfn(elem, m_pParent -> getChildRef(branch) -> getDataRef());
       return recursive_insert(elem, m_pParent -> getChildRef(branch), newBranch);
+    }
+
+  public:
+    Node  *&getMostLeft(Node *&rCurrent) {
+      if (!rCurrent -> getChildRef(0))  return rCurrent;
+      return getMostLeft(rCurrent -> getChildRef(0));
     }
 
   public:
