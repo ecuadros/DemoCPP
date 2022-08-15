@@ -39,7 +39,7 @@ public: \
 
 template <typename Container>
 class binary_tree_iterator : public general_iterator<Container,  class binary_tree_iterator<Container> > // 
-{  _DEF(Container, binary_tree_iterator); // TODO: llebvar esta misma idea a todos container ya existentes
+{  _DEF(Container, binary_tree_iterator); // TODO: llevar esta misma idea a todos container ya existentes
 
   public:
     binary_tree_iterator(Container *pContainer, Node *pNode) : Parent (pContainer,pNode) {}
