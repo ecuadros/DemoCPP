@@ -5,6 +5,7 @@ using namespace std;
 
 // Test desde Mac
 // g++ -pthread -std=c++17 -o main main.cpp demo.cpp util.cpp
+// g++ -pthread -std=c++17 -o btree BTree-main.cpp
 // Comentario extra de Mac
 // Texto sugerido
 
