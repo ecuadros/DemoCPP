@@ -1,23 +1,15 @@
-
-//CBTreePage.h
-
-/*************************
-#ifndef BTPage_H
-#define BTPage_H
-***************************/
 #ifndef CBTreePage_H
 #define CBTreePage_H
 
+#include <vector>
+#include <assert.h>
 
 template <typename keyType, typename ObjIDType>
 class BTree;
 
-#include <vector>
-
 using namespace std;
 enum bt_ErrorCode {bt_ok, bt_overflow, bt_underflow, bt_duplicate, bt_nofound, bt_rootmerged};
 
-#include <assert.h>
 template <typename Container, typename ObjType>
 int binary_search(Container& container, int first, int last, ObjType &object)
 {
@@ -39,7 +31,7 @@ int binary_search(Container& container, int first, int last, ObjType &object)
 }
 
 template <typename Container, typename ObjType>
-void insert_at(Container& container, ObjType &object, int pos)
+void insert_at(Container& container, ObjType object, int pos)
 {
        int size = container.size();
        for(int i = size-2 ; i >= pos ; i--)
@@ -64,6 +56,8 @@ struct tagObjectInfo
        long                    UseCounter;
        tagObjectInfo(const keyType     &_key, ObjIDType _ObjID)
                : key(_key), ObjID(_ObjID), UseCounter(0) {}
+       tagObjectInfo(const tagObjectInfo &objInfo)
+               : key(objInfo.key), ObjID(objInfo.ObjID), UseCounter(0) {}
        tagObjectInfo()                          {}
        operator keyType                         ()     { return key; }
        long                    GetUseCounter() { return UseCounter;    }
