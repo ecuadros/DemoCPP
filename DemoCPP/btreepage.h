@@ -41,9 +41,9 @@ template <typename Container, typename ObjType>
 void insert_at(Container& container, ObjType object, int pos)
 {
         // TODO: #5 replace int, long by types such as size_t
-       int size = container.size();
-       for(int i = size-2 ; i >= pos ; i--)
-               container[i+1] = container[i];
+       std::size_t size = container.size();
+       for(std::size_t i = size-2 ; i >= pos ; i--)
+                container[i+1] = container[i];
        container[pos] =  object;
 		
 }
