@@ -5,7 +5,8 @@
 
 template <typename Container>
 class backward_iterator : public general_iterator<Container,  class backward_iterator<Container> > // 
-{ public:   
+{ public: 
+    // TODO: subir al padre  
     typedef typename Container::Node                                         Node;
     typedef class general_iterator<Container, backward_iterator<Container> > Parent;  // 
     typedef backward_iterator<Container>                                     myself;
