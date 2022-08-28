@@ -114,7 +114,7 @@ protected:
        vector<ObjectInfo> m_Keys;
        vector<BTPage *>m_SubPages;
        // TODO: #10 size_t
-       int  m_KeyCount;
+       size_t  m_KeyCount;
        void  Create();
        void  Reset ();
        void  Destroy () {   Reset(); delete this;}
@@ -147,11 +147,11 @@ protected:
        // TODO: #18 change int by size_t
        int  MinNumberOfKeys()  { return 2*m_MaxKeys/3.0; }
        // TODO: #19 change int by size_t
-       int  GetFreeCells()  { return m_MaxKeys - m_KeyCount; }
+       size_t  GetFreeCells()  { return m_MaxKeys - m_KeyCount; }
        // TODO: #20 change int by size_t
-       int& NumberOfKeys()  { return m_KeyCount; }
+       size_t& NumberOfKeys()  { return m_KeyCount; }
        // TODO: #21 change int by size_t
-       int  GetNumberOfKeys()  { return m_KeyCount; }
+       size_t  GetNumberOfKeys()  { return m_KeyCount; }
        bool IsRoot()  { return m_MaxKeysForChilds != m_MaxKeys; }
        // TODO: #22 change int by size_t
        void SetMaxKeysForChilds(int orderforchilds)
