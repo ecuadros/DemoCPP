@@ -104,8 +104,8 @@ class CBTreePage //: public SimpleIndex <keyType>
 
 protected:
        // TODO: #9 change by size_t
-       int  m_MinKeys; // minimum number of keys in a node
-       int  m_MaxKeys, // maximum number of keys in a node
+       size_t  m_MinKeys; // minimum number of keys in a node
+       size_t  m_MaxKeys, // maximum number of keys in a node
                 m_MaxKeysForChilds; // just to distinguish the root
        bool m_Unique;
        bool m_isRoot;
