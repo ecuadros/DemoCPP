@@ -158,13 +158,13 @@ protected:
        {        m_MaxKeysForChilds = orderforchilds;       }
 
        // TODO: #23 change int by size_t
-       int GetFreeCellsOnLeft(size_t pos)
+       size_t GetFreeCellsOnLeft(size_t pos)
        {        if( pos > 0 )                                   // there is some page on left ?
                         return m_SubPages[pos-1]->GetFreeCells();
                 return 0;
        }
        // TODO: #24 change int by size_t
-       int GetFreeCellsOnRight(size_t pos)
+       size_t GetFreeCellsOnRight(size_t pos)
        {    if( pos < GetNumberOfKeys() )   // there is some page on right ?
                 return m_SubPages[pos+1]->GetFreeCells();
             return 0;
