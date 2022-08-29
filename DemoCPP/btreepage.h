@@ -5,7 +5,7 @@
 #include <assert.h>
 
 // TODO: #1 Crear una function para agregarla al demo.cpp
-// TODO: #2 Agregarle un Trait
+// TODO: #2 Agregarle un Trait (prueba git)
 // TODO: #3 crear un iterator
 //       Sugerencia: Tarea1 cada pagina debe tener un puntero al padre primero
 // TODO: #4 integrarlo al recorrer
