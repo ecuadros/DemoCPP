@@ -41,7 +41,7 @@ template <typename Container, typename ObjType>
 void insert_at(Container& container, ObjType object, int pos)
 {
         // TODO: #5 replace int, long by types such as size_t
-       int size = container.size();
+       size_t size = container.size();
        for(int i = size-2 ; i >= pos ; i--)
                container[i+1] = container[i];
        container[pos] =  object;
@@ -49,9 +49,9 @@ void insert_at(Container& container, ObjType object, int pos)
 }
 
 template <typename Container>
-void remove(Container& container, int pos)
+void remove(Container& container, size_t pos)
 {
-       int size = container.size();
+       size_t size = container.size();
        for(int i = pos+1 ; i < size ; i++)
                container[i-1] = container[i];
 }
@@ -68,7 +68,7 @@ struct tagObjectInfo
                : key(objInfo.key), ObjID(objInfo.ObjID), UseCounter(0) {}
        tagObjectInfo()                          {}
        operator keyType                         ()     { return key; }
-       long                    GetUseCounter() { return UseCounter;    }
+       size_t                    GetUseCounter() { return UseCounter;    }
 };
 
 template <typename keyType, typename ObjIDType>
