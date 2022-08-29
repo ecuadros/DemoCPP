@@ -1836,7 +1836,23 @@ void DemoBinaryTree()
     cout << "Descending Binarytree ..." << endl;
     BinaryTree< BinaryTreeDescTraits<TX> > myDescBinaryTree;
     DemoBinaryTree(myDescBinaryTree);
-    exit(0);
+}
+
+#include "btree.h"
+void DemoTree()
+{
+    BTree <char> bt;
+    const char * keys = "DYZakHIUwxVJ203ejOP9Qc8AdtuEop1XvTRghSNbW567BfiCqrs4FGMyzKLlmn";
+    for(size_t i = 0; keys[i]; i++)
+        {
+                //cout<<"Inserting "<<keys1[i]<<endl;
+                //result = bt.Insert(keys4[i], i*i);
+                bt.Insert(keys[i], i*i);
+                //bt.Print(cout);
+        }
+        bt.Print(cout);
+        exit(0);
+
 }
 
 /**

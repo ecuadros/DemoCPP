@@ -4,7 +4,6 @@
 #include <vector>
 #include <assert.h>
 
-// TODO: #1 Crear una function para agregarla al demo.cpp
 // TODO: #2 Agregarle un Trait
 // TODO: #3 crear un iterator
 //       Sugerencia: Tarea1 cada pagina debe tener un puntero al padre primero
@@ -45,8 +44,7 @@ void insert_at(Container& container, ObjType object, int pos)
        size_t size = container.size();
        for(int i = size-2 ; i >= pos ; i--)
                container[i+1] = container[i];
-       container[pos] =  object;
-		
+       container[pos] =  object;		
 }
 
 template <typename Container>
@@ -62,14 +60,14 @@ struct tagObjectInfo
 {
        keyType                 key;
        ObjIDType               ObjID;
-       long                    UseCounter;
+       size_t                  UseCounter;
        tagObjectInfo(const keyType     &_key, ObjIDType _ObjID)
                : key(_key), ObjID(_ObjID), UseCounter(0) {}
        tagObjectInfo(const tagObjectInfo &objInfo)
                : key(objInfo.key), ObjID(objInfo.ObjID), UseCounter(0) {}
        tagObjectInfo()                          {}
        operator keyType                         ()     { return key; }
-       long                    GetUseCounter() { return UseCounter;    }
+       size_t                    GetUseCounter() { return UseCounter;    }
 };
 
 template <typename keyType, typename ObjIDType>
@@ -99,6 +97,8 @@ class CBTreePage //: public SimpleIndex <keyType>
        // TODO: #7 ForEach must be a template inside this template
        void            ForEach(lpfnForEach2 lpfn, size_t level, void *pExtra1);
        void            ForEach(lpfnForEach3 lpfn, size_t level, void *pExtra1, void *pExtra2);
+       //void            invoke(ForEach(), lpfnForEach2 lpfn, size_t level, void *pExtra1);
+       //void            invoke(ForEach(), lpfnForEach3 lpfn, size_t level, void *pExtra1, void *pExtra2);
        // TODO: #8 You may reduce these two function by using Invoke
        ObjectInfo*     FirstThat(lpfnFirstThat2 lpfn, size_t level, void *pExtra1);
        ObjectInfo*     FirstThat(lpfnFirstThat3 lpfn, size_t level, void *pExtra1, void *pExtra2);
