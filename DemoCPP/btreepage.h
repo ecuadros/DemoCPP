@@ -86,7 +86,7 @@ class CBTreePage //: public SimpleIndex <keyType>
 
        bt_ErrorCode    Insert (const keyType &key, const ObjIDType ObjID);
        bt_ErrorCode    Remove (const keyType &key, const ObjIDType ObjID);
-       bool            Search (const keyType &key, long &ObjID);
+       bool            Search (const keyType &key, ObjIDType &ObjID);
        void            Print  (ostream &os);
 
        // TODO: #6 change by Invoke
@@ -503,7 +503,7 @@ bool CBTreePage<keyType, ObjIDType>::SplitRoot()
 
 // TODO: #27 change long (of ObjId) by a template
 template <typename keyType, typename ObjIDType>
-bool CBTreePage<keyType, ObjIDType>::Search(const keyType &key, long &ObjID)
+bool CBTreePage<keyType, ObjIDType>::Search(const keyType &key, ObjIDType &ObjID)
 {
         // TODO: #28 change int by size_t
        size_t pos = binary_search(m_Keys, 0, m_KeyCount, key);
