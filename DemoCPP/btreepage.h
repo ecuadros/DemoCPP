@@ -5,10 +5,11 @@
 #include <assert.h>
 #include <functional>
 
-// TODO: #2 Agregarle un Trait
-// TODO: #3 crear un iterator
-//       Sugerencia: Tarea1 cada pagina debe tener un puntero al padre primero
-// TODO: #4 integrarlo al recorrer
+// TODO: #1 Crear una function para agregarla al demo.cpp ( no trivial )
+// TODO: #2 Agregarle un Trait (prueba git) ( no trivial )
+// TODO: #3 crear un iterator ( no trivial )
+//       Sugerencia: Tarea1 cada pagina debe tener un puntero al padre primero ( no trivial )
+// TODO: #4 integrarlo al recorrer ( no trivial )
 
 
 template <typename keyType, typename ObjIDType>
@@ -53,8 +54,8 @@ template <typename Container>
 void remove(Container& container, size_t pos)
 {
        size_t size = container.size();
-       for(size_t i = pos+1 ; i < size ; i++)
-               container[i-1] = container[i];
+       for(auto i = pos+1 ; i < size ; i++)
+           container[i-1] = container[i];
 }
 
 template <typename keyType, typename ObjIDType>
@@ -124,7 +125,6 @@ protected:
        void  Destroy () {   Reset(); delete this;}
        void  clear ();
 
-
        bool  Redistribute1   (size_t &pos);
        bool  Redistribute2   (size_t pos);
        void  RedistributeR2L (size_t pos);
@@ -142,6 +142,7 @@ protected:
        bool Overflow()  { return m_KeyCount > m_MaxKeys; }
        bool Underflow() { return m_KeyCount < MinNumberOfKeys(); }
        bool IsFull()    { return m_KeyCount >= m_MaxKeys; }
+
 
        size_t  MinNumberOfKeys()  { return 2*m_MaxKeys/3.0; }
        size_t  GetFreeCells()  { return m_MaxKeys - m_KeyCount; }
