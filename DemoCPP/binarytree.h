@@ -93,14 +93,17 @@ protected:
     Node *internal_insert1(value_type &elem, Node *pParent, Node *&rpOrigin)
     {
         if( !rpOrigin ) //  llegué al fondo de una rama
+        {   ++m_size;
             return (rpOrigin = CreateNode(pParent, elem));
+        }
         size_t branch = Compfn(elem, rpOrigin->getDataRef() );
         return internal_insert1(elem, rpOrigin, rpOrigin->getChildRef(branch));
     }
 public:
-    void inorder  (ostream &os)    {   inorder  (m_pRoot, os, 0);   }
-    void postorder(ostream &os)    {   postorder(m_pRoot, os, 0); }
+    void inorder  (ostream &os)    {   inorder  (m_pRoot, os, 0);  }
+    void postorder(ostream &os)    {   postorder(m_pRoot, os, 0);  }
     void preorder (ostream &os)    {   preorder (m_pRoot, os, 0);  }
+    void print    (ostream &os)    {   print    (m_pRoot, os, 0);  }
     void inorder(void (*visit) (value_type& item))
     {   inorder(m_pRoot, visit);    }
 
@@ -110,7 +113,7 @@ protected:
         if( pNode )
         {   Node *pParent = pNode->getParent();
             inorder(pNode->getChild(0), os, level+1);
-            os << string("  ") * level << pNode->getDataRef() << "(" << (pParent?pParent->getData(): -1) << ")" <<endl;
+            os << " --> " << pNode->getDataRef();
             inorder(pNode->getChild(1), os, level+1);
         }
     }
@@ -121,7 +124,7 @@ protected:
         {   
             postorder(pNode->getChild(0), os, level+1);
             postorder(pNode->getChild(1), os, level+1);
-            os << string("  ") * level << pNode->getDataRef() << endl;
+            os << " --> " << pNode->getDataRef();
         }
     }
 
@@ -129,9 +132,20 @@ protected:
     {
         if( pNode )
         {   
-            os << string("  ") * level << pNode->getDataRef() << endl;
+            os << " --> " << pNode->getDataRef();
             preorder(pNode->getChild(0), os, level+1);
             preorder(pNode->getChild(1), os, level+1);            
+        }
+    }
+    
+    void print(Node  *pNode, ostream &os, size_t level)
+    {
+        if( pNode )
+        {   Node *pParent = pNode->getParent();
+            print(pNode->getChild(1), os, level+1);
+            //os << string(" | ") * level << pNode->getDataRef() << "(" << (pParent?(pNode->getBranch()?"R-":"L-") + to_string(pParent->getData()):"Root") << ")" <<endl;
+            os << string(" | ") * level << pNode->getDataRef() << "(" << (pParent?to_string(pParent->getData()):"Root") << ")" <<endl;
+            print(pNode->getChild(0), os, level+1);
         }
     }
 
