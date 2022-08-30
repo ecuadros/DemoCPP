@@ -40,8 +40,9 @@ size_t binary_search(Container& container, size_t first, size_t last, ObjType &o
 // Error al poner size_t
 // Posible motivo: El i está disminuyendo
 template <typename Container, typename ObjType>
-void insert_at(Container& container, ObjType object, int pos)
+void insert_at(Container& container, ObjType object, size_t pos)
 {
+        // TODO: #5 replace int, long by types such as size_t
        size_t size = container.size();
        for(int i = size-2 ; i >= pos ; i--)
                container[i+1] = container[i];
@@ -61,7 +62,7 @@ struct tagObjectInfo
 {
        keyType                 key;
        ObjIDType               ObjID;
-       size_t                  UseCounter;
+       size_t                    UseCounter;
        tagObjectInfo(const keyType     &_key, ObjIDType _ObjID)
                : key(_key), ObjID(_ObjID), UseCounter(0) {}
        tagObjectInfo(const tagObjectInfo &objInfo)
@@ -87,7 +88,6 @@ class CBTreePage //: public SimpleIndex <keyType>
        typedef ObjectInfo *(*lpfnFirstThat3)(ObjectInfo &info, size_t level, void *pExtra1, void *pExtra2);
  public:
        CBTreePage(size_t maxKeys, bool unique = true);
-
        virtual ~CBTreePage();
 
        bt_ErrorCode    Insert (const keyType &key, const ObjIDType ObjID);
@@ -105,6 +105,7 @@ class CBTreePage //: public SimpleIndex <keyType>
        ObjectInfo*     FirstThat(lpfnFirstThat3 lpfn, size_t level, void *pExtra1, void *pExtra2);
 
 protected:
+       // TODO: #9 change by size_t
        size_t  m_MinKeys; // minimum number of keys in a node
        size_t  m_MaxKeys, // maximum number of keys in a node
 
@@ -115,12 +116,14 @@ protected:
        //size_t RecAddr; // address of this node in the BTree file
        vector<ObjectInfo> m_Keys;
        vector<BTPage *>m_SubPages;
+       
+       // TODO: #10 size_t
        size_t  m_KeyCount;
-
        void  Create();
        void  Reset ();
        void  Destroy () {   Reset(); delete this;}
        void  clear ();
+
 
        bool  Redistribute1   (size_t &pos);
        bool  Redistribute2   (size_t pos);
@@ -133,7 +136,6 @@ protected:
        bt_ErrorCode    Merge  (size_t pos);
        bt_ErrorCode    MergeRoot ();
        void  SplitChild (size_t pos);
-
 
        ObjectInfo &GetFirstObjectInfo();
 
@@ -148,7 +150,6 @@ protected:
        bool IsRoot()  { return m_MaxKeysForChilds != m_MaxKeys; }
        void SetMaxKeysForChilds(size_t orderforchilds)
        {        m_MaxKeysForChilds = orderforchilds;       }
-
        size_t GetFreeCellsOnLeft(size_t pos)
        {        if( pos > 0 )                                   // there is some page on left ?
                         return m_SubPages[pos-1]->GetFreeCells();
@@ -805,7 +806,6 @@ void CBTreePage<keyType, ObjIDType>::clear()
        m_KeyCount = 0;
 }
 
-// TODO: #36 change int by size_t
 template <typename keyType, typename ObjIDType>
 CBTreePage<keyType, ObjIDType> * CreateBTreeNode (size_t maxKeys, bool unique)
 {
