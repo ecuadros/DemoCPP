@@ -4,11 +4,11 @@
 #include <vector>
 #include <assert.h>
 
-// TODO: #1 Crear una function para agregarla al demo.cpp
-// TODO: #2 Agregarle un Trait (prueba git)
-// TODO: #3 crear un iterator
-//       Sugerencia: Tarea1 cada pagina debe tener un puntero al padre primero
-// TODO: #4 integrarlo al recorrer
+// TODO: #1 Crear una function para agregarla al demo.cpp ( no trivial )
+// TODO: #2 Agregarle un Trait (prueba git) ( no trivial )
+// TODO: #3 crear un iterator ( no trivial )
+//       Sugerencia: Tarea1 cada pagina debe tener un puntero al padre primero ( no trivial )
+// TODO: #4 integrarlo al recorrer ( no trivial )
 
 
 template <typename keyType, typename ObjIDType>
@@ -94,18 +94,18 @@ class CBTreePage //: public SimpleIndex <keyType>
        bool            Search (const keyType &key, long &ObjID);
        void            Print  (ostream &os);
 
-       // TODO: #6 change by Invoke
-       // TODO: #7 ForEach must be a template inside this template
+       // TODO: #6 change by Invoke  ( no trivial )
+       // TODO: #7 ForEach must be a template inside this template ( no trivial )
        void            ForEach(lpfnForEach2 lpfn, int level, void *pExtra1);
        void            ForEach(lpfnForEach3 lpfn, int level, void *pExtra1, void *pExtra2);
-       // TODO: #8 You may reduce these two function by using Invoke
+       // TODO: #8 You may reduce these two function by using Invoke ( no trivial )
        ObjectInfo*     FirstThat(lpfnFirstThat2 lpfn, int level, void *pExtra1);
        ObjectInfo*     FirstThat(lpfnFirstThat3 lpfn, int level, void *pExtra1, void *pExtra2);
 
 protected:
-       // TODO: #9 change by size_t
-       int  m_MinKeys; // minimum number of keys in a node
-       int  m_MaxKeys, // maximum number of keys in a node
+       // TODO: #9 change by size_t 
+       size_t  m_MinKeys; // minimum number of keys in a node
+       size_t  m_MaxKeys, // maximum number of keys in a node
                 m_MaxKeysForChilds; // just to distinguish the root
        bool m_Unique;
        bool m_isRoot;
@@ -114,18 +114,18 @@ protected:
        vector<ObjectInfo> m_Keys;
        vector<BTPage *>m_SubPages;
        // TODO: #10 size_t
-       int  m_KeyCount;
+       size_t  m_KeyCount;
        void  Create();
        void  Reset ();
        void  Destroy () {   Reset(); delete this;}
        void  clear ();
 
        // TODO: #11 change int by size_t
-       bool  Redistribute1   (int &pos);
+       bool  Redistribute1   (size_t &pos);
        // TODO: #12 change int by size_t
-       bool  Redistribute2   (int pos);
+       bool  Redistribute2   (size_t pos);
        // TODO: #13 change int by size_t
-       void  RedistributeR2L (int pos);
+       void  RedistributeR2L (size_t pos);
        // TODO: #14 change int by size_t
        void  RedistributeL2R (int pos);
 
@@ -149,7 +149,7 @@ protected:
        // TODO: #19 change int by size_t
        int  GetFreeCells()  { return m_MaxKeys - m_KeyCount; }
        // TODO: #20 change int by size_t
-       int& NumberOfKeys()  { return m_KeyCount; }
+       size_t& NumberOfKeys()  { return m_KeyCount; } ///////////////////////////////////////////////////////////////////////////////////////
        // TODO: #21 change int by size_t
        int  GetNumberOfKeys()  { return m_KeyCount; }
        bool IsRoot()  { return m_MaxKeysForChilds != m_MaxKeys; }
@@ -200,7 +200,7 @@ CBTreePage<keyType, ObjIDType>::~CBTreePage()
 template <typename keyType, typename ObjIDType>
 bt_ErrorCode CBTreePage<keyType, ObjIDType>::Insert(const keyType& key, const ObjIDType ObjID)
 {
-       int pos = binary_search(m_Keys, 0, m_KeyCount, key);
+       size_t pos = binary_search(m_Keys, 0, m_KeyCount, key);   ////////////////////////////////////////////////////////////////////////////////////////////////////////////
        bt_ErrorCode error = bt_ok;
 
        if( pos < m_KeyCount && (keyType)m_Keys[pos] == key && m_Unique)
@@ -233,7 +233,7 @@ bt_ErrorCode CBTreePage<keyType, ObjIDType>::Insert(const keyType& key, const Ob
 }
 
 template <typename keyType, typename ObjIDType>
-bool CBTreePage<keyType, ObjIDType>::Redistribute1(int &pos)
+bool CBTreePage<keyType, ObjIDType>::Redistribute1(size_t &pos)   ///////////////////////////////////////////////////////////////////////////////////////////////////////
 {
        if( m_SubPages[pos]->Underflow() )
        {
@@ -282,7 +282,7 @@ bool CBTreePage<keyType, ObjIDType>::Redistribute1(int &pos)
 // it considers two brothers m_SubPages[pos-1] && m_SubPages[pos+1]
 // if it fails the only way is merge !
 template <typename keyType, typename ObjIDType>
-bool CBTreePage<keyType, ObjIDType>::Redistribute2(int pos)
+bool CBTreePage<keyType, ObjIDType>::Redistribute2(size_t pos) ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 {
        assert( pos > 0 && pos < NumberOfKeys()  );
        assert( m_SubPages[pos-1] != 0 && m_SubPages[pos] != 0 && m_SubPages[pos+1] != 0 );
@@ -316,7 +316,7 @@ bool CBTreePage<keyType, ObjIDType>::Redistribute2(int pos)
 }
 
 template <typename keyType, typename ObjIDType>
-void CBTreePage<keyType, ObjIDType>::RedistributeR2L(int pos)  
+void CBTreePage<keyType, ObjIDType>::RedistributeR2L(size_t pos)  /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 {
        BTPage  *pSource = m_SubPages[ pos ],
                *pTarget = m_SubPages[pos-1];
