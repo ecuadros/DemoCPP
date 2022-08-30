@@ -134,7 +134,7 @@ protected:
        {       return Redistribute1(pos) || Redistribute2(pos);}
 
        // TODO: #16 change int by size_t
-       bt_ErrorCode    Merge  (int pos);
+       bt_ErrorCode    Merge  (size_t pos);
        bt_ErrorCode    MergeRoot ();
        // TODO: #17 change int by size_t
        void  SplitChild (int pos);
@@ -381,7 +381,7 @@ void CBTreePage<keyType, ObjIDType>::SplitChild(int pos)
                }
 
         // TODO: #26 Change int by size_t
-       int nKeys = pChild1->GetNumberOfKeys() + pChild2->GetNumberOfKeys() + 1;
+       size_t nKeys = pChild1->GetNumberOfKeys() + pChild2->GetNumberOfKeys() + 1;
 
        // SECOND: copy both pages to a temporal one
        // Create two tmp vector
@@ -502,7 +502,7 @@ template <typename keyType, typename ObjIDType>
 bool CBTreePage<keyType, ObjIDType>::Search(const keyType &key, long &ObjID)
 {
         // TODO: #28 change int by size_t
-       int pos = binary_search(m_Keys, 0, m_KeyCount, key);
+       size_t pos = binary_search(m_Keys, 0, m_KeyCount, key);
        if( pos >= m_KeyCount )
        {    if( m_SubPages[pos] )
                 return m_SubPages[pos]->Search(key, ObjID);
@@ -669,7 +669,7 @@ bt_ErrorCode CBTreePage<keyType, ObjIDType>::Remove(const keyType &key, const Ob
 
 // TODO: #30 pos parameter mus be a size_t
 template <typename keyType, typename ObjIDType>
-bt_ErrorCode CBTreePage<keyType, ObjIDType>::Merge(int pos)
+bt_ErrorCode CBTreePage<keyType, ObjIDType>::Merge(size_t pos)
 {
        assert( m_SubPages[pos-1]->NumberOfKeys() +
                        m_SubPages[ pos ]->NumberOfKeys() +
