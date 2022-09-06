@@ -41,11 +41,11 @@ size_t binary_search(Container& container, size_t first, size_t last, ObjType &o
 // Error al poner size_t
 // Posible motivo: El i está disminuyendo
 template <typename Container, typename ObjType>
-void insert_at(Container& container, ObjType object, size_t pos)
+void insert_at(Container& container, ObjType object, int pos) //int
 {
         // TODO: #5 replace int, long by types such as size_t
-       size_t size = container.size();
-       for(int i = size-2 ; i >= pos ; i--)
+       int size = container.size(); //int
+       for(auto i = size-2 ; i >= pos ; i--)
                container[i+1] = container[i];
        container[pos] =  object;	
 }
@@ -133,10 +133,7 @@ protected:
        bool    TreatUnderflow  (size_t &pos)
        {       return Redistribute1(pos) || Redistribute2(pos);}
 
-<<<<<<< HEAD
        // TODO: #16 change int by size_t
-=======
->>>>>>> 62e1e37ed1a9c30316a54f063b9207fdabf86754
        bt_ErrorCode    Merge  (size_t pos);
        bt_ErrorCode    MergeRoot ();
        void  SplitChild (size_t pos);
@@ -374,11 +371,8 @@ void CBTreePage<keyType, ObjIDType>::SplitChild(size_t pos)
                        pChild1 = m_SubPages[pos];
                        pChild2 = m_SubPages[pos+1];
                }
-<<<<<<< HEAD
 
         // TODO: #26 Change int by size_t
-=======
->>>>>>> 62e1e37ed1a9c30316a54f063b9207fdabf86754
        size_t nKeys = pChild1->GetNumberOfKeys() + pChild2->GetNumberOfKeys() + 1;
 
        // SECOND: copy both pages to a temporal one
@@ -498,10 +492,7 @@ bool CBTreePage<keyType, ObjIDType>::SplitRoot()
 template <typename keyType, typename ObjIDType>
 bool CBTreePage<keyType, ObjIDType>::Search(const keyType &key, ObjIDType &ObjID)
 {
-<<<<<<< HEAD
         // TODO: #28 change int by size_t
-=======
->>>>>>> 62e1e37ed1a9c30316a54f063b9207fdabf86754
        size_t pos = binary_search(m_Keys, 0, m_KeyCount, key);
        if( pos >= m_KeyCount )
        {    if( m_SubPages[pos] )

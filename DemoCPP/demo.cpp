@@ -22,6 +22,8 @@
 #include "../cppstd17/tmpl/foldtraverse.hpp"
 #include "../cppstd17/tmpl/ishomogeneous.hpp"
 
+#include "btree.h"
+
 using namespace std;
 
 // Functions for DemoInvoke
@@ -1851,7 +1853,7 @@ void DemoTree()
                 //bt.Print(cout);
         }
         bt.Print(cout);
-        exit(0);
+        //exit(0);
 
 }
 
@@ -3050,4 +3052,35 @@ void DemoScope()
 
 }
 
+
+//#include "btree.h"
+void BTree_final()
+{
+        const char * keys4 = "ABCDEFGHIJKLM";
+        string keys = "";
+
+        const size_t BTreeSize = 3;
+
+       size_t result, i=2, aux=1;
+       //BTree <char> bt (BTreeSize);
+       BTree <char> bt;
+       //system("cls");
+       while (i > 1 && aux < 2)
+       { 
+
+        for( i = 0; keys4[i]; i++)
+        {
+                bt.Insert(keys4[i], i*i);
+        }
+        i++;
+        bt.Print(cout);
+        for( i = 0; keys4[i]; i++)
+        {
+                bt.Remove(keys4[i], i*i);
+        }
+        i++;
+        aux++;
+       }
+       
+}
 

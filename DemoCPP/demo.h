@@ -188,4 +188,7 @@ void DemoPointersToStruct();
 void DemoPointersToMembers1();
 void DemoPointersToMembers2();
 
+
+void BTree_final();
+
 #endif
