@@ -18,35 +18,16 @@ string keys = "";
 const size_t BTreeSize = 3;
 int main ()
 {
-       size_t result, i=2, aux=1;
-       //BTree <char> bt (BTreeSize);
-       BTree <char> bt;
-       system("cls");
-       while (i > 1 && aux < 2)
-       { 
-        /*
-        cout << "Ingresa keys: ";
-        cin >> keys;
-        system("cls");
-        keys4 = &keys[0];
-        */
-        for( i = 0; keys4[i]; i++)
-        {
-                //cout<<"Inserting "<<keys1[i]<<endl;
-                //result = bt.Insert(keys4[i], i*i);
-                bt.Insert(keys4[i], i*i);
-                //bt.Print(cout);
-        }
-        i++;
-        bt.Print(cout);
-        for( i = 0; keys4[i]; i++)
-        {
-                bt.Remove(keys4[i], i*i);
-        }
-        i++;
-        //cout << i << endl;
-        aux++;
+       int result, i;
+       BTree <char> bt (BTreeSize);
+       for( i = 0; keys1[i]; i++)
+       {
+               //cout<<"Inserting "<<keys1[i]<<endl;
+               result = bt.Insert(keys1[i], i*i);
+               //bt.Print(cout);
        }
+       i++;
+       bt.Print(cout);
        /*for (i = 0; keys2[i]; i++)
        {
                cout << "Searching " << keys2[i] << " ";
