@@ -150,7 +150,7 @@ void DemoBitset();
 void demoLinkedListSorted();
 void demoDoubleLinkedListSorted();
 void DemoBinaryTree();
-void DemoTree();
+// void DemoTree();
 void DemoDSMap();
 
 /**
@@ -187,5 +187,6 @@ void DemoPointerstoFn3();
 void DemoPointersToStruct();
 void DemoPointersToMembers1();
 void DemoPointersToMembers2();
+void DemoBinaryTree2();
 
 #endif

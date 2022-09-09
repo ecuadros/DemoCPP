@@ -1838,22 +1838,22 @@ void DemoBinaryTree()
     DemoBinaryTree(myDescBinaryTree);
 }
 
-#include "btree.h"
-void DemoTree()
-{
-    BTree <char> bt;
-    const char * keys = "DYZakHIUwxVJ203ejOP9Qc8AdtuEop1XvTRghSNbW567BfiCqrs4FGMyzKLlmn";
-    for(size_t i = 0; keys[i]; i++)
-        {
-                //cout<<"Inserting "<<keys1[i]<<endl;
-                //result = bt.Insert(keys4[i], i*i);
-                bt.Insert(keys[i], i*i);
-                //bt.Print(cout);
-        }
-        bt.Print(cout);
-        exit(0);
+// #include "btree.h"
+// void DemoTree()
+// {
+//     BTree <char> bt;
+//     const char * keys = "DYZakHIUwxVJ203ejOP9Qc8AdtuEop1XvTRghSNbW567BfiCqrs4FGMyzKLlmn";
+//     for(size_t i = 0; keys[i]; i++)
+//         {
+//                 //cout<<"Inserting "<<keys1[i]<<endl;
+//                 //result = bt.Insert(keys4[i], i*i);
+//                 bt.Insert(keys[i], i*i);
+//                 //bt.Print(cout);
+//         }
+//         bt.Print(cout);
+//         exit(0);
 
-}
+// }
 
 /**
  * @title DemoDSMap
@@ -3042,6 +3042,20 @@ void DemoPointersToMembers2()
     FuncionPointertoMembers(pObj, &Aritmetica::mult, v1, v2);
     FuncionPointertoMembers(pObj, &Aritmetica::divi, v1, v2);
     
+}
+
+#include "btree.h"
+void DemoBinaryTree2() {
+    const int BTreeSize = 3;
+    const char * keys1 = "D1XJ2xTg8zKL9AhijOPQcEowRSp0NbW567BUfCqrs4FdtYZakHIuvGV3eMylmn";
+    int result, i;
+    BTree <char> bt (BTreeSize);
+    for( i = 0; keys1[i]; i++)
+    {
+        result = bt.Insert(keys1[i], i*i);
+    }
+    i++;
+    bt.Print(cout);
 }
 
 int val1 = 100;
