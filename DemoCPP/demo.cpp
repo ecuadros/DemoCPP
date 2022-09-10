@@ -3062,9 +3062,7 @@ void BTree_final()
         const size_t BTreeSize = 3;
 
        size_t result, i=2, aux=1;
-       //BTree <char> bt (BTreeSize);
        BTree <char> bt;
-       //system("cls");
        while (i > 1 && aux < 2)
        { 
 
@@ -3080,6 +3078,7 @@ void BTree_final()
         }
         i++;
         aux++;
+        bt.Print(cout);
        }
        
 }

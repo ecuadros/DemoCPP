@@ -2,7 +2,7 @@
 //Author: Chicana D�az, Johan Pier
 //Bachelor in Engineering of System
 //#include <iostream.h>
-#include <time.h>
+#include <time.h>                                                       
 #include <stdlib.h>
 
 #include "btree.h"
@@ -13,7 +13,7 @@ const char * keys1 = "D1XJ2xTg8zKL9AhijOPQcEowRSp0NbW567BUfCqrs4FdtYZakHIuvGV3eM
 const char * keys2 = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 const char * keys3 = "DYZakHIUwxVJ203ejOP9Qc8AdtuEop1XvTRghSNbW567BfiCqrs4FGMyzKLlmn";
 //const char * keys4 = "ABC";
-const char * keys4 = "ABCDEFGHIJKLM";
+const char * keys4 = "ABCDEFGHIJKL";
 string keys = "";
 
 const size_t BTreeSize = 3;
