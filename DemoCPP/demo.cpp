@@ -1445,7 +1445,7 @@ void DemoTemplateParamTypes()
 #include <map>
 #include <algorithm>
 
-const int nElem = 20;
+const size_t nElem = 20;
 TX vect[nElem] = {30, 5, 14, 7,80, 90, 37, 25, 54, 47, 3, 6, 12, 8, 25, 27, 19, 83, 9, 17};
 
 template <typename T>
@@ -1830,28 +1830,65 @@ void DemoBinaryTree(Container &container)
 void DemoBinaryTree()
 {   
     cout << "Ascending Binarytree ..." << endl;
-    BinaryTree< BinaryTreeAscTraits<TX> > myAscBinaryTree;
+    BinaryTree< BinaryTreeAscTraits<TX> > myAscBinaryTree; //Se crea un árbol binario ascendente
     DemoBinaryTree(myAscBinaryTree);
     
     cout << "Descending Binarytree ..." << endl;
-    BinaryTree< BinaryTreeDescTraits<TX> > myDescBinaryTree;
+    BinaryTree< BinaryTreeDescTraits<TX> > myDescBinaryTree; //Se crea un árbol binario descendente
     DemoBinaryTree(myDescBinaryTree);
 }
 
 #include "btree.h"
 void DemoTree()
 {
-    BTree <char> bt;
-    const char * keys = "DYZakHIUwxVJ203ejOP9Qc8AdtuEop1XvTRghSNbW567BfiCqrs4FGMyzKLlmn";
+    BTree < BTreeTrait<char> > bt;
+    const char * keys = "Aa1Cc3Ee5Gg7Ii9Bb0Dd2Ff4Hh6JjKLMNOPQRS"; //Sin Parent Error
+    /*
+    const char * keys = "Aa1Bb2Cc3Dd4Ee5Ff6Gg7Hh8Ii9Jj0Kk1Ll2Mm3Nn4Oo5Pp6"; //Parent Error1
+    const char * keys = "DYZakHIUwxVJ203ejOP9Qc8AdtuEop1XvTRghSNbW567BfiCqrs4FGMyzKLlmn"; //Parent Error2
+    const char * keys = "Aa1Bb2Cc3Dd4Ee5Ff6Gg7Hh8Ii9J"; // Hasta aquí, altura 2
+    const char * keys = "Aa1Bb2Cc3Dd4Ee5Ff6Gg7Hh8Ii9Jj"; // Entra j, la altura sube a 3
+    */
+    //const char * keys = "Aa1Bb2Cc3Dd4";
+    //const char * keys = "Aa1Cc3Ee5Gg7Ii9Bb0Dd2Ff4Hh6J";
+    //const char * keys = "ABCDEFGHIJK";
+    //const char * keys = "Aa1Bb2Cc3Dd4Ee5Ff6Gg7Hh8Ii9JK";
+    //const char * keys = "ADFILORGSTU";
+    //const char * keys = "Aa1Cc3Ee5Gg7Ii9Bb0Dd2Ff4Hh6Jj8#%&()*+/";
+    //const char * keys = "Aa1Bb2Cc3Dd4Ee5Ff6Gg7Hh8Ii9Jj0Kk1Ll2Mm3N";
+    //const char * keys = "Aa1Bb2Cc3Dd456789";
+    /*
+    const char * keys = "Aa1Bb2Cc3Dd"; //3 hijos llenos
+    const char * keys = "Aa1Bb2Cc3Dd4"; //Overflow y SplitChild
+    */
+    string key_actual = "";
+    //string keys = "Aa1Bb2Cc3Dd4Ee5Ff6Gg7Hh8Ii9Jj";
     for(size_t i = 0; keys[i]; i++)
         {
-                //cout<<"Inserting "<<keys1[i]<<endl;
-                //result = bt.Insert(keys4[i], i*i);
                 bt.Insert(keys[i], i*i);
-                //bt.Print(cout);
+                /*
+                key_actual += keys[i];
+                cout << "Key Actual: " << key_actual << endl;
+                bt.Print(cout);
+                if (i > 7) {  bt.PrintDetails(0);  }
+                if (bt.height() > 1) {  bt.PrintDetails(0);  }
+                bt.PrintDetails(1);
+                cout << "-------------------------------- \n";
+                */
         }
         bt.Print(cout);
-        exit(0);
+        /*
+        cout << "Key Actual: " << keys << endl;
+        bt.PrintDetails(1);
+        recorrer(bt, fx<char>);
+        recorrer(bt, inc<char>);
+        */
+        cout << string("---") * 50 << endl;
+        cout << "Recorrer: ";
+        recorrer(bt, fx<char>);
+        cout << "\n" << string("---") * 50 << endl;
+        cout << endl;
+        bt.PrintDetails(0);
 
 }
 
@@ -2825,7 +2862,7 @@ void imprime(T &x)
 void DemoVectorSTL()
 {
     vector<TX> vals{0, 5, 10, 15, 20, 30, 40};
-    recorrer(vals);
+    recorrer(vals); //Dentro de vals se sencuentra el value_type
 }
 
 #include "matrix.h"

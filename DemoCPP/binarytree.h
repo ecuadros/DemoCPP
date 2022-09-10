@@ -12,14 +12,14 @@ template <typename T>
 class NodeBinaryTree
 {
 public:
-  typedef T         Type;
+    using Type = T;
 private:
-  typedef NodeBinaryTree<T> Node;
-  public:
+    using Node = NodeBinaryTree<T>;
+public:
     T       m_data;
     Node *  m_pParent = nullptr;
     vector<Node *> m_pChild = {nullptr, nullptr}; // 2 hijos inicializados en nullptr
-  public:
+public:
     NodeBinaryTree(Node *pParent, T data, Node *p0 = nullptr, Node *p1 = nullptr) 
         : m_pParent(pParent), m_data(data)
     {   m_pChild[0] = p0;   m_pChild[1] = p1;   }
@@ -72,12 +72,12 @@ template <typename Traits>
 class BinaryTree
 {
   public:
-    typedef typename Traits::T          value_type;
-    typedef typename Traits::Node       Node;
+    using value_type = typename Traits::T;
+    using Node = typename Traits::Node;
     
-    typedef typename Traits::CompareFn      CompareFn;
-    typedef BinaryTree<Traits>              myself;
-    typedef binary_tree_iterator<myself>    iterator;
+    using CompareFn = typename Traits::CompareFn;
+    using myself =  BinaryTree<Traits>;
+    using iterator = binary_tree_iterator<myself>;
 
 protected:
     Node    *m_pRoot = nullptr;

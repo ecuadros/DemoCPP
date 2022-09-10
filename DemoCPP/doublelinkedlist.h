@@ -7,9 +7,9 @@ template <typename Container>
 class backward_iterator : public general_iterator<Container,  class backward_iterator<Container> > // 
 { public: 
     // TODO: subir al padre  
-    typedef typename Container::Node                                         Node;
-    typedef class general_iterator<Container, backward_iterator<Container> > Parent;  // 
-    typedef backward_iterator<Container>                                     myself;
+    using Node   = typename Container::Node;
+    using Parent = class general_iterator<Container, backward_iterator<Container> >;  // 
+    using myself = backward_iterator<Container>;
 
   public:
     backward_iterator(Container *pContainer, Node *pNode) : Parent (pContainer,pNode) {}
@@ -27,9 +27,9 @@ class NodeDLL : public NodeLE<T>
 {
 public:
   //typedef T               Type;
-  typedef class NodeLE<T> Parent;
+  using Parent = class NodeLE<T>;
 private:
-  typedef NodeDLL<T> Node;
+  using Node = NodeDLL<T>;
   public: 
     Node   *m_pPrev;//
   public:
@@ -45,30 +45,31 @@ private:
 template <typename _T>
 struct DLLAscTraits
 {
-    typedef   _T          T;
-    typedef  NodeDLL<T>  Node;
-    typedef  less<T>     CompareFn;
+    using   T        = _T;
+    using  Node      = NodeDLL<T>;
+    using  CompareFn = less<T>;
 };
 
 template <typename _T>
 struct DLLDescTraits
 {
-    typedef   _T         T;
-    typedef  NodeDLL<T>  Node;
-    typedef  greater<T>  CompareFn;
+    using T         = _T;
+    using Node      = NodeDLL<T>;
+    using CompareFn = greater<T>;
 };
 
 template <typename Traits>
 class DoubleLinkedList : public LinkedList<Traits>
 {
  public:
-    typedef typename Traits::T          value_type;
-    typedef typename Traits::Node       Node;
-    typedef typename Traits::CompareFn  CompareFn;
-    typedef DoubleLinkedList<Traits>    myself;
-    typedef LinkedList<Traits>          Parent;
-    typedef forward_iterator<myself>    iterator;
-    typedef backward_iterator<myself>   riterator;
+    using value_type = typename Traits::T;
+    using Node       = typename Traits::Node;
+    using CompareFn  = typename Traits::CompareFn;
+    using myself     = DoubleLinkedList<Traits>;
+    using iterator   = forward_iterator<myself>;
+    
+    using Parent     = LinkedList<Traits>;
+    using riterator  = backward_iterator<myself>;
 public:
     DoubleLinkedList() {}
     void    insert(value_type elem)

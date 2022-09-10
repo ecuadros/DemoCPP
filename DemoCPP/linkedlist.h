@@ -19,9 +19,9 @@ template <typename T>
 class NodeLE
 {
 public:
-  typedef T         Type;
+  using Type = T;
 private:
-  typedef NodeLE<T> Node;
+  using Node = NodeLE<T>;
   public:
     T       m_data;
     Node   *m_pNext;//
@@ -37,12 +37,12 @@ private:
 };
 
 template <typename Container>
-class forward_iterator : public general_iterator<Container,  class forward_iterator<Container> > // 
+class forward_iterator : public general_iterator<Container,  class forward_iterator<Container> > //Mismos miembros públicos de general_iterator
 {public: 
     // TODO: subir al padre  
-    typedef class general_iterator<Container, forward_iterator<Container> > Parent; 
-    typedef typename Container::Node                                  Node; // 
-    typedef forward_iterator<Container>                                     myself;
+    using Parent = class general_iterator<Container, forward_iterator<Container> >; 
+    using Node   = typename Container::Node; // 
+    using myself = forward_iterator<Container>;
 
   public:
     forward_iterator(Container *pContainer, Node *pNode) : Parent (pContainer,pNode) {}
@@ -71,16 +71,16 @@ struct LLTraitDesc
     using  CompareFn = greater<T>;
 };
 
-template <typename Traits>
+template <typename Traits> //LLTraitAsc o LLTraitDesc
 class LinkedList
 {
   public:
-    typedef typename Traits::T          value_type;
-    typedef typename Traits::Node       Node;
-    
-    typedef typename Traits::CompareFn  CompareFn;
-    typedef LinkedList<Traits>          myself;
-    typedef forward_iterator<myself>    iterator;
+    //typedef typename Traits::T          value_type;
+    using value_type  = typename Traits::T;
+    using Node        = typename Traits::Node;
+    using CompareFn   = typename Traits::CompareFn;
+    using myself      = LinkedList<Traits>;
+    using iterator    = forward_iterator<myself>;
     
   protected:
     Node    *m_pHead = nullptr, 
