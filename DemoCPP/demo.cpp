@@ -3048,14 +3048,18 @@ void DemoPointersToMembers2()
 void DemoBinaryTree2() {
     const int BTreeSize = 3;
     const char * keys1 = "D1XJ2xTg8zKL9AhijOPQcEowRSp0NbW567BUfCqrs4FdtYZakHIuvGV3eMylmn";
+    const char * keys2 = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    const char * keys3 = "DYZakHIUwxVJ203ejOP9Qc8AdtuEop1XvTRghSNbW567BfiCqrs4FGMyzKLlmn";
+    const char * keys4 = "ABC";
     int result, i;
     BTree <SimpleTrait<char, long>> bt (BTreeSize);
-    for( i = 0; keys1[i]; i++)
+    for( i = 0; keys3[i]; i++)
     {
-        result = bt.Insert(keys1[i], i*i);
+        result = bt.Insert(keys3[i], i*i);
     }
-    i++;
     bt.Print(cout);
+    cout << "Recorrer function with in order iterator: " << endl;
+    recorrer(bt, printBT<vector<char>>);
 }
 
 int val1 = 100;

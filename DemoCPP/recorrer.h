@@ -8,6 +8,14 @@ void fx(T &x)
 {  cout << x << "  "; }
 
 template <typename T>
+void printBT(T &x)
+{  
+    for (size_t i = 0; i < x.size(); i++)
+        cout << x[i] << "  ";
+    cout << endl;   
+}
+
+template <typename T>
 void inc(T &x)
 {  ++x; }
 
