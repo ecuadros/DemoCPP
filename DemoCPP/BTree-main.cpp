@@ -5,6 +5,7 @@
 #include <time.h>
 #include <stdlib.h>
 
+#include "iterator.h"
 #include "btree.h"
 #include <string>
 
@@ -12,7 +13,8 @@
 const char * keys1 = "D1XJ2xTg8zKL9AhijOPQcEowRSp0NbW567BUfCqrs4FdtYZakHIuvGV3eMylmn";
 const char * keys2 = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 const char * keys3 = "DYZakHIUwxVJ203ejOP9Qc8AdtuEop1XvTRghSNbW567BfiCqrs4FGMyzKLlmn";
-const char * keys4 = "ABC";
+//const char * keys4 = "ABCDEFGH";
+const char * keys4 = "Aa1Bb2Cc3Dd4Ee5Ff6Gg";
 string keys = "";
 
 const size_t BTreeSize = 3;
@@ -20,7 +22,7 @@ int main ()
 {
        size_t result, i=2, aux=1;
        //BTree <char> bt (BTreeSize);
-       BTree <char> bt;
+       BTree < BTreeTrait<char> > bt;
        system("cls");
        while (i > 1 && aux < 2)
        { 
@@ -39,6 +41,7 @@ int main ()
         }
         i++;
         bt.Print(cout);
+        bt.PrintDetails();
         for( i = 0; keys4[i]; i++)
         {
                 bt.Remove(keys4[i], i*i);

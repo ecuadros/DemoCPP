@@ -1,15 +1,15 @@
 #ifndef __ITERATOR_H__
 #define __ITERATOR_H__
-#include <algorithm>
-#include <utility>
+//#include <algorithm>
+//#include <utility>
 
 template <typename Container, class IteratorBase> // 
 class general_iterator
 {public:
-    typedef typename Container::Node    Node;
-    typedef typename Node::Type         Type;
+    using Node = typename Container::Node;
+    using Type = typename Node::Type;
     //typedef class general_iterator<Container> Parent;
-    typedef general_iterator<Container, IteratorBase> myself; // 
+    using myself = general_iterator<Container, IteratorBase>; // 
     
 protected:
     Container *m_pContainer;

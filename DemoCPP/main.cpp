@@ -9,7 +9,7 @@ using namespace std;
 // Comentario extra de Mac
 // Texto sugerido
 
-int main()
+void main_alls()
 {
   Exe("DemoBasics",  DemoBasics); 
   Exe("CounterTest", CounterTest);
@@ -96,7 +96,7 @@ int main()
 
   Exe("DemoRegex", DemoRegex);
 
-  Exe("Demo Ampersand", DemoAmpersand);
+  Exe("DemoAmpersand", DemoAmpersand);
   Exe("DemoPointers Level1", DemoPointersL1);
   Exe("DemoPointersL2Vectors", DemoPointersL2Vectors);
   Exe("DemoPointersL2VectorX", DemoPointersL2VectorX);
@@ -109,11 +109,23 @@ int main()
   Exe("DemoPointersToStruct", DemoPointersToStruct);
   Exe("DemoPointersToMembers1", DemoPointersToMembers1);
   Exe("DemoPointersToMembers2", DemoPointersToMembers2);
-  return 0;
 }
 
 int main1()
 {
   cout << "Hola mundo\nOtra linea\n";
+  return 0;
+}
+
+int main()
+{
+  system("cls");
+  //main_alls();
+  //Exe("DemoVectorSTL", DemoVectorSTL);
+  //Exe("demoLinkedListSorted", demoLinkedListSorted);
+  //Exe("demoDoubleLinkedListSorted", demoDoubleLinkedListSorted);
+  //Exe("DemoBinaryTree", DemoBinaryTree);
+  Exe("DemoTree", DemoTree);
+
   return 0;
 }
