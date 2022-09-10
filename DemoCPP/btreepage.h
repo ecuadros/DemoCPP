@@ -524,14 +524,14 @@ void CBTreePage<keyType, ObjIDType>::ForEachReverse(lpfnForEach2 lpfn, size_t le
 template <typename keyType, typename ObjIDType>
 void CBTreePage<keyType, ObjIDType>::ForEach(lpfnForEach2 lpfn, size_t level, void *pExtra1)
 {
-       for(size_t i = 0 ; i < m_KeyCount ; i++)
-       {
-               if( m_SubPages[i] )
-                       m_SubPages[i]->ForEach(lpfn, level+1, pExtra1);
-               lpfn(m_Keys[i], level, pExtra1);
-       }
-       if( m_SubPages[m_KeyCount] )
-               m_SubPages[m_KeyCount]->ForEach(lpfn, level+1, pExtra1);
+        for (size_t i = 0; i < m_KeyCount; i++)
+        {
+                if (m_SubPages[i])
+                        m_SubPages[i]->ForEach(lpfn, level + 1, pExtra1);
+                std::invoke(lpfn, m_Keys[i], level, pExtra1);
+        }
+        if (m_SubPages[m_KeyCount])
+                m_SubPages[m_KeyCount]->ForEach(lpfn, level + 1, pExtra1);
 }
 
 /*template <typename keyType, typename ObjIDType>
@@ -551,52 +551,52 @@ void CBTreePage<keyType, ObjIDType>::ForEachReverse(lpfnForEach3 lpfn,
 template <typename keyType, typename ObjIDType>
 void CBTreePage<keyType, ObjIDType>::ForEach(lpfnForEach3 lpfn, size_t level, void *pExtra1, void *pExtra2)
 {
-       for(size_t i = 0 ; i < m_KeyCount ; i++)
-       {
-               if( m_SubPages[i] )
-                       m_SubPages[i]->ForEach(lpfn, level+1, pExtra1, pExtra2);
-               lpfn(m_Keys[i], level, pExtra1, pExtra2);
-       }
-       if( m_SubPages[m_KeyCount] )
-               m_SubPages[m_KeyCount]->ForEach(lpfn, level+1, pExtra1, pExtra2);
+        for (size_t i = 0; i < m_KeyCount; i++)
+        {
+                if (m_SubPages[i])
+                        m_SubPages[i]->ForEach(lpfn, level + 1, pExtra1, pExtra2);
+                std::invoke(lpfn, m_Keys[i], level, pExtra1, pExtra2);
+        }
+        if (m_SubPages[m_KeyCount])
+                m_SubPages[m_KeyCount]->ForEach(lpfn, level + 1, pExtra1, pExtra2);
 }
 
 template <typename keyType, typename ObjIDType>
 typename CBTreePage<keyType, ObjIDType>::ObjectInfo *
 CBTreePage<keyType, ObjIDType>::FirstThat(lpfnFirstThat2 lpfn, size_t level, void *pExtra1)
 {
-       ObjectInfo *pTmp;
-       for(size_t i = 0 ; i < m_KeyCount ; i++)
-       {
-               if( m_SubPages[i] )
-                       if( (pTmp = m_SubPages[i]->FirstThat(lpfn, level+1, pExtra1)) )
-                               return pTmp;
-               if( lpfn(m_Keys[i], level, pExtra1) )
-                       return &m_Keys[i];
-       }
-       if( m_SubPages[m_KeyCount] )
-               if( (pTmp = m_SubPages[m_KeyCount]->FirstThat(lpfn, level+1, pExtra1)) )
-                       return pTmp;
-       return 0;
+        ObjectInfo *pTmp;
+        for (size_t i = 0; i < m_KeyCount; i++)
+        {
+                if (m_SubPages[i])
+                        if ((pTmp = m_SubPages[i]->FirstThat(lpfn, level + 1, pExtra1)))
+                                return pTmp;
+                if (std::invoke(lpfn, m_Keys[i], level, pExtra1))
+                        return &m_Keys[i];
+        }
+        if (m_SubPages[m_KeyCount])
+                if ((pTmp = m_SubPages[m_KeyCount]->FirstThat(lpfn, level + 1, pExtra1)))
+                        return pTmp;
+        return 0;
 }
 
 template <typename keyType, typename ObjIDType>
 typename CBTreePage<keyType, ObjIDType>::ObjectInfo *
-CBTreePage<keyType, ObjIDType>::FirstThat(lpfnFirstThat3 lpfn,size_t level, void *pExtra1, void *pExtra2)
+CBTreePage<keyType, ObjIDType>::FirstThat(lpfnFirstThat3 lpfn, size_t level, void *pExtra1, void *pExtra2)
 {
-       ObjectInfo *pTmp;
-       for(size_t i = 0 ; i < m_KeyCount ; i++)
-       {
-               if( m_SubPages[i] )
-                       if( (pTmp = m_SubPages[i]->FirstThat(lpfn, level+1, pExtra1, pExtra2) ) )
-                               return pTmp;
-               if( lpfn(m_Keys[i], level, pExtra1, pExtra2) )
-                       return &m_Keys[i];
-       }
-       if( m_SubPages[m_KeyCount] )
-               if( (pTmp = m_SubPages[m_KeyCount]->FirstThat(lpfn, level+1, pExtra1, pExtra2) ) )
-                       return pTmp;
-       return 0;
+        ObjectInfo *pTmp;
+        for (size_t i = 0; i < m_KeyCount; i++)
+        {
+                if (m_SubPages[i])
+                        if ((pTmp = m_SubPages[i]->FirstThat(lpfn, level + 1, pExtra1, pExtra2)))
+                                return pTmp;
+                if (std::invoke(lpfn, m_Keys[i], level, pExtra1, pExtra2))
+                        return &m_Keys[i];
+        }
+        if (m_SubPages[m_KeyCount])
+                if ((pTmp = m_SubPages[m_KeyCount]->FirstThat(lpfn, level + 1, pExtra1, pExtra2)))
+                        return pTmp;
+        return 0;
 }
 
 template <typename keyType, typename ObjIDType>
