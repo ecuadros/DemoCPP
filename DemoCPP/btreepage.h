@@ -1,12 +1,13 @@
 #ifndef __CBTreePage_H__
 #define __CBTreePage_H__
-
+#include <utility>     // for std::invoke()
 #include <vector>
 #include <assert.h>
 #include <functional>
+#include <type_traits> 
 
 // TODO: #1 Crear una function para agregarla al demo.cpp ( no trivial ) (completado) (2022 08 16 video 1:29:36)
-// TODO: #2 Agregarle un Trait (prueba git) ( no trivial )
+// TODO: #2 Agregarle un Trait (prueba git) ( no trivial ) (completado)
 // TODO: #3 crear un iterator ( no trivial )
 
 //       Sugerencia: Tarea1 cada pagina debe tener un puntero al padre primero ( no trivial )
@@ -83,11 +84,9 @@ class CBTreePage //: public SimpleIndex <keyType>
        typedef CBTreePage<keyType, ObjIDType>    BTPage;         // useful shorthand
        typedef tagObjectInfo<keyType, ObjIDType> ObjectInfo;
 
-       typedef void (*lpfnForEach2)(ObjectInfo &info, size_t level, void *pExtra1);
-       typedef void (*lpfnForEach3)(ObjectInfo &info, size_t level, void *pExtra1, void *pExtra2);
+        typedef void (*lpfnForEach)(ObjectInfo &info, size_t level, void *pExtra1, void *pExtra2);
 
-       typedef ObjectInfo *(*lpfnFirstThat2)(ObjectInfo &info, size_t level, void *pExtra1);
-       typedef ObjectInfo *(*lpfnFirstThat3)(ObjectInfo &info, size_t level, void *pExtra1, void *pExtra2);
+        typedef ObjectInfo *(*lpfnFirstThat)(ObjectInfo &info, size_t level, void *pExtra1, void *pExtra2);
  public:
        CBTreePage(size_t maxKeys, bool unique = true);
        virtual ~CBTreePage();
@@ -99,12 +98,9 @@ class CBTreePage //: public SimpleIndex <keyType>
 
        // TODO: #6 change by Invoke (video 1:11:00) (completado)
        // TODO: #7 ForEach must be a template inside this template(completado)
-       void            ForEach(lpfnForEach2 lpfn, size_t level, void *pExtra1);
-       void            ForEach(lpfnForEach3 lpfn, size_t level, void *pExtra1, void *pExtra2);
-
+       void            ForEach(lpfnForEach lpfn, size_t level, void *pExtra1, void *pExtra2); 
        // TODO: #8 You may reduce these two function by using Invoke(completado)
-       ObjectInfo*     FirstThat(lpfnFirstThat2 lpfn, size_t level, void *pExtra1);
-       ObjectInfo*     FirstThat(lpfnFirstThat3 lpfn, size_t level, void *pExtra1, void *pExtra2);
+       ObjectInfo*     FirstThat(lpfnFirstThat lpfn, size_t level, void *pExtra1, void *pExtra2);
 
 protected:
        // TODO: #9 change by size_t (completado)
@@ -513,6 +509,7 @@ bool CBTreePage<keyType, ObjIDType>::Search(const keyType &key, ObjIDType &ObjID
        return false;
 }
 
+
 /*template <typename keyType, typename ObjIDType>
 void CBTreePage<keyType, ObjIDType>::ForEachReverse(lpfnForEach2 lpfn, size_t level, void *pExtra1)
 {
@@ -525,79 +522,17 @@ void CBTreePage<keyType, ObjIDType>::ForEachReverse(lpfnForEach2 lpfn, size_t le
                        m_SubPages[i]->ForEach(lpfn, level+1, pExtra1);
        }
 }*/
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*
-template <typename keyType, typename ObjIDType>
-void CBTreePage<keyType, ObjIDType>::ForEach(lpfnForEach2 lpfn, size_t level, void *pExtra1)
-{
-       for(size_t i = 0 ; i < m_KeyCount ; i++)
-       {
-               if( m_SubPages[i] )
-                       m_SubPages[i]->ForEach(lpfn, level+1, pExtra1);
-               lpfn(m_Keys[i], level, pExtra1);
-       }
-       if( m_SubPages[m_KeyCount] )
-               m_SubPages[m_KeyCount]->ForEach(lpfn, level+1, pExtra1);
-}
-*/
-template <typename keyType, typename ObjIDType>
-void CBTreePage<keyType, ObjIDType>::ForEach(lpfnForEach2 lpfn, size_t level, void *pExtra1)
-{
-        
-       for(size_t i = 0 ; i < m_KeyCount ; i++)
-       {
-               if( m_SubPages[i] )
-                       m_SubPages[i]->ForEach(lpfn, level+1, pExtra1);
-
-                std::invoke(lpfn,m_Keys[i], level, pExtra1);
-       }
-       if( m_SubPages[m_KeyCount] )
-               m_SubPages[m_KeyCount]->ForEach(lpfn, level+1, pExtra1);
-
-        
-}
-
-/*
-template<typename Iter, typename Callable, typename... Args>
-void foreach (Iter current, Iter end, Callable op, Args const&... args)
-{
-  while (current != end) {     // as long as not reached the end of the elements
-    std::invoke(op,            // call passed callable with
-                args...,       // any additional args
-                *current);     // and the current element
-    ++current;
-  }
-}
-*/
-
-
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-/*template <typename keyType, typename ObjIDType>
-void CBTreePage<keyType, ObjIDType>::ForEachReverse(lpfnForEach3 lpfn,
-                                                                                                       size_t level, void *pExtra1, void *pExtra2)
-{
-       if( m_SubPages[m_KeyCount] )
-               m_SubPages[m_KeyCount]->ForEach(lpfn, level+1, pExtra1, pExtra2);
-       for(size_t i = m_KeyCount-1 ; i >= 0  ; i--)
-       {
-               lpfn(m_Keys[i], level, pExtra1, pExtra2);
-               if( m_SubPages[i] )
-                       m_SubPages[i]->ForEach(lpfn, level+1, pExtra1, pExtra2);
-       }
-}*/
 
 template <typename keyType, typename ObjIDType>
-void CBTreePage<keyType, ObjIDType>::ForEach(lpfnForEach3 lpfn, size_t level, void *pExtra1, void *pExtra2)
+void CBTreePage<keyType, ObjIDType>::ForEach(lpfnForEach lpfn, size_t level, void *pExtra1, void *pExtra2)
 {
        for(size_t i = 0 ; i < m_KeyCount ; i++)
        {
                if( m_SubPages[i] )
                        m_SubPages[i]->ForEach(lpfn, level+1, pExtra1, pExtra2);
                //lpfn(m_Keys[i], level, pExtra1, pExtra2);
-               std::invoke(lpfn,m_Keys[i], level, pExtra1,pExtra2);
+               //std::invoke(lpfn,m_Keys[i], level, pExtra1,pExtra2);
+               call_invoke(lpfn,m_Keys[i], level, pExtra1,pExtra2);
        }
        if( m_SubPages[m_KeyCount] )
                m_SubPages[m_KeyCount]->ForEach(lpfn, level+1, pExtra1, pExtra2);
@@ -605,29 +540,7 @@ void CBTreePage<keyType, ObjIDType>::ForEach(lpfnForEach3 lpfn, size_t level, vo
 
 template <typename keyType, typename ObjIDType>
 typename CBTreePage<keyType, ObjIDType>::ObjectInfo *
-CBTreePage<keyType, ObjIDType>::FirstThat(lpfnFirstThat2 lpfn, size_t level, void *pExtra1)
-{
-       ObjectInfo *pTmp;
-       for(size_t i = 0 ; i < m_KeyCount ; i++)
-       {
-               if( m_SubPages[i] )
-                       if( (pTmp = m_SubPages[i]->FirstThat(lpfn, level+1, pExtra1)) )
-                               return pTmp;
-               //if( lpfn( m_Keys[i], level, pExtra1) )
-               if( std::invoke(lpfn,m_Keys[i], level, pExtra1))
-                       return &m_Keys[i];
-
-                
-       }
-       if( m_SubPages[m_KeyCount] )
-               if( (pTmp = m_SubPages[m_KeyCount]->FirstThat(lpfn, level+1, pExtra1)) )
-                       return pTmp;
-       return 0;
-}
-
-template <typename keyType, typename ObjIDType>
-typename CBTreePage<keyType, ObjIDType>::ObjectInfo *
-CBTreePage<keyType, ObjIDType>::FirstThat(lpfnFirstThat3 lpfn,size_t level, void *pExtra1, void *pExtra2)
+CBTreePage<keyType, ObjIDType>::FirstThat(lpfnFirstThat lpfn,size_t level, void *pExtra1, void *pExtra2)
 {
        ObjectInfo *pTmp;
        for(size_t i = 0 ; i < m_KeyCount ; i++)
@@ -636,7 +549,8 @@ CBTreePage<keyType, ObjIDType>::FirstThat(lpfnFirstThat3 lpfn,size_t level, void
                        if( (pTmp = m_SubPages[i]->FirstThat(lpfn, level+1, pExtra1, pExtra2) ) )
                                return pTmp;
                //if( lpfn(m_Keys[i], level, pExtra1, pExtra2) )
-               if( std::invoke(lpfn,m_Keys[i], level, pExtra1, pExtra2) )
+               //if( std::invoke(lpfn,m_Keys[i], level, pExtra1, pExtra2) )
+               if( call_invoke(lpfn,m_Keys[i], level, pExtra1, pExtra2) )
                        return &m_Keys[i];
        }
        if( m_SubPages[m_KeyCount] )
@@ -811,9 +725,9 @@ CBTreePage<keyType, ObjIDType>::GetFirstObjectInfo()
 }
 
 template <typename keyType, typename ObjIDType>
-void Print(tagObjectInfo<keyType, ObjIDType> &info, size_t level, void *pExtra)
+void Print(tagObjectInfo<keyType, ObjIDType> &info, size_t level, void *pExtra1, void *pExtra2)
 {
-       ostream &os = *(ostream *)pExtra;
+       ostream &os = *(ostream *)pExtra1;
        for(size_t i = 0; i < level ; i++)
                os << "\t";
        os << info.key << "->" << info.ObjID << "\n";
@@ -822,8 +736,8 @@ void Print(tagObjectInfo<keyType, ObjIDType> &info, size_t level, void *pExtra)
 template <typename keyType, typename ObjIDType>
 void CBTreePage<keyType, ObjIDType>::Print(ostream & os)
 {
-       lpfnForEach2 lpfn = &::Print<keyType, ObjIDType>;
-       ForEach(lpfn, 0, &os);
+       lpfnForEach lpfn = &::Print<keyType, ObjIDType>;
+       ForEach(lpfn, 0, &os, nullptr);
 }
 
 template <typename keyType, typename ObjIDType>
@@ -872,6 +786,28 @@ void CBTreePage<keyType, ObjIDType>::MovePage(BTPage *pChildPage, vector<ObjectI
        }
        tmpSubPages.push_back(pChildPage->m_SubPages[i]);
        pChildPage->clear();
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+template<typename Callable, typename... Args>
+decltype(auto) call_invoke(Callable&& op, Args&&... args)
+{
+  if constexpr(std::is_same_v<std::invoke_result_t<Callable, Args...>,
+                              void>) {
+    // return type is void:
+    std::invoke(std::forward<Callable>(op),
+                std::forward<Args>(args)...);
+    //...
+    return;
+  }
+  else {
+    // return type is not void:
+    decltype(auto) ret{std::invoke(std::forward<Callable>(op),
+                                   std::forward<Args>(args)...)};
+    //...
+    return ret;
+  }
 }
 
 #endif
