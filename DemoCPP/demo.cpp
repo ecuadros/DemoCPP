@@ -3053,8 +3053,52 @@ void DemoScope()
 }
 
 //desarrolla algoritmo de btree
+//en el archivo btree.h estan las funciones insertar y borrar elementos del arbol
+//btree esta en un include en la linea 25
+
+//constante global, ocupa memoria desde el inicio
+const char * keys1= "Trabajo_estructura_de_datos_2022_setiembre_muñoz";
+
 void BTreeS()
 {
+    //constante local, ocupa memoria cuando se invoca la función BTreeS luego se libera
+    const char * keys2= "ABC";
+    //
+    string keys="";
+    //memoria de almacenamiento en busqueda, 3 evita desbordamiento
+    const size_t BTreeSize=3;
+    //i iteración, aux registro de espera
+    size_t resultado,i=2,aux=1;
+
+    BTree <char> bt; //se crea objeto bt clase BTree binario con funciones heredadas
+
+    //bucle indefinido hasta cumplir condicion
+    //mientras indice exceda al 1 y registro aux no exceda de 1
+    while(i>1 && aux<2)
+    {
+        //bucle para insertar valores entre keys4="ABC"
+        for(i=0;keys2[i];i++)
+        {
+            bt.Insert(keys2[i],i*i);    
+
+        }
+        i++;
+        bt.Print(cout);
+
+        //bucle para remover valores entre k
+        for(i=0;keys2[i],i++)
+        {
+            bt.Remove(keys2[i],i+i);
+
+        }
+        i++;
+        aux++;
+        bt.Print(cout);
+
+
+
+    }
+
 
 
 }
