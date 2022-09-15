@@ -21,6 +21,8 @@
 #include "recorrer.h"
 #include "../cppstd17/tmpl/foldtraverse.hpp"
 #include "../cppstd17/tmpl/ishomogeneous.hpp"
+//se incluye el archivo header b
+#include "btree.h"
 
 using namespace std;
 
@@ -3050,4 +3052,10 @@ void DemoScope()
 
 }
 
+//desarrolla algoritmo de btree
+void BTreeS()
+{
+
+
+}
 

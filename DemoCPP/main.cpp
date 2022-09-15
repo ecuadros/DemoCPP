@@ -111,12 +111,12 @@ int main()
   Exe("DemoPointersToMembers2", DemoPointersToMembers2);
   
   //uso de archivos de binary tree
-  Exe("BTree_final", BTree_final);
+  Exe("BTreeS", BTreeS);
   return 0;
 }
 //prueba9
 int main1()
 {
-  cout << "Hola mundo\nOtra linea\n";
+  cout << "Función BtreeS agregada\n";
   return 0;
 }
