@@ -188,4 +188,6 @@ void DemoPointersToStruct();
 void DemoPointersToMembers1();
 void DemoPointersToMembers2();
 
+//prototipo funcion arbol binario
+void BTree_final();
 #endif
