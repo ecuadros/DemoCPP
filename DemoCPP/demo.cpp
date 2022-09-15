@@ -776,7 +776,7 @@ void DemoCallBacks()
 // From filesystem/checkpath3.cpp
 #include <filesystem>
 #include <cstdlib>    // for EXIT_FAILURE
-
+#include <iomanip> // JVR: Used for linux-debian 10. setw is in iomapip package.
 void _DemoCheckPath3(string file)
 {
     /*if (argc < 2)
@@ -1838,10 +1838,10 @@ void DemoBinaryTree()
     DemoBinaryTree(myDescBinaryTree);
 }
 
-#include "btree.h"
-void DemoTree()
+
+template <typename Container>
+void DemoTree(Container &bt)
 {
-    BTree <char> bt;
     const char * keys = "DYZakHIUwxVJ203ejOP9Qc8AdtuEop1XvTRghSNbW567BfiCqrs4FGMyzKLlmn";
     for(size_t i = 0; keys[i]; i++)
         {
@@ -1853,6 +1853,17 @@ void DemoTree()
         bt.Print(cout);
         exit(0);
 
+}
+
+
+#include "btree.h"
+void DemoTree()
+{
+    cout << " **** BinaryTreeStart **** " << endl;
+    const int BTreeSize = 3; // DEFAULT_BTREE_ORDER
+    BTree < BTreeTrait<char, long> > myBinaryTreeStart (BTreeSize);
+    DemoTree(myBinaryTreeStart);
+    exit(0);
 }
 
 /**
