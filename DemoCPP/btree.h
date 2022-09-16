@@ -17,6 +17,10 @@ public:
        typedef typename BTNode::lpfnForEach3    lpfnForEach3;
        typedef typename BTNode::lpfnFirstThat2  lpfnFirstThat2;
        typedef typename BTNode::lpfnFirstThat3  lpfnFirstThat3;
+       //agregado 11
+       typedef typename BTNode::lpfnForEach    lpfnForEach;
+       typedef typename BTNode::lpfnFirstThat  lpfnFirstThat;
+       
        typedef typename BTNode::ObjectInfo      ObjectInfo;
 
 public:
@@ -46,14 +50,10 @@ public:
 
        void            Print (ostream &os)
        {               m_Root.Print(os);                              }
-       void            ForEach( lpfnForEach2 lpfn, void *pExtra1 )
-       {               m_Root.ForEach(lpfn, 0, pExtra1);              }
-       void            ForEach( lpfnForEach3 lpfn, void *pExtra1, void *pExtra2)
-       {               m_Root.ForEach(lpfn, 0, pExtra1, pExtra2);     }
-       ObjectInfo*     FirstThat( lpfnFirstThat2 lpfn, void *pExtra1 )
-       {               return m_Root.FirstThat(lpfn, 0, pExtra1);     }
-       ObjectInfo*     FirstThat( lpfnFirstThat3 lpfn, void *pExtra1, void *pExtra2)
-       {               return m_Root.FirstThat(lpfn, 0, pExtra1, pExtra2);   }
+       //agregado 2
+       void            ForEach( lpfnForEach lpfn, void *pExtra1, void *pExtra2) { m_Root.ForEach(lpfn, 0, pExtra1, pExtra2);}
+       ObjectInfo*     FirstThat( lpfnFirstThat lpfn, void *pExtra1, void *pExtra2)
+       
        //typedef               ObjectInfo iterator;
 
 protected:
