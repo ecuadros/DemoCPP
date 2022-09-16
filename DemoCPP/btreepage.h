@@ -119,9 +119,25 @@ public:
                 
         }
        // TODO: #8 You may reduce these two function by using Invoke
-       ObjectInfo*     FirstThat(lpfnFirstThat2 lpfn, size_t level, void *pExtra1);
-       ObjectInfo*     FirstThat(lpfnFirstThat3 lpfn, size_t level, void *pExtra1, void *pExtra2);
-
+       //ObjectInfo*     FirstThat(lpfnFirstThat2 lpfn, size_t level, void *pExtra1);
+       //ObjectInfo*     FirstThat(lpfnFirstThat3 lpfn, size_t level, void *pExtra1, void *pExtra2);
+        template <typename lpfnFirstThat, typename... Args>
+        ObjectInfo* FirstThat(lpfnFirstThat lpfn, size_t level, Args... args)
+        {
+               ObjectInfo *pTmp;
+                for(size_t i = 0 ; i < m_KeyCount ; i++)
+                {
+                        if( m_SubPages[i] )
+                                if( (pTmp = m_SubPages[i]->FirstThat(lpfn, level+1, args...)) )
+                                        return pTmp;
+                        if( callInvoke(lpfn, m_Keys[i], level, args...) )
+                                return &m_Keys[i];
+                }
+                if( m_SubPages[m_KeyCount] )
+                        if( (pTmp = m_SubPages[m_KeyCount]->FirstThat(lpfn, level+1, args...)) )
+                                return pTmp;
+                return 0;
+        }
 protected:
        // TODO: #9 change by size_t
        size_t  m_MinKeys; // minimum number of keys in a node
