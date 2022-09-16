@@ -3085,7 +3085,7 @@ void BTreeS()
         i++;
         bt.Print(cout);
 
-        //bucle para remover valores entre k
+        //bucle para remover valores entre keys4="ABC"
         for(i=0;keys2[i],i++)
         {
             bt.Remove(keys2[i],i+i);
@@ -3094,12 +3094,6 @@ void BTreeS()
         i++;
         aux++;
         bt.Print(cout);
-
-
-
     }
-
-
-
 }
 
