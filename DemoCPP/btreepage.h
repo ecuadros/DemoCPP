@@ -103,9 +103,21 @@ public:
 
        // TODO: #6 change by Invoke
        // TODO: #7 ForEach must be a template inside this template
-       void            ForEach(lpfnForEach2 lpfn, size_t level, void *pExtra1);
-       void            ForEach(lpfnForEach3 lpfn, size_t level, void *pExtra1, void *pExtra2);
-
+       //void            ForEach(lpfnForEach2 lpfn, size_t level, void *pExtra1);
+       //void            ForEach(lpfnForEach3 lpfn, size_t level, void *pExtra1, void *pExtra2);
+        template <typename lpfnForEach, typename... Args>
+        void ForEach(lpfnForEach lpfn, size_t level, Args... args)
+        {
+                for(size_t i = 0 ; i < m_KeyCount ; i++)
+                {
+                        if( m_SubPages[i] )
+                                m_SubPages[i]->ForEach(lpfn, level+1, args...);
+                        callInvoke(lpfn, m_Keys[i], level, args...);
+                }
+                if( m_SubPages[m_KeyCount] )
+                        m_SubPages[m_KeyCount]->ForEach(lpfn, level+1, args...);
+                
+        }
        // TODO: #8 You may reduce these two function by using Invoke
        ObjectInfo*     FirstThat(lpfnFirstThat2 lpfn, size_t level, void *pExtra1);
        ObjectInfo*     FirstThat(lpfnFirstThat3 lpfn, size_t level, void *pExtra1, void *pExtra2);
