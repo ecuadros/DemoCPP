@@ -860,5 +860,18 @@ void CBTreePage<Traits>::MovePage(BTPage *pChildPage, vector<ObjectInfo> &tmpKey
        tmpSubPages.push_back(pChildPage->m_SubPages[i]);
        pChildPage->clear();
 }
-
+template<typename Callable, typename... Args>
+decltype(auto) callInvoke(Callable op, Args&&... args)
+{
+        if constexpr(is_void_v<invoke_result_t<Callable, Args...>>)
+        {
+                invoke(forward<Callable>(op), forward<Args>(args)...);
+                return;
+        }
+        else
+        { 
+                auto ret = invoke(forward<Callable>(op), forward<Args>(args)...);
+                return ret;
+        }
+}   
 #endif
