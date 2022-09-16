@@ -552,7 +552,7 @@ void CBTreePage<keyType, ObjIDType>::ForEachReverse(lpfnForEach2 lpfn, size_t le
                if( m_SubPages[i] )
                        m_SubPages[i]->ForEach(lpfn, level+1, pExtra1);
        }
-}*/
+}
 
 template <typename Traits>
 void CBTreePage<Traits>::ForEach(lpfnForEach2 lpfn, size_t level, void *pExtra1)
@@ -579,7 +579,7 @@ void CBTreePage<keyType, ObjIDType>::ForEachReverse(lpfnForEach3 lpfn,
                if( m_SubPages[i] )
                        m_SubPages[i]->ForEach(lpfn, level+1, pExtra1, pExtra2);
        }
-}*/
+}
 
 template <typename Traits>
 void CBTreePage<Traits>::ForEach(lpfnForEach3 lpfn, size_t level, void *pExtra1, void *pExtra2)
@@ -631,7 +631,7 @@ CBTreePage<Traits>::FirstThat(lpfnFirstThat3 lpfn,size_t level, void *pExtra1, v
                        return pTmp;
        return 0;
 }
-
+*/
 template <typename Traits>
 bt_ErrorCode CBTreePage<Traits>::Remove(const keyType &key, const ObjIDType ObjID)
 {
