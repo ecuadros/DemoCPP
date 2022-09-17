@@ -12,12 +12,13 @@ class BTree // this is the full version of the BTree
        typedef CBTreePage <keyType, ObjIDType> BTNode;// useful shorthand
 
 public:
+//suprimidas en btreepage.h
        //typedef ObjectInfo iterator;
-       typedef typename BTNode::lpfnForEach2    lpfnForEach2;
-       typedef typename BTNode::lpfnForEach3    lpfnForEach3;
-       typedef typename BTNode::lpfnFirstThat2  lpfnFirstThat2;
-       typedef typename BTNode::lpfnFirstThat3  lpfnFirstThat3;
-       //agregado 11
+       //typedef typename BTNode::lpfnForEach2    lpfnForEach2;
+       //typedef typename BTNode::lpfnForEach3    lpfnForEach3;
+       //typedef typename BTNode::lpfnFirstThat2  lpfnFirstThat2;
+       //typedef typename BTNode::lpfnFirstThat3  lpfnFirstThat3;
+       // para la usadas en btreepage
        typedef typename BTNode::lpfnForEach    lpfnForEach;
        typedef typename BTNode::lpfnFirstThat  lpfnFirstThat;
        
@@ -52,7 +53,7 @@ public:
        {               m_Root.Print(os);                              }
        //agregado 2
        void            ForEach( lpfnForEach lpfn, void *pExtra1, void *pExtra2) { m_Root.ForEach(lpfn, 0, pExtra1, pExtra2);}
-       ObjectInfo*     FirstThat( lpfnFirstThat lpfn, void *pExtra1, void *pExtra2)
+       ObjectInfo*     FirstThat( lpfnFirstThat lpfn, void *pExtra1, void *pExtra2) {return m_Root.FirstThat(lpfn, 0, pExtra1, pExtra2); }
        
        //typedef               ObjectInfo iterator;
 
