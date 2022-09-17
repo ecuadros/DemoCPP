@@ -187,5 +187,6 @@ void DemoPointerstoFn3();
 void DemoPointersToStruct();
 void DemoPointersToMembers1();
 void DemoPointersToMembers2();
+void Demobtree();
 
 #endif
