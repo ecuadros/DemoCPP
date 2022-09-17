@@ -3044,6 +3044,20 @@ void DemoPointersToMembers2()
     
 }
 
+#include "btree.h"
+void DemoBTree() {
+    const int BTreeSize = 3;
+    const char * keys1 = "D1XJ2xTg8zKL9AhijOPQcEowRSp0NbW567BUfCqrs4FdtYZakHIuvGV3eMylmn";
+    int result, i;
+    BTree <char> bt (BTreeSize);
+    for( i = 0; keys1[i]; i++)
+    {
+        result = bt.Insert(keys1[i], i*i);
+    }
+    i++;
+    bt.Print(cout);
+}
+
 int val1 = 100;
 void DemoScope()
 {
