@@ -1727,6 +1727,18 @@ void DemoSizeScope()
              << sizeof(class CW) << '\n';
 }
 
+/**
+ * @brief DemoBitset es una funcion para imrprimir una secuencia fija de bits.
+ *
+ * @details Crea objetos del tipo/clase bitset de la libreia "<bitset>", es decir crea una secuencia fija(N) de bits. 
+ * Luego los imprime con la funcion template print_bs que recibe tipos T por referencia. 
+ *
+ * @headerfile libreria estandard "<bitset>" usado para crear el objeto std::bitset para la creacion de la secuenia fija(N) de bits.
+ * @tparam T parameter template de la funcion template print_bs.
+ *
+ * @see print_bs(T &bs), DemoBitset().
+ *
+ */
 
 void DemoBitset()
 {
@@ -1755,6 +1767,30 @@ void demoLinkedList(Container &mylist)
     using T = typename Container::value_type;
     recorrer(mylist, fx<T>);  cout << endl;
 }
+
+/**
+ * @brief demoLinkedListSorted imprime los elementos de una lista enlazada de manera ascendente y descendente. 
+ * Tambien recorre la lista aplicando funciones especificas.
+ *
+ * @details Crea los objetos myAscList y myDescList de la clase LinkedList de la cabecera linkedlist.h con los traits LLTraitAsc, 
+ * LLTraitDesc para imprimir de manerea ascendente y descendente respectivamente.  Utiliza la funcion template demoLinkedList para 
+ * insertar e  imprimir de los elementos de la lista en base a sus traits ascendente y descendente. Para imprimir utiliza la funcion
+ * recorrer del header recorrer.h teniendo com argumentos el container y la funcion imprimir fx. Al final realiza varios recorridos con la
+ * funcion recorrer haciendo los siguiente:
+ * recorre incrementando y luego imprime.
+ * recorre disminuyendo -5 y luego imprime.
+ * recorre operacion especial(n^2) y luego imprime.
+ *
+ * @headerfile Utiliza el header linkedlist.h para crear el objeto LinkedList junto con los traits LLTraitAsc, LLTraitDesc.
+ * @headerfile Utiliza el header iterator.h para hacer las iteraciones en la lista enlazada mediante la clase general_iterator 
+ * y la clase CreateBridge de linkedlist.h que es utilizado para unir el container con el iterador.
+ * @headerfile Utiliza el header recorrer.h para hacer el recorrido en la lista enlazada aplicando distintas funciones especiales.
+ * 
+ * @tparam mylist template parameter ingresado por referencia de la clase demoLinkedList
+ * 
+ * @see demoLinkedList(Container &mylist), demoLinkedListSorted(), class LinkedList in linkedlist.h, recorrer() en recorrer.h.
+ *
+ */
 
 void demoLinkedListSorted()
 {
@@ -1787,6 +1823,25 @@ void demoDoubleLinkedList(Container &mylist)
     cout << "Lista invertida: ";
     recorrer_inverso(mylist, fx<T>);  cout << endl;
 }
+
+/**
+ * @brief demoDoubleLinkedListSorted imprime los elementos de una lista doblemente enlazada de manera ascendente y descendente.
+ *
+ * @details Crea los objetos myAscList y myDescList de la clase DoubleLinkedList de la cabecera doublelinkedlist.h con los traits 
+ * DLLAscTraits, DLLDescTraits para imprimir de manerea ascendente y descendente respectivamente.  Utiliza la funcion template 
+ * demoDoubleLinkedList para insertar e  imprimir de los elementos de la lista en base a sus traits ascendente y descendente. 
+ * Para imprimir utiliza la funcion recorrer y recorrer_inverso del header recorrer.h teniendo com argumentos el container y la 
+ * funcion imprimir fx. 
+ *
+ * @headerfile Utiliza el header doublelinkedlist.h para crear el objeto DoubleLinkedList junto con los traits DLLAscTraits, DLLDescTraits.
+ * Este header utiliza el container Parent del header linkedlist.h como base de la estructura. Y por consecuencia hereda los metodos 
+ * de iterator.h y recorrer.h.
+ *
+ * @tparam mylist template parameter ingresado por referencia de la clase demoLinkedList
+ * 
+ * @see demoLinkedList(Container &mylist), demoLinkedListSorted(), class LinkedList in linkedlist.h, recorrer() en recorrer.h.
+ *
+ */
 
 void demoDoubleLinkedListSorted()
 {
@@ -2611,6 +2666,20 @@ void DemoSharedPtr()
     //internally the std::shared_ptr destroys the reference to the Foo object
 }
 
+/**
+ * @brief  DemoSmartPtr es una funcion que invoka 2 funciones DemoUniquePtr y DemoSharedPtr. 
+ * 
+ * @details DemoUniquePtr es una funcion que crea un puntero inteligente(smart pointers), es decir que maneja su  memoria 
+ * y se elimina luegeo de ser compilado la funcion evitando el problem de "memory leak" y define un puntero  
+ * inteligente que puede ser movido a otra direccion desde un objeto a otro para hacer un manejo
+ * eficiente de memoria. DemoSharedPtr es una funcion que utiliza las clases foo y Bar con el fin de crear punteros compartidos(smart pointers).
+ *
+ * @headerfile Libreria standard "<memory>" usado para crear los objetos smart pointers std::unique_ptr y std::shared_ptr
+ * @headerfile Libreria standart "<utility>" usado para crear el objeto/metodo std::move que hace el movimiento eficiente de un objeto t a otro.
+ *
+ * @see DemoUniquePtr(), DemoSharedPtr(), Foo, Bar, DemoSmartPtr().
+ */
+
 void DemoSmartPtr()
 {
     Exe("DemoUniquePtr", DemoUniquePtr);
@@ -2652,6 +2721,17 @@ void DemoRegexOperators()
       std::cout << "match " << i << ": " << m[i]
                 << " (length: " << m[i].length() << ")\n";
 }
+
+/**
+ * @brief DemoRegex imprimir la coincidencia(match) de caracteres y strings en base a de una expersion regular.
+ *
+ * @details Utiliza DemoRegexBasics para imprimir las coincidencias de strings usando el objeto std::smatch y DemoRegexOperators para imprimir las coincidencias pero contanto los caracteres usando el objeto std::cmatch.
+ *
+ * @headerfile Libreria estandard "<regex>"  que usa las clases/objetos std::regex, std::smatch, std::cmatch. Tambien usa los metodos/funciones regex_match para hacer el match.
+ *
+ * @see DemoRegexBasics(), DemoRegexOperators(), DemoRegex().
+ *
+ */
 
 void DemoRegex()
 {
