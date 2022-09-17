@@ -3,13 +3,22 @@
 
 #include <iostream>
 #include "btreepage.h"
-#define DEFAULT_BTREE_ORDER 3
+//#define DEFAULT_BTREE_ORDER 3
 
+template <typename K, typename O>
+struct BTreeTrait
+{
+       using keyType = K;
+       using ObjIDType = O;
+
+};
 const size_t MaxHeight = 5; 
-template <typename keyType, typename ObjIDType = size_t>
+template <typename Traits>
 class BTree // this is the full version of the BTree
 {
-       typedef CBTreePage <keyType, ObjIDType> BTNode;// useful shorthand
+       typedef typename Traits::keyType           keyType;
+       typedef typename Traits::ObjIDType         ObjIDType;
+       typedef CBTreePage <Traits> BTNode;// useful shorthand
 
 public:
        //typedef ObjectInfo iterator;
@@ -20,7 +29,7 @@ public:
        typedef typename BTNode::ObjectInfo      ObjectInfo;
 
 public:
-       BTree(size_t order = DEFAULT_BTREE_ORDER, bool unique = true)
+       BTree(size_t order, bool unique = true) // JVR: Elimine el valor por defecto DEFAULT_BTREE_ORDER
               : m_Order(order),
                 m_Root(2 * order  + 1, unique),
                 m_Unique(unique),
@@ -64,8 +73,8 @@ protected:
        bool            m_Unique;  // Accept the elements only once ?
 };     
 
-template <typename keyType, typename ObjIDType>
-bool BTree<keyType, ObjIDType>::Insert(const keyType key, const size_t ObjID)
+template <typename Traits>
+bool BTree<Traits>::Insert(const keyType key, const size_t ObjID)
 {
        bt_ErrorCode error = m_Root.Insert(key, ObjID);
        if( error == bt_duplicate )
@@ -79,8 +88,8 @@ bool BTree<keyType, ObjIDType>::Insert(const keyType key, const size_t ObjID)
        return true;
 }
 
-template <typename keyType, typename ObjIDType>
-bool BTree<keyType, ObjIDType>::Remove (const keyType key, const size_t ObjID)
+template <typename Traits>
+bool BTree<Traits>::Remove (const keyType key, const size_t ObjID)
 {
        bt_ErrorCode error = m_Root.Remove(key, ObjID);
        if( error == bt_duplicate || error == bt_nofound )
