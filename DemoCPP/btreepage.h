@@ -38,8 +38,6 @@ size_t binary_search(Container& container, size_t first, size_t last, ObjType &o
        return last;
 }
 
-// Error al poner size_t
-// Posible motivo: El i está disminuyendo
 template <typename Container, typename ObjType>
 void insert_at(Container& container, ObjType object, size_t pos)
 {
@@ -97,13 +95,56 @@ class CBTreePage //: public SimpleIndex <keyType>
        void            Print  (ostream &os);
 
        // TODO: #6 change by Invoke
+       template<typename Callable, typename... Args>
+       decltype(auto) call(Callable op, Args&&... args)
+       {
+                if constexpr(is_void_v<invoke_result_t<Callable, Args...>>) // return type if is void:
+                {
+                        cout << "Function is returning: void!" << endl;
+                        std::invoke(forward<Callable>(op), forward<Args>(args)...);
+                        return;
+                }
+                else // return type is not void:
+                {
+                        auto ret = std::invoke(forward<Callable>(op), forward<Args>(args)...);
+                        return ret;
+                }
+       }
+
        // TODO: #7 ForEach must be a template inside this template
-       void            ForEach(lpfnForEach2 lpfn, size_t level, void *pExtra1);
-       void            ForEach(lpfnForEach3 lpfn, size_t level, void *pExtra1, void *pExtra2);
+       //void            ForEach(lpfnForEach2 lpfn, size_t level, void *pExtra1);
+       //void            ForEach(lpfnForEach3 lpfn, size_t level, void *pExtra1, void *pExtra2);
+       template <typename Callable, typename... Args>
+       void ForEach(Callable op, size_t level, Args... args) {
+                size_t i;
+                for (i = 0; i < m_KeyCount; i++) {
+                        if (m_SubPages[i])
+                                m_SubPages[i] -> ForEach(op, level + 1, args...);
+                        call(op, m_Keys[i], level, args...);
+                }
+                if (m_SubPages[m_KeyCount])
+                        m_SubPages[m_KeyCount] -> ForEach(op, level + 1, args...);
+       }
 
        // TODO: #8 You may reduce these two function by using Invoke
-       ObjectInfo*     FirstThat(lpfnFirstThat2 lpfn, size_t level, void *pExtra1);
-       ObjectInfo*     FirstThat(lpfnFirstThat3 lpfn, size_t level, void *pExtra1, void *pExtra2);
+       //ObjectInfo*     FirstThat(lpfnFirstThat2 lpfn, size_t level, void *pExtra1);
+       //ObjectInfo*     FirstThat(lpfnFirstThat3 lpfn, size_t level, void *pExtra1, void *pExtra2);
+       template <typename Callable, typename... Args>
+       ObjectInfo* FirstThat(Callable op, size_t level, Args... args) {
+                ObjectInfo *pTmp;
+                size_t i;
+                for (i = 0; i < m_KeyCount; i++) {
+                        if (m_SubPages[i])
+                                if ((pTmp = m_SubPages[i] -> FirstThat(op, level + 1, args...)))
+                                        return pTmp;
+                        if (call(op, m_Keys[i], level, args...))
+                                return &m_Keys[i];
+                }
+                if (m_SubPages[m_KeyCount])
+                        if ((pTmp = m_SubPages[m_KeyCount] -> FirstThat(op, level + 1, args...)))
+                                return pTmp;
+                return 0;
+       }
 
 protected:
        // TODO: #9 change by size_t [COMPLETE]
