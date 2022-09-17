@@ -5,11 +5,18 @@
 #include "btreepage.h"
 #define DEFAULT_BTREE_ORDER 3
 
-const size_t MaxHeight = 5; 
-template <typename keyType, typename ObjIDType = size_t>
+const size_t MaxHeight = 5;
+template <typename Key, typename ObjID>
+struct SimpleTrait
+{
+       using keyType = Key;
+       using ObjIDType = ObjID;
+};
 class BTree // this is the full version of the BTree
 {
-       typedef CBTreePage <keyType, ObjIDType> BTNode;// useful shorthand
+       typedef CBTreePage <Trait> BTNode; // useful shorthand
+       typedef typename Trait::keyType keyType;
+       typedef typename Trait::ObjIDType ObjIDType; 
 
 public:
        //typedef ObjectInfo iterator;
@@ -64,8 +71,8 @@ protected:
        bool            m_Unique;  // Accept the elements only once ?
 };     
 
-template <typename keyType, typename ObjIDType>
-bool BTree<keyType, ObjIDType>::Insert(const keyType key, const size_t ObjID)
+template <typename Trait>
+bool BTree<Trait>::Insert(const keyType key, const size_t ObjID)
 {
        bt_ErrorCode error = m_Root.Insert(key, ObjID);
        if( error == bt_duplicate )
@@ -79,8 +86,8 @@ bool BTree<keyType, ObjIDType>::Insert(const keyType key, const size_t ObjID)
        return true;
 }
 
-template <typename keyType, typename ObjIDType>
-bool BTree<keyType, ObjIDType>::Remove (const keyType key, const size_t ObjID)
+template <typename Trait>
+bool BTree<Trait>::Remove (const keyType key, const size_t ObjID)
 {
        bt_ErrorCode error = m_Root.Remove(key, ObjID);
        if( error == bt_duplicate || error == bt_nofound )

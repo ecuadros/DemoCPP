@@ -20,7 +20,7 @@ int main ()
 {
        size_t result, i=2, aux=1;
        //BTree <char> bt (BTreeSize);
-       BTree <char> bt;
+       BTree <SimpleTrait<char, long>> bt;
        system("cls");
        while (i > 1 && aux < 2)
        { 
