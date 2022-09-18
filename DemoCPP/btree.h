@@ -5,10 +5,10 @@
 #include "btreepage.h"
 #define DEFAULT_BTREE_ORDER 3
 
+
 const size_t MaxHeight = 5; 
 template <typename _keyType, typename _ObjIDType>
-
-struct BtreeTrait
+struct BTreeTrait
 {
        using keyType = _keyType;
        using ObjIDType = _ObjIDType;

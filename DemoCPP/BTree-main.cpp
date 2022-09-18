@@ -1,6 +1,3 @@
-//tstbtree.cc  
-//Author: Chicana D�az, Johan Pier
-//Bachelor in Engineering of System
 //#include <iostream.h>
 #include <time.h>
 #include <stdlib.h>
@@ -21,34 +18,9 @@ int main ()
        size_t result, i=2, aux=1;
        //BTree <char> bt (BTreeSize);
        //BTree <char> bt;
-       BTree <BtreeTrait<char, size_t>> bt;
-       system("cls");
-       while (i > 1 && aux < 2)
-       { 
-        /*
-        cout << "Ingresa keys: ";
-        cin >> keys;
-        system("cls");
-        keys4 = &keys[0];
-        */
-        for( i = 0; keys4[i]; i++)
-        {
-                //cout<<"Inserting "<<keys1[i]<<endl;
-                //result = bt.Insert(keys4[i], i*i);
-                bt.Insert(keys4[i], i*i);
-                //bt.Print(cout);
-        }
-        i++;
-        bt.Print(cout);
-        for( i = 0; keys4[i]; i++)
-        {
-                bt.Remove(keys4[i], i*i);
-        }
-        i++;
-        //cout << i << endl;
-        aux++;
-       }
-       /*for (i = 0; keys2[i]; i++)
+       BTree <BTreeTrait<char, size_t>> bt;
+
+       for (i = 0; keys2[i]; i++)
        {
                cout << "Searching " << keys2[i] << " ";
                long ObjID = bt.Search(keys2[i]);
@@ -56,7 +28,7 @@ int main ()
                        cout << "Achei " << keys2[i] << " ID = " << ObjID << endl;
                else
                        cout <<"Nao achei!" << keys2[i] << endl;
-       }*/
+       }
        /*cout.flush();
 
        for (i = 0; keys3[i]; i++)
