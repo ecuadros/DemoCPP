@@ -1,6 +1,7 @@
 #include <iostream>
 #include <tuple>
 #include "demo.h"
+
 using namespace std;
 
 // Test desde Mac
@@ -11,6 +12,7 @@ using namespace std;
 
 int main()
 {
+/*
   Exe("DemoBasics",  DemoBasics); 
   Exe("CounterTest", CounterTest);
   Exe("DemoInitializer1", DemoInitializer1);

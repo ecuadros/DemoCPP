@@ -5,18 +5,22 @@
 #include "btreepage.h"
 #define DEFAULT_BTREE_ORDER 3
 
-const size_t MaxHeight = 5;
-template <typename Key, typename ObjID>
-struct SimpleTrait
+
+const size_t MaxHeight = 5; 
+template <typename _keyType, typename _ObjIDType>
+struct BTreeTrait
 {
-       using keyType = Key;
-       using ObjIDType = ObjID;
+       using keyType = _keyType;
+       using ObjIDType = _ObjIDType;
 };
+
+template <typename Trait>
 class BTree // this is the full version of the BTree
 {
-       typedef CBTreePage <Trait> BTNode; // useful shorthand
-       typedef typename Trait::keyType keyType;
-       typedef typename Trait::ObjIDType ObjIDType; 
+       typedef typename Trait::keyType    keyType;
+       typedef typename Trait::ObjIDType    ObjIDType;
+       
+       typedef CBTreePage <Trait> BTNode;// useful shorthand
 
 public:
        //typedef ObjectInfo iterator;

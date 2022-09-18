@@ -76,10 +76,9 @@ class CBTreePage //: public SimpleIndex <keyType>
 // this is the in-memory version of the CBTreePage
 {
        friend class BTree<Trait>;
-
+       
        typedef typename Trait::keyType keyType;
        typedef typename Trait::ObjIDType ObjIDType; 
-
        typedef CBTreePage<Trait> BTPage; // useful shorthand
        typedef tagObjectInfo<keyType, ObjIDType> ObjectInfo;
 
@@ -583,8 +582,8 @@ void CBTreePage<keyType, ObjIDType>::ForEachReverse(lpfnForEach2 lpfn, size_t le
        }
 }*/
 
-/*template <typename keyType, typename ObjIDType>
-void CBTreePage<keyType, ObjIDType>::ForEach(lpfnForEach2 lpfn, size_t level, void *pExtra1)
+/*template <typename Trait>
+void CBTreePage<Trait>::ForEach(lpfnForEach2 lpfn, size_t level, void *pExtra1)
 {
        // TODO: #29 Do not declare variable just for this loop [COMPLETE]
        for(size_t i = 0 ; i < m_KeyCount ; i++)
@@ -611,8 +610,8 @@ void CBTreePage<keyType, ObjIDType>::ForEachReverse(lpfnForEach3 lpfn,
        }
 }*/
 
-/*template <typename keyType, typename ObjIDType>
-void CBTreePage<keyType, ObjIDType>::ForEach(lpfnForEach3 lpfn, size_t level, void *pExtra1, void *pExtra2)
+template <typename Trait>
+void CBTreePage<Trait>::ForEach(lpfnForEach3 lpfn, size_t level, void *pExtra1, void *pExtra2)
 {
        for(size_t i = 0 ; i < m_KeyCount ; i++)
        {
@@ -643,9 +642,9 @@ CBTreePage<keyType, ObjIDType>::FirstThat(lpfnFirstThat2 lpfn, size_t level, voi
        return 0;
 }
 
-template <typename keyType, typename ObjIDType>
-typename CBTreePage<keyType, ObjIDType>::ObjectInfo *
-CBTreePage<keyType, ObjIDType>::FirstThat(lpfnFirstThat3 lpfn,size_t level, void *pExtra1, void *pExtra2)
+template <typename Trait>
+typename CBTreePage<Trait>::ObjectInfo *
+CBTreePage<Trait>::FirstThat(lpfnFirstThat3 lpfn,size_t level, void *pExtra1, void *pExtra2)
 {
        ObjectInfo *pTmp;
        for(size_t i = 0 ; i < m_KeyCount ; i++)
