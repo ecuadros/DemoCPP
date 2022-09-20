@@ -4,16 +4,22 @@
 #include <vector>
 #include <assert.h>
 #include <functional>
+#include <type_traits>
 
 // TODO: #1 Crear una function para agregarla al demo.cpp ( no trivial )
-// TODO: #2 Agregarle un Trait (prueba git) ( no trivial )
 // TODO: #3 crear un iterator ( no trivial )
 //       Sugerencia: Tarea1 cada pagina debe tener un puntero al padre primero ( no trivial )
 // TODO: #4 integrarlo al recorrer ( no trivial )
 
 
+// TODO: #2 Agregarle un Trait (prueba git) ( no trivial )
+
 template <typename Trait>
 class BTree;
+
+template <typename Trait>
+bool is_Void = std::is_void<Trait>::value;
+//assert(is_Void)
 
 using namespace std;
 enum bt_ErrorCode {bt_ok, bt_overflow, bt_underflow, bt_duplicate, bt_nofound, bt_rootmerged};
