@@ -497,6 +497,21 @@ void __DemoHomogeneous(T1, TN...)
       cout << "NOT Homogeneous ..." << endl;
 }
 
+/** @brief DemoHomogeneous
+ * Esta funcion nos muestra como usar la funcion __DemoHomogeneous()
+ *      La función __DemoHomogeneous admite como argumentos variables de diferentes tipos (de diferente cantidades)
+ *      Luego evalúa si estas variables poseen el mismo tipo, mediante el atributo value de IsHomogeneous:
+ *          IsHomogeneous es una estructura definida en ../cppstd17/tmpl
+ *          Posee un atributo bool: value el cual contiene al valor is_same_v aplicado para todos los tipos de las variables en el argumento usando &&,
+ *          por lo que cualquier tipo diferente hará que el retorno sea False
+ *              is_same_v es un struct de STD que compara los tipos de las variables de dos argumentos. devuelve true si son iguales, caso contrario devuelve false
+ * En el ejemplo:
+ *      La primera evaluacion es para x, y, z del mismo tipo int, el retorno será el string "Homogeneus ..."
+ *      La segunda evaluacion es para f1,f2 del mismo tipo float, el retorno será el string "Homogeneus ..."
+ *      La tercera evaluacion es para f1, x, y de tipo (float, int, int), el retorno será el string "NOT Homogeneus ..."
+ *      La última evaluacion es para s1, x, y de tipo (short,int,int), el retorno será el string "NOT Homogeneus ..."
+ */
+
 void DemoHomogeneous()
 {
     int x = 5, y = 6, z = 9;
@@ -680,6 +695,25 @@ void printauto2(string sep, const First& first, const Args&... args)
     cout << '\n';
 }
 
+/**
+ * @brief DemoPrintAuto()
+ * Este demo nos muestra la utilidad de un imprimidor automatico para cualquier cantidad de variables y de cualquier tipo,
+ * En el demo se muestran dos funciones printauto1 (para imprimir usando separador " "), y printauto2(imprimir usando separador establecido por usuario)
+ * Explicamos printauto1:
+ *      Sus parámetros corresponden a los valores que deseamos imprimir (Primer Valor, Valores_restantes_empaquetados)
+ *      Primero imprime el primer valor
+ *      Luego declara una funcion lambda que imprimira el Sep= " " seguido de un argumento
+ *      Esta funcion lambda se aplica para cada uno de los Valores restantes desempaquetados
+ *      Tendremos como salida el print de todos los valores separados por " "
+ * Explicamos printauto2:
+ *      Sus parárametros corresponden al (Sep o separador, primer valor, valores_restantes_empaquetados)
+ *      Primero imprime el primer valor
+ *      Luego usa una funcion lambda (creada fuera de la definicion de printauto2) de argumentos (Sep,arg) que imprime el Sep seguido de arg
+ *      Esta funcion lambda se aplica para cada un de los valores_restantes_desempaquetados, considerando como Sep al primer argumento de printauto2
+ *      Tendremos como salida el print de todos los valores separados por Sep
+ **/
+
+
 // From printauto.hpp
 void DemoPrintAuto()
 {
@@ -689,6 +723,24 @@ void DemoPrintAuto()
     const string sep("-");
     printauto2(" - ", "Hola4", "que", "tal!", "tengo", 47, "años", 'x', 35.67);
 }
+
+
+/**
+ * @brief DemoLambdaFunctions()
+ * Esta función muestra como se puede escribir una funcion comprimida que se va a usar una o pocas veces, no reusable. 
+ * int x = 4;                                                   declara una variable entera de valor 4
+ * auto y = [&r = x, x = x + 1]()->int {definition of method}   declara variable de tipo auto (automatica) "y" con dos valores capturados:
+ *                                                              &r=x(variable r captura x por referencia), x=x+1 (variable x captura x+1 por valor(no altera x))
+ * La linea anterior hace que y retorne el valor x*x, siendo x = 5(se considera un nuevo x dentro de la funcion lambda, diferente al int x=4;),
+ *      por eso el valor de y será 25.
+ * OBSERVAR: En la funcion lambda se imprime la direccion de x, pero esta "x" corresponde a una variable creada dentro del lamda, diferente a la variable x inicial.
+ *          Entonces la direccion, por obvias razones, tambien será diferente del "x" del lambda con el "x" original
+ * 
+ * 
+ * Pero, se debe tomar en cuenta que en la declaracion lambda, al ser r una variable por referencia de x, sería esta una copia de x. Entonces, si 
+ *      declaro r+=2, estaré alterando el valor de x, resultando en x = 6
+ * Luego imprimimos los valores finales de y, x, direccion de x
+ */
 
 void DemoLambdaFunctions()
 {
@@ -762,6 +814,28 @@ void TestFn(int x, float f, string str)
 {
     cout << "x =" << x << " f=" << f << " str: " << str << endl;
 }
+
+/** @brief  DemoCallBacks
+ * Nos muestra el uso de de la clase CountCalls:
+ *      En el objeto que represente a esta clase (en el ejemplo: cb), el argumento de su constructor será una función de cualquier tipo de retorno(en el ejemplo: print) .
+ *      Dicho objeto tendra como metodo operador "()", que hará que el contador de calls aumente en 1 y retorne la funcion usada como 
+ *          argumento del constructor (en el ejemplo: print) evaluada en argumentos que esten adentro de ese operador "()" (en el ejemplo: Vector vals)
+ *      El objeto además tendra el método count que devolvera el valor de "calls" de dicho objeto
+ *      
+ * Entonces en el ejemplo:
+ *      Creamos un vector vals
+ *      Creamos al objeto cb de Clase CountCalls, cuyo argumento será la función print de tipo float
+ *      Usamos método "()" del objeto cb, dos veces, retornandonos la impresion 'elems: valores del vector separados por " "', dos veces,
+ *      Imprimimos la cantidad de calls que acumuló cb, usando método count(). Debería ser igual a 2.
+ *      
+ *      Creamos otro objeto cc de Clase CountCalls, cuyo argumento será la función TestFn de tipo void
+ *      Usamos método "()" del objeto cc, usando como argumentos 5,8.3,"20"
+ *      Se evalua la función TestFn con estos argumentos y los imprime (notar que testFn tiene los tipos de argumentos definidos)
+ * 
+ * En resumen:
+ *      CountCalls nos permite saber cuantas veces usamos una funcion sobre un conjunto de valores, esta informacion estará guardada en un objeto tipo CountCalls
+ */
+
 void DemoCallBacks()
 {
     vector<int> vals{0, 8, 15, 42, 13, -1, 0};
@@ -1548,6 +1622,44 @@ decltype(auto) call(Callable op, Args&&... args)
       return ret;
     }
 }
+/** @brief DemoInvoke
+ *  Esta funcion nos muestra ejemplos de la aplicacion de la funcion call, cuyos parametros de entrada son (operador, args...)
+ *  El comportamiento de la función call depende del tipo de variable que resulta al aplicar el operador a los args:
+ *      Si el tipo resultante es void, se imprime el mensaje "Function is returning: void!",
+ *                                     se llama a la función invoke. Esta tiene varios casos, si el primer parametro es puntero, se usa para acceder al metodo o variable
+ *                                     del parametro siguiente, usando como argumentos el parametro subsiguiente. Caso contrario, solo es usado para llamar a la funcion (primer parametro),
+ *                                     usando como argumentos los parametros restantes. Retornará el valor resultante.
+ *      Si el tipo resultante es diferente a void, guardará el resultado de invoke(op, args..) en la variable local ret,
+ *                                     se imprime el mensaje "Function is returning: " + tipo resultante del operador,
+ *                                     y retorna el valor de ret
+ * 
+ * En el ejemplo:
+ *      Se crea un vector vals
+ *      Se hace un call con una funcion lambda donde vals es capturado por referencia y resulta en la impresion del size de vals
+ *              Los resultados son: el mensaje de que el tipo resultante es void, y el size de vals
+ *      Se hace un call con una funcion lambda donde vals es capturado por referencia y un parametro a es ingresado a la funcion lambda
+ *              Los resultados son: el mensaje de que el tipo resultante es void, el size de vals y el parametro a 
+ *      Se usa la funcion print(vals)
+ *              El resultado es elems: valores_de_vals
+ *      Se usa auto w0=call(print,vals)
+ *              El resultado es la impresion de elementos (print), se envia mensaje que el tipo resultante es float pues dicho print devuelve un float 0 que se guarda en w0,
+ *              Luego se imprime w0
+ *      Se usa call(&decltype(vals)::pop_back, vals); donde el primer parametro es un puntero a un metodo de vals: pop_back, entonces
+ *              call mandara mensaje del tipo de variable resultante (pop_back devuelve void) Function is returning: void!
+ *              w1 guardrá el return de aplicar print a vals(ahora con un valor menos), el cual es float 0
+ *              se imprimiran los elementos restantes de vals y el mensaje "Function is returning: float"
+ *              se imprime w1, el cual es 0
+ *      Se usa call(&decltype(vals)::clear, vals); y al igual que el caso anterior se evalua el metodo clear en vals, entonces:
+ *              call mandara mensaje del tipo de variable resultante (clear devuelve void) Function is returning: void!
+ *              w2 guardrá el return de aplicar print a vals(ahora con ningun valor), el cual es float 0
+ *              se imprimiran los elementos de vals (vacio) y el mensaje "Function is returning: float"
+ *              se imprime w2, el cual es 0
+ *      
+ * Imprimimos el tipo de vals: vector de enteros
+ * Imprimimos el tipo de w2: float
+ * Imprimimos el tipo de pf (puntero a funcion print): Puntero a una funcion que admite un vector de enteros por referencia y devuelve un float.
+ */ 
+
 
 void DemoInvoke()
 {
