@@ -1626,6 +1626,12 @@ T Max (T a, T b)
 {   return  b < a ? a : b;
 }
 
+template<typename T>
+T Min (T a, T b)
+{   return  b > a ? a : b;
+}
+
+
 /**
  * @brief Funcion que retorna el máximo entre dos punteros
  * @return puntero máximo
@@ -1642,6 +1648,9 @@ T* Max (T* a, T* b)
 // maximum of two C-strings:
 char const* Max (char const* a, char const* b)
 {   return  std::strcmp(b,a) < 0  ? a : b;    }
+
+char const* Min (char const* a, char const* b)
+{   return  std::strcmp(b,a) > 0  ? a : b;    }
 
 template<typename T, typename ... Q>
 auto Max(const T&a, const T&b, const Q& ... args)
@@ -1841,9 +1850,11 @@ void DemoBinaryTree()
 #include "btree.h"
 void DemoTree()
 {
-    BTree < BTreeTrait<char> > bt;
-    const char * keys = "Aa1Cc3Ee5Gg7Ii9Bb0Dd2Ff4Hh6JjKLMNOPQRS"; //Sin Parent Error
+    BTree < BTreeTraitAsc<char> > btA;
+    BTree < BTreeTraitDesc<char> > btD;
+    const char * keys = "Aa1Cc3Ee5Gg7Ii9Bb0Dd2Ff4Hh6JjKLMNOPQRS"; //Sin Parent Error de ida
     /*
+    const char * keys = "Aa1Cc3Ee5Gg7Ii9Bb0Dd2Ff4Hh6JjKLMNOPQ"; //Analisis de Parent en R2L
     const char * keys = "Aa1Bb2Cc3Dd4Ee5Ff6Gg7Hh8Ii9Jj0Kk1Ll2Mm3Nn4Oo5Pp6"; //Parent Error1
     const char * keys = "DYZakHIUwxVJ203ejOP9Qc8AdtuEop1XvTRghSNbW567BfiCqrs4FGMyzKLlmn"; //Parent Error2
     const char * keys = "Aa1Bb2Cc3Dd4Ee5Ff6Gg7Hh8Ii9J"; // Hasta aquí, altura 2
@@ -1865,31 +1876,47 @@ void DemoTree()
     //string keys = "Aa1Bb2Cc3Dd4Ee5Ff6Gg7Hh8Ii9Jj";
     for(size_t i = 0; keys[i]; i++)
         {
-                bt.Insert(keys[i], i*i);
+                btA.Insert(keys[i], i*i);
+                btD.Insert(keys[i], i*i);
                 /*
                 key_actual += keys[i];
                 cout << "Key Actual: " << key_actual << endl;
+                btD.Print(cout);  
+                if (i > 33) 
+                    {  
+                        //btD.PrintDetails(0);  
+                    }
                 bt.Print(cout);
                 if (i > 7) {  bt.PrintDetails(0);  }
-                if (bt.height() > 1) {  bt.PrintDetails(0);  }
+                if (btD.height() > 1) {  btD.PrintDetails(0);  }
                 bt.PrintDetails(1);
                 cout << "-------------------------------- \n";
                 */
         }
-        bt.Print(cout);
-        /*
         cout << "Key Actual: " << keys << endl;
+        btA.Print(cout);
+        cout << "\n" << string("---") * 50 << endl;
+        btD.Print(cout);
+        /*
         bt.PrintDetails(1);
         recorrer(bt, fx<char>);
         recorrer(bt, inc<char>);
         */
         cout << string("---") * 50 << endl;
-        cout << "Recorrer: ";
-        recorrer(bt, fx<char>);
+        cout << "Recorrer Asc: ";
+        recorrer(btA, fx<char>);
+        cout << "\n" << string("---") * 50 << endl;
+        cout << "Recorrer Desc: ";
+        recorrer(btD, fx<char>);
         cout << "\n" << string("---") * 50 << endl;
         cout << endl;
-        bt.PrintDetails(0);
-
+        cout << "Arbol Ascendente: \n";
+        btA.PrintDetails(1);
+        btA.PrintDetails(0);
+        cout << "\n" << string("---") * 50 << endl;
+        cout << "Arbol Descendente: \n";
+        btD.PrintDetails(1);
+        btD.PrintDetails(0);
 }
 
 /**
