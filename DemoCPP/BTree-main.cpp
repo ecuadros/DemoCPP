@@ -5,6 +5,7 @@
 #include <time.h>
 #include <stdlib.h>
 
+#include "iterator.h"
 #include "btree.h"
 #include <string>
 
@@ -12,7 +13,7 @@
 const char * keys1 = "D1XJ2xTg8zKL9AhijOPQcEowRSp0NbW567BUfCqrs4FdtYZakHIuvGV3eMylmn";
 const char * keys2 = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 const char * keys3 = "DYZakHIUwxVJ203ejOP9Qc8AdtuEop1XvTRghSNbW567BfiCqrs4FGMyzKLlmn";
-const char * keys4 = "ABC";
+const char * keys4 = "123456789";
 string keys = "";
 
 const size_t BTreeSize = 3;
@@ -22,8 +23,8 @@ int main ()
        //BTree <char> bt (BTreeSize);
        //BTree <char> bt;
        //BTree <BtreeTrait<char, size_t>> bt;
-       BTree < BTreeTraitAsc<char> > btA;
-       BTree < BTreeTraitDesc<char> > btD;
+       BTree < BTreeTraitAsc<char> > btAsc;
+       BTree < BTreeTraitDesc<char> > btDes;
        
        system("cls");
        while (i > 1 && aux < 2)
@@ -39,18 +40,20 @@ int main ()
                 //cout<<"Inserting "<<keys1[i]<<endl;
                 //result = bt.Insert(keys4[i], i*i);
                 //bt.Insert(keys4[i], i*i);
-                btA.Insert(keys4[i], i*i);
-                btD.Insert(keys4[i], i*i);
+                btAsc.Insert(keys4[i], i*i+2);
+                btDes.Insert(keys4[i], i*i+2);
                 //bt.Print(cout);
         }
         i++;
-        btA.Print(cout);
-        btD.Print(cout);
+        cout << "Arbol Ascendente:" << endl;
+        btAsc.Print(cout);
+        cout << "Arbol Descendente:" << endl;
+        btDes.Print(cout);
         for( i = 0; keys4[i]; i++)
         {
                 //bt.Remove(keys4[i], i*i);
-                btA.Remove(keys4[i], i*i);
-                btD.Remove(keys4[i], i*i);
+                btAsc.Remove(keys4[i], i*i+2);
+                btDes.Remove(keys4[i], i*i+2);
         }
         i++;
         //cout << i << endl;
