@@ -106,8 +106,10 @@ class CBTreePage //: public SimpleIndex <keyType>
 
        // TODO: #6 change by Invoke
        // TODO: #7 ForEach must be a template inside this template
-       void            ForEach(lpfnForEach2 lpfn, size_t level, void *pExtra1);
-       void            ForEach(lpfnForEach3 lpfn, size_t level, void *pExtra1, void *pExtra2);
+       // void            ForEach(lpfnForEach2 lpfn, size_t level, void *pExtra1);
+       // void            ForEach(lpfnForEach3 lpfn, size_t level, void *pExtra1, void *pExtra2);
+       template <typename lpfnForEach, typename... Args>
+       void            ForEachG(lpfnForEach lpfn, size_t level, Args... args);
 
        // TODO: #8 You may reduce these two function by using Invoke
        ObjectInfo*     FirstThat(lpfnFirstThat2 lpfn, size_t level, void *pExtra1);
@@ -529,7 +531,7 @@ void CBTreePage<keyType, ObjIDType>::ForEachReverse(lpfnForEach2 lpfn, size_t le
        }
 }*/
 
-template <typename Trait>
+/*template <typename Trait>
 void CBTreePage<Trait>::ForEach(lpfnForEach2 lpfn, size_t level, void *pExtra1)
 {
        for(size_t i = 0 ; i < m_KeyCount ; i++)
@@ -540,7 +542,7 @@ void CBTreePage<Trait>::ForEach(lpfnForEach2 lpfn, size_t level, void *pExtra1)
        }
        if( m_SubPages[m_KeyCount] )
                m_SubPages[m_KeyCount]->ForEach(lpfn, level+1, pExtra1);
-}
+}*/
 
 /*template <typename keyType, typename ObjIDType>
 void CBTreePage<keyType, ObjIDType>::ForEachReverse(lpfnForEach3 lpfn,
@@ -556,7 +558,7 @@ void CBTreePage<keyType, ObjIDType>::ForEachReverse(lpfnForEach3 lpfn,
        }
 }*/
 
-template <typename Trait>
+/*template <typename Trait>
 void CBTreePage<Trait>::ForEach(lpfnForEach3 lpfn, size_t level, void *pExtra1, void *pExtra2)
 {
        for(size_t i = 0 ; i < m_KeyCount ; i++)
@@ -567,6 +569,20 @@ void CBTreePage<Trait>::ForEach(lpfnForEach3 lpfn, size_t level, void *pExtra1, 
        }
        if( m_SubPages[m_KeyCount] )
                m_SubPages[m_KeyCount]->ForEach(lpfn, level+1, pExtra1, pExtra2);
+}*/
+
+template <typename Traits>
+template <typename lpfnForEach, typename... Args>
+void CBTreePage<Traits>::ForEachG(lpfnForEach lpfn, size_t level, Args... args)
+{
+       for(size_t i = 0 ; i < m_KeyCount ; i++)
+       {
+               if( m_SubPages[i] )
+                       m_SubPages[i]->ForEachG(lpfn, level+1, args...);
+               lpfn(m_Keys[i], level, args...);
+       }
+       if( m_SubPages[m_KeyCount] )
+               m_SubPages[m_KeyCount]->ForEachG(lpfn, level+1, args...);
 }
 
 template <typename Trait>
@@ -785,7 +801,7 @@ template <typename Trait>
 void CBTreePage<Trait>::Print(ostream & os)
 {
        lpfnForEach2 lpfn = &::Print<keyType, ObjIDType>;
-       ForEach(lpfn, 0, &os);
+       ForEachG(lpfn, 0, &os);
 }
 
 template <typename Trait>
