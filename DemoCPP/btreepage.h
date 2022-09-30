@@ -112,8 +112,11 @@ class CBTreePage //: public SimpleIndex <keyType>
        void            ForEachG(lpfnForEach lpfn, size_t level, Args... args);
 
        // TODO: #8 You may reduce these two function by using Invoke
-       ObjectInfo*     FirstThat(lpfnFirstThat2 lpfn, size_t level, void *pExtra1);
-       ObjectInfo*     FirstThat(lpfnFirstThat3 lpfn, size_t level, void *pExtra1, void *pExtra2);
+       // ObjectInfo*     FirstThat(lpfnFirstThat2 lpfn, size_t level, void *pExtra1);
+       // ObjectInfo*     FirstThat(lpfnFirstThat3 lpfn, size_t level, void *pExtra1, void *pExtra2);
+       template <typename lpfnFirstThat, typename... Args>
+       ObjectInfo*     FirstThatG(lpfnFirstThat lpfn, size_t level, Args... args);
+
 
 protected:
        // TODO: #9 change by size_t
@@ -585,7 +588,7 @@ void CBTreePage<Traits>::ForEachG(lpfnForEach lpfn, size_t level, Args... args)
                m_SubPages[m_KeyCount]->ForEachG(lpfn, level+1, args...);
 }
 
-template <typename Trait>
+/* template <typename Trait>
 typename CBTreePage<Trait>::ObjectInfo *
 CBTreePage<Trait>::FirstThat(lpfnFirstThat2 lpfn, size_t level, void *pExtra1)
 {
@@ -602,9 +605,9 @@ CBTreePage<Trait>::FirstThat(lpfnFirstThat2 lpfn, size_t level, void *pExtra1)
                if( (pTmp = m_SubPages[m_KeyCount]->FirstThat(lpfn, level+1, pExtra1)) )
                        return pTmp;
        return 0;
-}
+} */
 
-template <typename Trait>
+/* template <typename Trait>
 typename CBTreePage<Trait>::ObjectInfo *
 CBTreePage<Trait>::FirstThat(lpfnFirstThat3 lpfn,size_t level, void *pExtra1, void *pExtra2)
 {
@@ -619,6 +622,26 @@ CBTreePage<Trait>::FirstThat(lpfnFirstThat3 lpfn,size_t level, void *pExtra1, vo
        }
        if( m_SubPages[m_KeyCount] )
                if( (pTmp = m_SubPages[m_KeyCount]->FirstThat(lpfn, level+1, pExtra1, pExtra2) ) )
+                       return pTmp;
+       return 0;
+} */
+
+template <typename Traits>
+template <typename lpfnFirstThat, typename... Args>
+typename CBTreePage<Traits>::ObjectInfo *
+CBTreePage<Traits>::FirstThatG(lpfnFirstThat lpfn, size_t level, Args... args)
+{
+       ObjectInfo *pTmp;
+       for(size_t i = 0 ; i < m_KeyCount ; i++)
+       {
+               if( m_SubPages[i] )
+                       if( (pTmp = m_SubPages[i]->FirstThatG(lpfn, level+1, args...)) )
+                               return pTmp;
+               if( lpfn(m_Keys[i], level, args...) )
+                       return &m_Keys[i];
+       }
+       if( m_SubPages[m_KeyCount] )
+               if( (pTmp = m_SubPages[m_KeyCount]->FirstThatG(lpfn, level+1, args...)) )
                        return pTmp;
        return 0;
 }
