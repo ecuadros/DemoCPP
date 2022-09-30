@@ -1,6 +1,7 @@
 #ifndef __CBTreePage_H__
 #define __CBTreePage_H__
 
+#include "types.h"
 #include <vector>
 #include <assert.h>
 #include <functional>
@@ -84,7 +85,7 @@ class CBTreePage //: public SimpleIndex <keyType>
 // this is the in-memory version of the CBTreePage
 {
        friend class BTree<Trait>;
-       typedef typename Trait::keyType  keyType;
+       typedef typename Trait::Type  keyType;
        typedef typename Trait::ObjIDType  ObjIDType; 
 
        typedef CBTreePage<Trait>    BTPage;         // useful shorthand
