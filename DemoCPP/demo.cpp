@@ -3065,8 +3065,8 @@ void Demobtree()
     //BTree <char> bt (BTreeSize);
     //BTree <char> bt;
     //BTree <BtreeTrait<char, size_t>> bt;
-    BTree < BTreeTraitAsc<char> > btA;
-    BTree < BTreeTraitDesc<char> > btD;
+    BTree < BTreeTraitAsc<char> > btAsc;
+    BTree < BTreeTraitDesc<char> > btDes;
 
     system("cls");
     while (i > 1 && aux < 2)
@@ -3076,19 +3076,19 @@ void Demobtree()
             //cout<<"Inserting "<<keys1[i]<<endl;
             //result = bt.Insert(keys4[i], i*i);
             //bt.Insert(keys4[i], i*i);
-              btA.Insert(keys[i], i*i);
-              btD.Insert(keys[i], i*i);
+              btAsc.Insert(keys[i], i*i);
+              btDes.Insert(keys[i], i*i);
             //bt.Print(cout);
         }
         i++;
         //bt.Print(cout);
-        btA.Print(cout);
-        btD.Print(cout);
+        btAsc.Print(cout);
+        btDes.Print(cout);
         for( i = 0; keys4[i]; i++)
         {
                 //bt.Remove(keys4[i], i*i);
-                btA.Remove(keys4[i], i*i);
-                btD.Remove(keys4[i], i*i);
+                btAsc.Remove(keys4[i], i*i);
+                btDes.Remove(keys4[i], i*i);
         }
         i++;
         //cout << i << endl;
