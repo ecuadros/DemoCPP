@@ -24,17 +24,6 @@ class btree_iterator : public general_iterator<Container,  class btree_iterator<
     typename Parent::Type &operator*()     
        {      size_t _pos = pos[N-1];
               ord = Parent::m_pNode->NoK();
-              //size_t nok = Parent::m_pNode->NoK();
-              //cout << Parent::m_pNode->getDataRef(_pos) << "(" << nok << ")" << endl;
-              /*
-              cout << "(N, pos, H): (" << N << "," << _pos << "," << H << ") = ";
-              for (size_t i = 0; i < ord; i++)
-                     cout << Parent::m_pNode->getDataRef(i) << " ";
-              cout << "\t";
-              for (size_t p = 0; p < 5; p++)
-                     cout <<  "N" << p << ": " << pos[p] << " ";
-              cout << endl;
-              */
               return Parent::m_pNode->getDataRef(_pos);   }
 
  public:
