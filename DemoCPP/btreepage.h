@@ -122,13 +122,13 @@ class CBTreePage //: public SimpleIndex <keyType>
        // void            ForEach(lpfnForEach2 lpfn, size_t level, void *pExtra1);
        // void            ForEach(lpfnForEach3 lpfn, size_t level, void *pExtra1, void *pExtra2);
        template <typename lpfnForEach, typename... Args>
-       void            ForEachG(lpfnForEach lpfn, size_t level, Args... args);
+       void            ForEachN(lpfnForEach lpfn, size_t level, Args... args);
 
        // TODO: #8 You may reduce these two function by using Invoke
        // ObjectInfo*     FirstThat(lpfnFirstThat2 lpfn, size_t level, void *pExtra1);
        // ObjectInfo*     FirstThat(lpfnFirstThat3 lpfn, size_t level, void *pExtra1, void *pExtra2);
        template <typename lpfnFirstThat, typename... Args>
-       ObjectInfo*     FirstThatG(lpfnFirstThat lpfn, size_t level, Args... args);
+       ObjectInfo*     FirstThatN(lpfnFirstThat lpfn, size_t level, Args... args);
 
        void            PrintKeysAndSubPages(size_t height);
        BTPage          *&GetFirstObject(size_t key);
@@ -632,16 +632,16 @@ void CBTreePage<Trait>::ForEach(lpfnForEach3 lpfn, size_t level, void *pExtra1, 
 
 template <typename Traits>
 template <typename lpfnForEach, typename... Args>
-void CBTreePage<Traits>::ForEachG(lpfnForEach lpfn, size_t level, Args... args)
+void CBTreePage<Traits>::ForEachN(lpfnForEach lpfn, size_t level, Args... args)
 {
        for(size_t i = 0 ; i < m_KeyCount ; i++)
        {
                if( m_SubPages[i] )
-                       m_SubPages[i]->ForEachG(lpfn, level+1, args...);
+                       m_SubPages[i]->ForEachN(lpfn, level+1, args...);
                lpfn(m_Keys[i], level, args...);
        }
        if( m_SubPages[m_KeyCount] )
-               m_SubPages[m_KeyCount]->ForEachG(lpfn, level+1, args...);
+               m_SubPages[m_KeyCount]->ForEachN(lpfn, level+1, args...);
 }
 
 /* template <typename Trait>
@@ -685,19 +685,19 @@ CBTreePage<Trait>::FirstThat(lpfnFirstThat3 lpfn,size_t level, void *pExtra1, vo
 template <typename Traits>
 template <typename lpfnFirstThat, typename... Args>
 typename CBTreePage<Traits>::ObjectInfo *
-CBTreePage<Traits>::FirstThatG(lpfnFirstThat lpfn, size_t level, Args... args)
+CBTreePage<Traits>::FirstThatN(lpfnFirstThat lpfn, size_t level, Args... args)
 {
        ObjectInfo *pTmp;
        for(size_t i = 0 ; i < m_KeyCount ; i++)
        {
                if( m_SubPages[i] )
-                       if( (pTmp = m_SubPages[i]->FirstThatG(lpfn, level+1, args...)) )
+                       if( (pTmp = m_SubPages[i]->FirstThatN(lpfn, level+1, args...)) )
                                return pTmp;
                if( lpfn(m_Keys[i], level, args...) )
                        return &m_Keys[i];
        }
        if( m_SubPages[m_KeyCount] )
-               if( (pTmp = m_SubPages[m_KeyCount]->FirstThatG(lpfn, level+1, args...)) )
+               if( (pTmp = m_SubPages[m_KeyCount]->FirstThatN(lpfn, level+1, args...)) )
                        return pTmp;
        return 0;
 }
