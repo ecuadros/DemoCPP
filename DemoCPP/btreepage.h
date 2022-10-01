@@ -908,7 +908,7 @@ template <typename Traits>
 void CBTreePage<Traits>::Print(ostream & os)
 {
        lpfnForEach2 lpfn = &::Print<Traits>;
-       ForEachG(lpfn, 0, &os);
+       ForEachN(lpfn, 0, &os);
 }
 
 template <typename Traits>
