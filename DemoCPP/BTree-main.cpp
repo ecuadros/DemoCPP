@@ -45,9 +45,9 @@ int main ()
                 //bt.Print(cout);
         } 
         i++;
-        cout << "Arbol Ascendente:" << endl;
+        cout << endl << "Arbol Asc:" << endl;
         btAsc.Print(cout);
-        cout << "Arbol Descendente:" << endl;
+        cout << "Arbol Des:" << endl;
         btDes.Print(cout);
         for( i = 0; keys4[i]; i++)
         {
