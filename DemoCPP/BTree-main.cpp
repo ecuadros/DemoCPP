@@ -43,7 +43,7 @@ int main ()
                 btAsc.Insert(keys4[i], i*i+2);
                 btDes.Insert(keys4[i], i*i+2);
                 //bt.Print(cout);
-        }
+        } 
         i++;
         cout << "Arbol Ascendente:" << endl;
         btAsc.Print(cout);
