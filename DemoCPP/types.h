@@ -9,17 +9,17 @@ using TX=long;
 template <typename _T>
 struct BTreeTraitDesc
 {
-    using  Type      = _T;
-    using  ObjIDType    = long;
-    using  CompareFn = greater<Type>;
+    typedef _T Type;
+    typedef long ObjIDType;
+    typedef greater<Type> CompareFn;
 };
 
 template <typename _T>
 struct BTreeTraitAsc
 {
-    using  Type      = _T;
-    using  ObjIDType    = long;
-    using  CompareFn = less<Type>;
+    typedef _T Type;
+    typedef long ObjIDType;
+    typedef less<Type> CompareFn;
 };
 
 #endif
