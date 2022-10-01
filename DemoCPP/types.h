@@ -21,5 +21,5 @@ struct BTreeTraitAsc
     typedef long ObjIDType;
     typedef less<Type> CompareFn;
 };
-
+ 
 #endif
