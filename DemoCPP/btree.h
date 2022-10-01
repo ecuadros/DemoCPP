@@ -15,7 +15,7 @@ class btree_iterator : public general_iterator<Container,  class btree_iterator<
  public:
     btree_iterator(Container *pContainer, Node *pNode) : Parent (pContainer,pNode) {}
     btree_iterator(myself &other)  : Parent (other) {}
-    btree_iterator(myself &&other) : Parent(other) {} // Move constructor C++11 en adelante
+    btree_iterator(myself &&other) : Parent(other) {} 
     size_t H = Parent::m_pContainer->height();
     size_t N = H;
     vector<size_t> pos = {0, 0, 0, 0, 0};
