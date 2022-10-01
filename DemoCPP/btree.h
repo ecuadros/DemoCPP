@@ -8,9 +8,9 @@
 template <typename Container>
 class btree_iterator : public general_iterator<Container,  class btree_iterator<Container> > // 
 {public: 
-    using Parent = class general_iterator<Container, btree_iterator<Container> >; 
-    using Node   = typename Container::Node; // 
-    using myself = btree_iterator<Container>;
+    typedef class general_iterator<Container, btree_iterator<Container> > Parent; 
+    typedef typename Container::Node Node; // 
+    typedef btree_iterator<Container> myself;
        
  public:
     btree_iterator(Container *pContainer, Node *pNode) : Parent (pContainer,pNode) {}
@@ -40,27 +40,28 @@ class btree_iterator : public general_iterator<Container,  class btree_iterator<
  public:
     btree_iterator operator++() 
        {       
-              if (N == H)
-              {      if (pos[N-1] < ord-1) {   pos[N-1]++;  }
-                     else{
-                            pos[N-1]=0;
-                            N--;
-                            Parent::m_pNode = (Node *)Parent::m_pNode->m_pParent; 
-                     }
-              }
-              else{
-                     if (pos[N-1] < ord)
-                     {      pos[N-1]++;
-                            Parent::m_pNode = (Node *)Parent::m_pNode->GetFirstObject(pos[N-1]);
-                            N = H;
-                     }
-                     else{
-                            pos[N-1]=0;
-                            N--;
-                            Parent::m_pNode = (Node *)Parent::m_pNode->m_pParent; 
-                     }
-              }
-              return *this;
+         if (N == H)
+         { if (pos[N-1] < ord-1) {   pos[N-1]++;  }
+           else{
+             pos[N-1]=0;
+             N--;
+             Parent::m_pNode = (Node *)Parent::m_pNode->m_pParent; 
+           }
+         }
+         else{
+           if (pos[N-1] < ord)
+           { 
+             pos[N-1]++;
+             Parent::m_pNode = (Node *)Parent::m_pNode->GetFirstObject(pos[N-1]);
+             N = H;
+           }
+           else{
+             pos[N-1]=0;
+             N--;
+             Parent::m_pNode = (Node *)Parent::m_pNode->m_pParent; 
+           }
+         }
+         return *this;
        }
 };
 
@@ -68,19 +69,19 @@ const size_t MaxHeight = 5;
 template <typename Traits>
 class BTree // this is the full version of the BTree
 {
-       using keyType   = typename Traits::Type;
-       using ObjIDType = typename Traits::ObjIDType;
+       typedef typename Traits::Type keyType;
+       typedef typename Traits::ObjIDType ObjIDType;
 
 public:
-       using Node      = CBTreePage<Traits>;// useful shorthand
+       typedef CBTreePage<Traits> Node;// useful shorthand
        //typedef ObjectInfo iterator;
-       using lpfnForEach2   = typename Node::lpfnForEach2;
-       using lpfnForEach3   = typename Node::lpfnForEach3;
-       using lpfnFirstThat2 = typename Node::lpfnFirstThat2;
-       using lpfnFirstThat3 = typename Node::lpfnFirstThat3;
-       using ObjectInfo     = typename Node::ObjectInfo;
-       using myself         = BTree<Traits>;
-       using iterator       = btree_iterator<myself>;
+       typedef typename Node::lpfnForEach2 lpfnForEach2;
+       typedef typename Node::lpfnForEach3 lpfnForEach3;
+       typedef typename Node::lpfnFirstThat2 lpfnFirstThat2;
+       typedef typename Node::lpfnFirstThat3 lpfnFirstThat3;
+       typedef typename Node::ObjectInfo ObjectInfo;
+       typedef BTree<Traits> myself;
+       typedef btree_iterator<myself> iterator;
 
 public:
        BTree(size_t order = DEFAULT_BTREE_ORDER, bool unique = true)
