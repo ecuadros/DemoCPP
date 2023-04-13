@@ -157,7 +157,7 @@ void DemoDSMap();
  * @brief Función que muestra un ejemplo de dos tipos de stack que se pueden crear,
  * uno de ints y otro de floats, tambien se muestra la insercion de elementos, 
  * el valor obtenido mediante top() y tambien como eliminar ese valor mediante pop()
- */
+ **/
 void DemoStack();
 void DemoMultiset();
 
