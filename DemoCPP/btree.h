@@ -6,8 +6,8 @@
 #define DEFAULT_BTREE_ORDER 3
 
 const size_t MaxHeight = 5; 
-template <typename _keyType, typename _ObjIDType>
 
+template <typename _keyType, typename _ObjIDType>
 struct BtreeTrait
 {
        using keyType = _keyType;
@@ -44,10 +44,10 @@ public:
        //int           Open (char * name, int mode);
        //int           Create (char * name, int mode);
        //int           Close ();
-       bool            Insert (const keyType key, const size_t ObjID);
-       bool            Remove (const keyType key, const size_t ObjID);
+       bool            Insert (const keyType key, const long ObjID);
+       bool            Remove (const keyType key, const long ObjID);
        ObjIDType       Search (const keyType key)
-       {      ObjIDType ObjID = 0;
+       {      ObjIDType ObjID = -1;
               m_Root.Search(key, ObjID);
               return ObjID;
        }
@@ -76,7 +76,7 @@ protected:
 };     
 
 template <typename Trait>
-bool BTree<Trait>::Insert(const keyType key, const size_t ObjID)
+bool BTree<Trait>::Insert(const keyType key, const long ObjID)
 {
        bt_ErrorCode error = m_Root.Insert(key, ObjID);
        if( error == bt_duplicate )
@@ -91,7 +91,7 @@ bool BTree<Trait>::Insert(const keyType key, const size_t ObjID)
 }
 
 template <typename Trait>
-bool BTree<Trait>::Remove (const keyType key, const size_t ObjID)
+bool BTree<Trait>::Remove (const keyType key, const long ObjID)
 {
        bt_ErrorCode error = m_Root.Remove(key, ObjID);
        if( error == bt_duplicate || error == bt_nofound )

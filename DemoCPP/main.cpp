@@ -82,7 +82,6 @@ int main()
   Exe("demoLinkedListSorted", demoLinkedListSorted);
   Exe("demoDoubleLinkedListSorted", demoDoubleLinkedListSorted);
   Exe("DemoBinaryTree", DemoBinaryTree);
-  Exe("DemoTree", DemoTree);
   Exe("DemoDSMap", DemoDSMap);
   Exe("DemoStack", DemoStack);
   Exe("DemoMultiset", DemoMultiset);
@@ -111,8 +110,9 @@ int main()
   Exe("DemoPointersToStruct", DemoPointersToStruct);
   Exe("DemoPointersToMembers1", DemoPointersToMembers1);
   Exe("DemoPointersToMembers2", DemoPointersToMembers2);
-  */
   Exe("Demobtree", Demobtree);
+  */
+  Exe("DemoTree", DemoTree);
   return 0;
 }
 
