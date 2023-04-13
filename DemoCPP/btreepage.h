@@ -41,7 +41,7 @@ size_t binary_search(Container& container, size_t first, size_t last, ObjType &o
 // Error al poner size_t
 // Posible motivo: El i está disminuyendo
 template <typename Container, typename ObjType>
-void insert_at(Container& container, ObjType object, size_t pos)
+void insert_at(Container& container, ObjType object, int pos)
 {
         // TODO: #5 replace int, long by types such as size_t
        size_t size = container.size();
