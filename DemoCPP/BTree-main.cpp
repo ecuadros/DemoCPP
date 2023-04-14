@@ -21,29 +21,21 @@ int main ()
        size_t result, i=2, aux=1;
        //BTree <char> bt (BTreeSize);
        //BTree <char> bt;
-       BTree <BtreeTrait<char, size_t>> bt;
+       BTree <BTreeTrait<char, size_t>> bt;
        system("cls");
        while (i > 1 && aux < 2)
        { 
-        /*
-        cout << "Ingresa keys: ";
-        cin >> keys;
-        system("cls");
-        keys4 = &keys[0];
-        */
-        for( i = 0; keys4[i]; i++)
+        for( i = 0; keys3[i]; i++)
         {
                 //cout<<"Inserting "<<keys1[i]<<endl;
                 //result = bt.Insert(keys4[i], i*i);
-                bt.Insert(keys4[i], i*i);
+                bt.Insert(keys3[i], i*i);
                 //bt.Print(cout);
         }
         i++;
         bt.Print(cout);
-        for( i = 0; keys4[i]; i++)
-        {
-                bt.Remove(keys4[i], i*i);
-        }
+        for( i = 0; keys3[i]; i++)
+                bt.Remove(keys3[i], i*i);
         i++;
         //cout << i << endl;
         aux++;
