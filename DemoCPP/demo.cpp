@@ -391,6 +391,7 @@ auto sum1(T arg1, Q ... args)
     return arg1 + sum1(args...);
 }
 
+
 template <typename ... T>
 auto sum2(T ... args)
 {
