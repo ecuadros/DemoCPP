@@ -391,6 +391,7 @@ auto sum1(T arg1, Q ... args)
     return arg1 + sum1(args...);
 }
 
+
 template <typename ... T>
 auto sum2(T ... args)
 {
@@ -1841,7 +1842,7 @@ void DemoBinaryTree()
 #include "btree.h"
 void DemoTree()
 {
-    BTree < BtreeTrait<char,long> > bt;
+    BTree < BTreeTrait<char,long> > bt;
     const char * keys = "DYZakHIUwxVJ203ejOP9Qc8AdtuEop1XvTRghSNbW567BfiCqrs4FGMyzKLlmn";
     for(size_t i = 0; keys[i]; i++)
         {
@@ -3064,7 +3065,7 @@ void Demobtree()
     size_t result, i=2, aux=1;
     //BTree <char> bt (BTreeSize);
     //BTree <char> bt;
-    BTree <BtreeTrait<char, size_t>> bt;
+    BTree <BTreeTrait<char, size_t>> bt;
     system("cls");
     while (i > 1 && aux < 2)
     { 
