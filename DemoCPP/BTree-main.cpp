@@ -1,6 +1,6 @@
 //tstbtree.cc  
-//Author: Chicana D�az, Johan Pier
-//Bachelor in Engineering of System
+//Author: Chicana Díaz, Johan Pier
+//Bachelor in Information Systems
 //#include <iostream.h>
 #include <time.h>
 #include <stdlib.h>

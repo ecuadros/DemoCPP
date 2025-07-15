@@ -76,8 +76,7 @@ protected:
 };     
 
 template <typename Trait>
-bool BTree<Trait>::Insert(const keyType key, const long ObjID)
-{
+bool BTree<Trait>::Insert(const keyType key, const long ObjID){
        bt_ErrorCode error = m_Root.Insert(key, ObjID);
        if( error == bt_duplicate )
                return false;

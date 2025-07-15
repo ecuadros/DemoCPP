@@ -385,8 +385,8 @@ auto sum1()
     return 0;
 }
 
-template <typename T, typename... Q>
-auto sum1(T arg1, Q ... args)
+template <typename T, typename ...Q>
+auto sum1(T arg1, Q... args)
 {
     return arg1 + sum1(args...);
 }
@@ -460,7 +460,7 @@ void printIdx3(const Container& coll, std::size_t ... idx)
 
 void demoVariadic()
 {
-    auto rpta1 = sum1(7, 5, 3, 10);
+    auto rpta1 = sum1(7, 10);
     cout << rpta1 << endl;
 
     auto rpta2 = sum2(6, 8, 2.5, 10);
@@ -509,7 +509,7 @@ void DemoHomogeneous()
 }
 
 // From foldcalls.cpp
-// template for variadic number of base classes
+// template for Variadic number of base classes
 template<typename... Bases>
 class MultiBase : private Bases ...
 {
@@ -558,6 +558,7 @@ class Base
     //...
 };
 
+// Variadic
 template<typename... Types>
 class Multi : private Base<Types>...
 {
@@ -623,6 +624,7 @@ void DemoVirtual()
 // From foldtraverse.cpp
 // #include "../tmpl/foldtraverse.hpp"
 
+//Variadic
 // traverse tree, using fold expression:
 template<typename T, typename ... TP>
 static Node* traversex (T np, TP ... paths)
@@ -630,8 +632,7 @@ static Node* traversex (T np, TP ... paths)
     return (np ->* ... ->* paths);      // np ->* paths1 ->* paths2 ->* paths3 ...
 }
 
-void DemoFoldTraverse()
-{
+void DemoFoldTraverse(){
     // init binary tree structure:
     Node* root = new Node{5};
     root->subLeft = new Node{2};
@@ -742,6 +743,7 @@ void DemoVarTmplAuto()
 
 // From classarglambda.hpp
 // #include <utility>     // for forward()
+// Variadic
 template<typename CB>
 class CountCalls
 {

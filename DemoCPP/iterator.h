@@ -32,7 +32,6 @@ public:
     bool operator==(IteratorBase iter)   { return m_pNode == iter.m_pNode; }
     bool operator!=(IteratorBase iter)   { return !(*this == iter);        }
     Type &operator*()                    { return m_pNode->getDataRef();   }
-          
 };
 
 #endif

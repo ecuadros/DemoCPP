@@ -125,11 +125,8 @@ void DemoVariantPoly2();
 /**
  * @brief Función utilizada para mostrar la creación de un vector de múltiples tipos
  * y la autodetección del tipo.
- * 
  */
 void DemoVariantPoly3();
-
-
 void DemoVariantPoly4();
 
 void DemoMutex();

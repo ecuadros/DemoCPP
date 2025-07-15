@@ -4,7 +4,7 @@
 using namespace std;
 
 template <typename T>
-void fx(T &x)
+void print(T &x)
 {  cout << x << "  "; }
 
 template <typename T>
@@ -37,17 +37,17 @@ template <typename Container>
 void recorrer(Container &container)
 {
     using T = typename Container::value_type;
-    recorrer(container, fx<T>);  cout << endl; // recorre imprimiendo
+    recorrer(container, print<T>);  cout << endl; // recorre imprimiendo
     recorrer(container, inc<T>);  // recorre incrementando
-    recorrer(container, fx<T>);  cout << endl; // recorre imprimiendo
+    recorrer(container, print<T>);  cout << endl; // recorre imprimiendo
 
     // funciones lambda
     recorrer(container, [](T &n){ n-= 5;}); cout << endl; // -5 a todos
-    recorrer(container, fx<T>);  cout << endl; // recorre imprimiendo
+    recorrer(container, print<T>);  cout << endl; // recorre imprimiendo
     
     OperacionEspecial<T> ope; 
     recorrer(container, ope);  
-    recorrer(container, fx<T>);  cout << endl;
+    recorrer(container, print<T>);  cout << endl;
 }
 
 #endif
