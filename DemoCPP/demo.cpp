@@ -1498,10 +1498,10 @@ void DemoForeach()
 //#include "foreachinvoke.hpp"
 
 template<typename Iter, typename Callable, typename... Args>
-void foreach (Iter current, Iter end, Callable op, Args const&... args)
+void foreach (Iter current, Iter end, Callable func, Args const&... args)
 {
     while (current != end)     // as long as not reached the end of the elements
-    {   std::invoke(op,  args..., *current);
+    {   std::invoke(func,  args..., *current);
         ++current;
     }
 }
@@ -1535,17 +1535,17 @@ void DemoForeachInvoke()
 }
 
 template<typename Callable, typename... Args>
-decltype(auto) call(Callable op, Args&&... args)
+decltype(auto) call(Callable func, Args&&... args)
 {
     if constexpr(is_void_v<invoke_result_t<Callable, Args...>>)
-    { cout << "Function is returning: void!" << endl;
-      invoke(forward<Callable>(op), forward<Args>(args)...);
+    { //cout << "Function is returning: void!" << endl;
+      invoke(forward<Callable>(func), forward<Args>(args)...);
       //...  // do something before we return
       return;
     }
     else // return type is not void:
-    { auto ret = invoke(forward<Callable>(op), forward<Args>(args)...);
-      cout << "Function is returning: " << type_name<decltype(ret)>() << endl;
+    { auto ret = invoke(forward<Callable>(func), forward<Args>(args)...);
+      //cout << "Function is returning: " << type_name<decltype(ret)>() << endl;
       //...  // do something (with ret) before we return
       return ret;
     }

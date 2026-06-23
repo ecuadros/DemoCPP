@@ -3,8 +3,8 @@
 
 #include <iostream>
 
-template <typename T>
-void Exe(std::string msg, T func)
+template <typename Callable>
+void Exe(std::string msg, Callable func)
 {
   std::cout << "\n>>>>>>>>>>>>> " << msg << "() ..." << std::endl;
   func();
@@ -144,6 +144,7 @@ void DemoConstructor();
 void DemoSizeScope();
 
 void DemoBitset();
+// No valen los e Estruturas de datos:List, DoubleLinkedList, BinaryTree, Tree, DSMap
 void demoLinkedListSorted();
 void demoDoubleLinkedListSorted();
 void DemoBinaryTree();
@@ -172,6 +173,8 @@ void DemoSmartPtr();
 void DemoRegex();
 
 void DemoAmpersand();
+
+Estos siguientes no valen
 void DemoPointersL1();
 void DemoPointersL2Vectors();
 void DemoPointersL2VectorX();
